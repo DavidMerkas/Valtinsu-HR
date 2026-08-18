@@ -1,0 +1,39 @@
+SLIKE - kamo što ide
+====================
+
+Ubaci fotografije u mapu modela. NE MORAŠ ih preimenovati.
+Mapa govori kojem modelu slika pripada, a ja iz nje čitam.
+
+  em-5\         fotografije modela EM-5
+  em-5-pro\     fotografije modela EM-5 PRO
+  em-5-ultra\   fotografije modela EM-5 Ultra
+  hero\         širi kadrovi za vrh stranice, vožnja u terenu
+  opce\         tim, radionica, isporuka, sve što nije vezano uz jedan model
+
+Format je svejedno: JPG, PNG, HEIC, WEBP. Ja ih pretvaram u WebP
+i smanjujem prije nego idu na stranicu.
+
+
+ŠTO MI TREBA PO MODELU
+----------------------
+  1x  bočni kadar, cijeli motocikl, svijetla pozadina   <- glavna slika
+  1x  široki kadar 16:9, motocikl u terenu              <- vrh stranice modela
+  4x  detalji: motor, ovjes, kotač, upravljač
+  1x  stražnji ili kosi kadar
+
+Ako imaš manje, nije problem, radim s onim što ima.
+Bolje pet dobrih nego dvadeset mutnih.
+
+
+NA ŠTO PAZITI PRI SLIKANJU
+--------------------------
+Vodoravno, ne uspravno. Stranica je široka, uspravne slike se režu.
+Motocikl neka ne dodiruje rubove kadra, treba mi prostora za rezanje.
+Izbjegavaj jako sunce s leđa, crni motocikl tada postane silueta.
+Ako slikaš mobitelom, obriši prst s leće. Ozbiljno, to je pola mutnih fotki.
+
+
+_dokumenti\ (mapa iznad ove)
+----------------------------
+Tamo su servisni priručnici. TA MAPA SE NE UPLOADA NA SERVER.
+Zato ime počinje podvlakom, da se odmah vidi.

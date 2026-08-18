@@ -1,0 +1,83 @@
+ASSETS - što ide u ovu mapu
+===========================
+
+LOGO - riješeno
+---------------
+Izvornici koje si dao:
+
+  VALTINSU_name+logo.webp   vodoravni lockup, izvor za navbar
+  logo_white.jpg            bijeli V na crnom, izvor za favicon
+  logo.jpg                  crni V na bijelom, prvi izvornik
+
+Iz njih je trasirano:
+
+  logo-wordmark.svg     znak + natpis, vodoravno, 1594 B   <-- navbar i podnožje
+  logo-mark.svg          samo znak V, 452 B                 <-- favicon
+  logo-mark-white.png    znak, bijeli, prozirno             rezerva
+  logo-mark-black.png    znak, crni, prozirno               rezerva
+  logo-full-white.png    znak + natpis okomito, bijeli      za og sliku
+  logo-full-black.png    znak + natpis okomito, crni        za dokumente
+
+VAŽNO: logo-wordmark.svg NIJE u CSS-u kao putanja nego je UGRAĐEN
+u css/style.css kao data URI. Razlog: vanjski SVG kao CSS maska ne
+radi kad se stranica otvori dvoklikom (file:// protokol), pa se logo
+ne bi vidio dok testiraš lokalno.
+
+AKO MIJENJAŠ LOGO, nije dovoljno zamijeniti .svg datoteku. Treba
+ponovno ugraditi data URI u style.css, u pravilo .brand__logo.
+
+Zato što je maska, logo sam poprima boju teksta: bijel na prozirnom
+zaglavlju, crn na bijeloj traci nakon scrolla, bijel u podnožju.
+
+AKO IKAD DOBIJEŠ ORIGINAL OD PROIZVOĐAČA (.ai, .eps ili .svg),
+zamijeni ga. Ovi su trasirani iz rasterskih slika i vjerni su,
+ali original je original.
+
+
+IKONE I DIJELJENJE - napravljeno
+--------------------------------
+U korijenu projekta (ne u ovoj mapi):
+
+  favicon.svg           znak na crnom, vektor, 504 B
+  favicon-32.png        za starije preglednike
+  apple-touch-icon.png  180x180, kad se stranica spremi na iPhone
+
+Ovdje:
+
+  og-cover.jpg          1200x630, crna podloga s logom
+
+og-cover.jpg je privremena. Koriste je SVE stranice. Kad stignu prave
+fotografije, napravi zasebnu za svaki model (og-em-5.jpg i tako dalje)
+i promijeni og:image u zaglavlju te stranice.
+
+
+HERO VIDEO - napravljeno
+------------------------
+  hero_video.mp4     izvornik, 1920x1080, 22.7 s, 10.7 MB, ne brisati
+  hero.mp4           ono sto ide na stranicu, 1280x720, 8.13 s, 1.42 MB
+  hero-poster.jpg    prvi kadar petlje, 86 KB
+
+Rezano je od 10.767 s do 18.9 s izvornika. Oba ruba padaju tocno na
+rez izmedju kadrova, pa spoj kraja i pocetka petlje izgleda kao jos
+jedan rez, a ne kao skok.
+
+Kraj je namjerno prije 19. sekunde. Od tamo do kraja izvornika preko
+slike stoji ugradeni VALTINSU logo, koji bi se sudarao s naslovom u
+heroju. Zadnji kadar izvornika je crn.
+
+Poster je tocno prvi kadar petlje, pa nema poskoka kad video krene.
+
+AKO MIJENJAS VIDEO, naredbe su:
+  ffmpeg -ss POCETAK -to KRAJ -i izvor.mp4 -an ^
+    -vf "scale=1280:720:flags=lanczos" ^
+    -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p ^
+    -profile:v high -movflags +faststart hero.mp4
+
+  ffmpeg -ss POCETAK -i izvor.mp4 -vf "scale=1280:720:flags=lanczos" ^
+    -frames:v 1 -q:v 4 hero-poster.jpg
+
+-movflags +faststart je obavezan. Bez njega preglednik mora skinuti
+cijelu datoteku prije prve slicice.
+
+Fotografije motocikala idu u images/ (još ne postoji), ne ovdje.
+Prije uploada ih pretvori u WebP - 53 MB fotki zna postati 20 MB.

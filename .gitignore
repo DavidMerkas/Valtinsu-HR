@@ -1,0 +1,18 @@
+# Ne ide na server ni na GitHub.
+
+# Dokumentacija proizvodjaca i originalne fotografije.
+# PDF-ovi su tudje autorsko djelo, nemaju sto biti u javnom repozitoriju.
+_dokumenti/
+
+# Izvorni video prije obrade. U upotrebi je assets/hero.mp4.
+assets/hero_video.mp4
+
+# Privremena slika za sprdnju umjesto fotografija EM-5 Ultra.
+# Ostaje samo lokalno; javna kopija na njenom mjestu pokazuje placeholder.
+assets/slike/em-5-ultra/PRIVREMENO-sprdnja.png
+
+# Radne datoteke
+_pregled.html
+node_modules/
+.DS_Store
+Thumbs.db
