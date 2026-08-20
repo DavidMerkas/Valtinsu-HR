@@ -421,6 +421,13 @@
     try { podaci = JSON.parse(podaciEl.textContent); } catch (e) { podaci = null; }
 
     if (podaci && podaci.boje && podaci.boje.length && slojevi.length === 2) {
+      /* Model koji jos ima samo jednu fotografiju: strelice i brojac
+         nemaju sto raditi, pa se sklanjaju umjesto da stoje mrtvi. */
+      if (podaci.boje.length === 1 && podaci.boje[0].kadrovi.length < 2) {
+        var suvisno = galerija.querySelectorAll('.viewer__nav, .viewer__count');
+        for (var s0 = 0; s0 < suvisno.length; s0++) suvisno[s0].hidden = true;
+      }
+
       var bojaIdx = 0;
       var kadar   = 0;
       var zauzeto = false;

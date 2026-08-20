@@ -88,11 +88,11 @@
                   <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <div class="subnav__shot" data-shot="em-5-ultra">
-                  <div class="media-ph media-ph--light ratio-16x8" data-label="EM-5 Ultra"></div>
+                  <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <!-- Svi modeli: tri motocikla u kosim isjeccima.
-                     Treci isjecak je PRIVREMENO zelena PRO varijanta,
-                     dok EM-5 Ultra ne dobije svoje fotografije. -->
+                     Sva tri kadra gledaju u istu stranu i pokazuju
+                     prednji dio, jer je isjecak uzak i visok. -->
                 <div class="subnav__shot" data-shot="svi">
                   <div class="kosi">
                     <div class="kosi__dio kosi__dio--1">
@@ -102,7 +102,7 @@
                       <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -195,7 +195,7 @@
                         <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                       </div>
                       <div class="kosi__dio kosi__dio--3">
-                        <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp" alt="" loading="lazy" width="1200" height="900">
+                        <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                       </div>
                     </div>
                   </div>
@@ -212,6 +212,16 @@
               </div>
 
               <input type="hidden" name="boja" id="boja" value="">
+            </div>
+
+            <div class="field field--wide">
+              <label class="kvadratic">
+                <input type="checkbox" name="proba" id="proba" value="da">
+                <span>Želim probnu vožnju prije kupnje</span>
+              </label>
+              <p class="kvadratic__nota">
+                Javit ćemo vam gdje i kada motocikl možete probati.
+              </p>
             </div>
           </fieldset>
 
@@ -303,8 +313,8 @@
           },
           "EM-5 Ultra": {
             "boje": [],
-            "cekamo": "assets/slike/em-5-ultra/PRIVREMENO-sprdnja.png",
-            "cekamoAlt": "Privremena slika dok ne stignu fotografije modela",
+            "cekamo": "assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp",
+            "cekamoAlt": "Valtinsu EM-5 Ultra u crnoj boji, bočni pogled s lijeve strane",
             "nota": "Boje za ovaj model potvrđujemo u odgovoru na upit."
           },
           "Nisam siguran, trebam preporuku": {
@@ -446,5 +456,9 @@
 </footer>
 
 <script src="js/script.js"></script>
+<!-- Dostupnost modela. Jedina datoteka koja se mijenja kad se
+     promijeni zaliha. Ide zadnja, da moze pregaziti
+     pretpunjavanje modela iz poveznice. -->
+<script src="js/dostupnost.js"></script>
 </body>
 </html>

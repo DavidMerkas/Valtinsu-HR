@@ -89,11 +89,11 @@
                   <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <div class="subnav__shot" data-shot="em-5-ultra">
-                  <div class="media-ph media-ph--light ratio-16x8" data-label="EM-5 Ultra"></div>
+                  <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <!-- Svi modeli: tri motocikla u kosim isjeccima.
-                     Treci isjecak je PRIVREMENO zelena PRO varijanta,
-                     dok EM-5 Ultra ne dobije svoje fotografije. -->
+                     Sva tri kadra gledaju u istu stranu i pokazuju
+                     prednji dio, jer je isjecak uzak i visok. -->
                 <div class="subnav__shot" data-shot="svi">
                   <div class="kosi">
                     <div class="kosi__dio kosi__dio--1">
@@ -103,7 +103,7 @@
                       <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -158,7 +158,7 @@
       <ul class="model-grid reveal">
 
         <!-- ---------- EM-5 ---------- -->
-        <li class="model-cell">
+        <li class="model-cell" data-model="EM-5">
           <h3 class="model-cell__name"><a href="modeli/em-5.html">EM-5</a></h3>
           <p class="model-cell__meta">
             Ulazni model serije. Cijena na upit.
@@ -188,7 +188,7 @@
         </li>
 
         <!-- ---------- EM-5 PRO ---------- -->
-        <li class="model-cell">
+        <li class="model-cell" data-model="EM-5 PRO">
           <h3 class="model-cell__name"><a href="modeli/em-5-pro.html">EM-5 PRO</a></h3>
           <p class="model-cell__meta">
             Najprodavaniji model. Cijena na upit.
@@ -218,7 +218,7 @@
         </li>
 
         <!-- ---------- EM-5 Ultra ---------- -->
-        <li class="model-cell">
+        <li class="model-cell" data-model="EM-5 Ultra">
           <h3 class="model-cell__name"><a href="modeli/em-5-ultra.html">EM-5 Ultra</a></h3>
           <p class="model-cell__meta">
             Vrh serije. Cijena na upit.
@@ -242,7 +242,9 @@
               </svg>
             </a>
           </div>
-          <div class="model-cell__media media-ph media-ph--light" data-label="Foto, EM-5 Ultra, bočni kadar"></div>
+          <div class="model-cell__media shot">
+            <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="Valtinsu EM-5 Ultra u crnoj boji, bočni pogled s lijeve strane" loading="lazy" width="1200" height="900">
+          </div>
         </li>
 
         <!-- ---------- Cetvrta celija: popunjava mrezu na 2 stupca ---------- -->
@@ -345,9 +347,35 @@
           </summary>
           <div class="faq__a"><div class="faq__a-inner">
             <p>
-              Odgovor čeka dogovor o servisnoj mreži. Ovo je pitanje koje
-              kupci postavljaju najčešće i od kojeg najviše ovisi hoće li
-              kupiti.
+              Servis radimo sami. Motocikl donesete nama, pogledamo kvar
+              i kažemo koliko traje popravak prije nego što išta diramo.
+            </p>
+            <p>
+              Dijelove za ove modele držimo kod sebe, pa se na uobičajenu
+              zamjenu ne čeka isporuka iz inozemstva. Ako je kvar takav
+              da ga je brže riješiti kod vas, poslat ćemo dio.
+            </p>
+            <p>
+              Popravci koji nisu pokriveni jamstvom, na primjer probušena
+              guma ili istrošene pločice, naplaćuju se. Cijenu kažemo
+              unaprijed.
+            </p>
+          </div></div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            Mogu li motocikl probati prije kupnje?
+            <span class="faq__sign" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__a"><div class="faq__a-inner">
+            <p>
+              Možete. Označite probnu vožnju u obrascu za upit ili nam
+              javite na WhatsApp, pa dogovorimo termin i javimo vam gdje.
+            </p>
+            <p>
+              Vozi se na privatnoj površini, ne na cesti. Kaciga je
+              obavezna, a ostalu zaštitnu opremu preporučujemo.
             </p>
           </div></div>
         </details>
@@ -388,11 +416,15 @@
 
       <!--
         PODSJETNIK, ne brisati:
-        Odgovori gore su nacrti i cekaju podatke od klijenta: homologacija po
-        modelu, sluzbeni domet, servisna mreza u Hrvatskoj, uvjeti jamstva
-        (posebno za bateriju) i rokovi isporuke. Prije objave ih treba
-        zamijeniti stvarnima. Na ova pitanja kupac se poziva kad nesto pode
-        po zlu.
+        Odgovori gore su nacrti. Jamstvo je preuzeto iz priručnika
+        proizvodjaca. Servis i probna voznja napisani su po onome sto je
+        klijent opisao u poruci 18. 08. 2026., ali jos nije potvrdjeno:
+        - gdje se tocno vozi proba (Velika Gorica?) i treba li adresa
+        - koje dijelove stvarno drze na zalihi
+        - naplacuje li se dolazak i popravak izvan jamstva, po kojoj cijeni
+        - tko radi popravak ako kupac nije iz okolice
+        Jos cekaju i: homologacija po modelu, sluzbeni domet i rokovi
+        isporuke. Na ova pitanja kupac se poziva kad nesto pode po zlu.
       -->
 
     </div>
@@ -472,5 +504,9 @@
 </footer>
 
 <script src="js/script.js"></script>
+<!-- Dostupnost modela. Jedina datoteka koja se mijenja kad se
+     promijeni zaliha. Ide zadnja, da moze pregaziti
+     pretpunjavanje modela iz poveznice. -->
+<script src="js/dostupnost.js"></script>
 </body>
 </html>

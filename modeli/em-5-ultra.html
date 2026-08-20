@@ -88,11 +88,11 @@
                   <img src="../assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <div class="subnav__shot" data-shot="em-5-ultra">
-                  <div class="media-ph media-ph--light ratio-16x8" data-label="EM-5 Ultra"></div>
+                  <img src="../assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <!-- Svi modeli: tri motocikla u kosim isjeccima.
-                     Treci isjecak je PRIVREMENO zelena PRO varijanta,
-                     dok EM-5 Ultra ne dobije svoje fotografije. -->
+                     Sva tri kadra gledaju u istu stranu i pokazuju
+                     prednji dio, jer je isjecak uzak i visok. -->
                 <div class="subnav__shot" data-shot="svi">
                   <div class="kosi">
                     <div class="kosi__dio kosi__dio--1">
@@ -102,7 +102,7 @@
                       <img src="../assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="../assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="../assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -138,7 +138,90 @@
     </div>
   </section>
 
-  <div class="media-ph media-ph--light ratio-16x9" data-label="Foto, EM-5 Ultra, glavni kadar 16:9"></div>
+
+  <!-- ===================== PROIZVOD =====================
+       Lijevo fotografije, desno odabir boje i podaci.
+       Zasad je potvrdena jedna fotografija i jedna boja. Kad stigne
+       ostatak kompleta, dodaju se kao novi zapisi u popis nize; ostalo
+       radi samo od sebe. -->
+  <section class="section section--product" aria-labelledby="proizvod-naslov">
+    <div class="shell product">
+
+      <h2 id="proizvod-naslov" class="visually-hidden">Fotografije i odabir</h2>
+
+      <div class="product__media" id="galerija">
+        <div class="viewer">
+          <div class="stage" id="pozornica" data-smjer="naprijed">
+            <img class="stage__img is-active" width="1000" height="1000"
+                 src="../assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp"
+                 alt="Valtinsu EM-5 Ultra u crnoj boji, bočni pogled s lijeve strane">
+            <img class="stage__img" width="1000" height="1000" src="" alt="" aria-hidden="true">
+          </div>
+
+          <button class="viewer__nav viewer__nav--prev" type="button" id="prethodna"
+                  aria-label="Prethodna fotografija" aria-controls="pozornica">
+            <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+              <path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </button>
+          <button class="viewer__nav viewer__nav--next" type="button" id="sljedeca"
+                  aria-label="Sljedeća fotografija" aria-controls="pozornica">
+            <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
+              <path d="M1 1l7 7-7 7" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </button>
+
+          <p class="viewer__count" id="brojac" aria-live="polite">1 / 1</p>
+        </div>
+
+        <script type="application/json" id="kadrovi">
+        {
+          "model": "EM-5 Ultra",
+          "boje": [
+            {
+              "id": "crna",
+              "padez": "crnoj",
+              "kadrovi": [
+                {
+                  "src": "../assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp",
+                  "kadar": "lijeva strana, bočni pogled"
+                }
+              ]
+            }
+          ]
+        }
+        </script>
+      </div>
+
+      <div class="product__info">
+
+        <p class="product__label">Boja</p>
+        <div class="swatches" id="boje" role="radiogroup" aria-label="Boja motocikla">
+          <button class="swatch" type="button" role="radio" aria-checked="true"
+                  data-boja="crna" title="Crna, karbonski uzorak"
+                  style="--c:#181818; --akcent:#4c4c4c">
+            <span class="visually-hidden">Crna, karbonski uzorak</span>
+          </button>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec"><b>8000 W</b><span>Vršna snaga</span></div>
+          <div class="spec"><b>90 km/h</b><span>Najveća brzina</span></div>
+          <div class="spec"><b>≥ 110 km</b><span>Domet</span></div>
+        </div>
+
+        <div class="product__price">
+          <b>Cijena na upit</b>
+          <span>Javljamo se u roku 24 sata. Upit vas ne obvezuje ni na što.</span>
+        </div>
+
+        <div class="stack">
+          <a class="btn btn--primary" href="../kontakt.html?model=em-5-ultra">Pošalji upit za EM-5 Ultra</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ===================== SPECIFIKACIJE ===================== -->
   <section class="section" aria-labelledby="spec-naslov">
@@ -204,19 +287,6 @@
     </div>
   </section>
 
-  <!-- ===================== GALERIJA ===================== -->
-  <section class="section section--grey" aria-labelledby="galerija-naslov">
-    <div class="shell">
-      <h2 id="galerija-naslov" class="mb-2">Galerija</h2>
-      <div class="gallery reveal">
-        <div class="media-ph media-ph--light ratio-4x3" data-label="EM-5 Ultra, detalj motora"></div>
-        <div class="media-ph media-ph--light ratio-4x3" data-label="EM-5 Ultra, detalj ovjesa"></div>
-        <div class="media-ph media-ph--light ratio-4x3" data-label="EM-5 Ultra, u terenu"></div>
-        <div class="media-ph media-ph--light ratio-4x3" data-label="EM-5 Ultra, stražnji kadar"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== OSTALI MODELI ===================== -->
   <section class="section" aria-labelledby="ostali-naslov">
     <div class="shell">
@@ -224,7 +294,7 @@
     </div>
 
     <ul class="model-grid">
-      <li class="model-cell">
+      <li class="model-cell" data-model="EM-5">
         <h3 class="model-cell__name"><a href="em-5.html">EM-5</a></h3>
         <p class="model-cell__meta">Ulazni model serije. Cijena na upit.</p>
           <ul class="model-cell__specs">
@@ -245,7 +315,7 @@
           </div>
       </li>
 
-      <li class="model-cell">
+      <li class="model-cell" data-model="EM-5 PRO">
         <h3 class="model-cell__name"><a href="em-5-pro.html">EM-5 PRO</a></h3>
         <p class="model-cell__meta">Najprodavaniji model. Cijena na upit.</p>
           <ul class="model-cell__specs">
@@ -321,5 +391,9 @@
 </footer>
 
 <script src="../js/script.js"></script>
+<!-- Dostupnost modela. Jedina datoteka koja se mijenja kad se
+     promijeni zaliha. Ide zadnja, da moze pregaziti
+     pretpunjavanje modela iz poveznice. -->
+<script src="../js/dostupnost.js"></script>
 </body>
 </html>

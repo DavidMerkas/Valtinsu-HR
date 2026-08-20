@@ -88,11 +88,11 @@
                   <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <div class="subnav__shot" data-shot="em-5-ultra">
-                  <div class="media-ph media-ph--light ratio-16x8" data-label="EM-5 Ultra"></div>
+                  <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                 </div>
                 <!-- Svi modeli: tri motocikla u kosim isjeccima.
-                     Treci isjecak je PRIVREMENO zelena PRO varijanta,
-                     dok EM-5 Ultra ne dobije svoje fotografije. -->
+                     Sva tri kadra gledaju u istu stranu i pokazuju
+                     prednji dio, jer je isjecak uzak i visok. -->
                 <div class="subnav__shot" data-shot="svi">
                   <div class="kosi">
                     <div class="kosi__dio kosi__dio--1">
@@ -102,7 +102,7 @@
                       <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -139,7 +139,7 @@
 
   <!-- ===================== IZJAVA ===================== -->
   <!-- Bez fotografija teret nosi tipografija, ne prazan okvir za sliku. -->
-  <section class="section" aria-labelledby="tko-naslov">
+  <section class="section section--izjava" aria-labelledby="tko-naslov">
     <div class="shell">
       <h2 id="tko-naslov" class="visually-hidden">Tko smo</h2>
 
@@ -154,7 +154,7 @@
   </section>
 
   <!-- ===================== ŠTO ZNAČI ZASTUPNIK ===================== -->
-  <section class="section" aria-labelledby="zastupnik-naslov">
+  <section class="section section--nastavak" aria-labelledby="zastupnik-naslov">
     <div class="shell">
       <div class="section-head reveal">
         <h2 id="zastupnik-naslov">Što znači službeni zastupnik</h2>
@@ -181,6 +181,14 @@
           </p>
         </li>
         <li>
+          <h3>Servis je kod nas</h3>
+          <p>
+            Popravak ne ide u inozemstvo. Motocikl donesete nama, dijelove
+            za ove modele držimo kod sebe, a ako je brže poslati dio,
+            pošaljemo ga. Prije kupnje se može i probati.
+          </p>
+        </li>
+        <li>
           <h3>Pitanje ide na hrvatski</h3>
           <p>
             Javite se na WhatsApp i dobijete odgovor od nekoga tko je
@@ -190,12 +198,10 @@
         </li>
       </ul>
 
-      <div class="todo reveal mt-2">
-        Ovdje ide i tekst o samom obrtu: kada je osnovan, tko ga vodi,
-        otkud interes za električne motocikle. Tri do pet rečenica.
-        Ne pišem ga jer svaka rečenica mora izdržati pitanje kupca
-        preko telefona.
-      </div>
+      <!-- PODSJETNIK, ne brisati:
+           Ovdje ide tekst o samom obrtu: kada je osnovan, tko ga vodi,
+           otkud interes za elektricne motocikle. Tri do pet recenica.
+           Ceka se od klijenta. -->
     </div>
   </section>
 
@@ -216,7 +222,7 @@
         <li class="figure"><b>ISO 9001</b><span>Certifikat tvornice</span></li>
       </ul>
 
-      <div class="prose mt-2 reveal">
+      <div class="prose prose--dvostupac mt-2 reveal">
         <p>
           Valtinsu je osnovan 2015. u Changzhouu u Kini. Izrastao je iz
           gotovo desetljeća rada na motorima i regulatorima, dijelovima
@@ -285,5 +291,9 @@
 </footer>
 
 <script src="js/script.js"></script>
+<!-- Dostupnost modela. Jedina datoteka koja se mijenja kad se
+     promijeni zaliha. Ide zadnja, da moze pregaziti
+     pretpunjavanje modela iz poveznice. -->
+<script src="js/dostupnost.js"></script>
 </body>
 </html>

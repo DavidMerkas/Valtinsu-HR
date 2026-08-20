@@ -228,6 +228,26 @@ a { color: inherit; text-decoration: none; }
 }
 .link-arrow:hover { color: var(--orange); gap: .875rem; }
 
+/* Isti oblik i kad je gumb, ne poveznica. Lista cekanja otvara prozorcic,
+   pa mora biti <button>, a preglednik bi mu inace dao okvir i pozadinu. */
+button.link-arrow {
+  border: 0;
+  background: none;
+  padding-inline: 0;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+/* Strelica se crta u CSS-u, jer u gumbu nema SVG-a iz HTML-a. */
+button.link-arrow::after {
+  content: "";
+  width: 14px;
+  height: 10px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 10'%3E%3Cpath d='M9 1l4 4-4 4M13 5H0' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 10'%3E%3Cpath d='M9 1l4 4-4 4M13 5H0' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
 /* --- Zaglavlje ---------------------------------------------------------- */
 
 .site-header {
@@ -869,15 +889,20 @@ a { color: inherit; text-decoration: none; }
 
 /* --- Full-bleed izjava -------------------------------------------------- */
 
+/* Na mobitelu je 70svh gutalo gotovo cijeli ekran i traka je izgledala
+   kao zasebna stranica. Visinu ondje odreduje tekst, uz skromniji
+   minimum; puna visina ostaje tek od tableta navise. */
 .statement {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 70svh;
+  min-height: 44svh;
   background: var(--ink-pure);
   color: var(--paper);
   overflow: hidden;
 }
+@media (min-width: 640px)  { .statement { min-height: 58svh; } }
+@media (min-width: 1000px) { .statement { min-height: 70svh; } }
 .statement__media { position: absolute; inset: 0; }
 .statement__media img {
   width: 100%;
@@ -895,7 +920,8 @@ a { color: inherit; text-decoration: none; }
     background: linear-gradient(90deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.35) 70%);
   }
 }
-.statement__inner { position: relative; z-index: 1; padding-block: 4rem; }
+.statement__inner { position: relative; z-index: 1; padding-block: 2.5rem; }
+@media (min-width: 640px) { .statement__inner { padding-block: 4rem; } }
 
 /* Zajednicki .lead je tamnosiv, sto je nad fotografijom neupotrebljivo.
    Uzi je i svjetliji, pa ostaje u zatamnjenom dijelu kadra. */
@@ -1138,14 +1164,63 @@ a { color: inherit; text-decoration: none; }
 
 /* --- Nabrajanje s crtama ------------------------------------------------- */
 
-.points { border-top: 1px solid var(--rule); }
-.points li { border-bottom: 1px solid var(--rule); padding-block: 1.5rem; }
+/* Cetiri jednaka retka teksta nisu imala za sto uhvatiti oko. Redni broj
+   je jedini element koji smije biti velik a da ne odvlaci od naslova, pa
+   nosi ritam. Broji ga CSS, u HTML-u nema ni traga od njega. */
+.points { border-top: 1px solid var(--rule); counter-reset: tocka; }
+.points li {
+  border-bottom: 1px solid var(--rule);
+  padding-block: 1.75rem;
+  counter-increment: tocka;
+}
+.points li::before {
+  content: counter(tocka, decimal-leading-zero);
+  display: block;
+  margin-bottom: .875rem;
+  font-size: var(--t-micro);
+  font-weight: var(--w-label);
+  letter-spacing: .16em;
+  color: var(--orange);
+}
 .points h3 { font-size: var(--t-h3); margin-bottom: .5rem; }
 .points p { font-size: .9375rem; line-height: 1.65; color: var(--grey-70); max-width: 52ch; }
 
 @media (min-width: 900px) {
-  .points li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; padding-block: 2rem; }
+  .points li {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    align-items: start;
+    padding-block: 2.25rem;
+  }
+  /* Broj ide u prvi stupac i poravnava se s prvim retkom naslova. */
+  .points li::before {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: var(--w-solid);
+    letter-spacing: -.03em;
+    line-height: .9;
+    color: var(--rule);
+  }
   .points h3 { margin-bottom: 0; }
+}
+
+
+/* Izjava i tocke ispod nje su jedna misao, a dvije sekcije jedna do druge
+   daju dvostruki razmak, pa je izmedu ostajala prazna traka od 250 px. */
+.section--nastavak { padding-top: clamp(2rem, 4vw, 3rem); }
+.section--izjava { padding-bottom: clamp(2rem, 4vw, 3rem); }
+
+/* Tekst ispod brojki stajao je u uskom stupcu s praznom desnom polovicom.
+   Na sirem ekranu ide u dva stupca, iste sirine kao brojke iznad njega. */
+@media (min-width: 900px) {
+  .prose.prose--dvostupac {
+    max-width: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  .prose.prose--dvostupac p + p { margin-top: 0; }
 }
 
 /* --- Tekstualni blok ---------------------------------------------------- */
@@ -1220,6 +1295,7 @@ a { color: inherit; text-decoration: none; }
 /* Gumb je veci od kruga, jer dodirna meta mora biti barem 44 px,
    a krug bi na toj velicini bio pretezak u stupcu. */
 .swatch {
+  position: relative;          /* zbog kose crte kad boje nema */
   display: grid;
   place-items: center;
   width: 2.75rem;
@@ -1322,6 +1398,9 @@ a { color: inherit; text-decoration: none; }
   transition: background var(--fast), border-color var(--fast), color var(--fast);
 }
 .viewer__nav:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+/* display: grid gore nadjacava ugradeni [hidden], pa se mora vratiti.
+   Skripta ih sklanja kad model ima samo jednu fotografiju. */
+.viewer__nav[hidden], .viewer__count[hidden] { display: none; }
 .viewer__nav--prev { left: .75rem; }
 .viewer__nav--next { right: .75rem; }
 
@@ -1420,6 +1499,14 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   gap: 1rem;
+}
+/* Prave fotografije stoje uz placeholdere dok ne stigne ostatak kompleta.
+   Studijski kadrovi su na bijelom, pa contain, ne cover. */
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--paper);
 }
 
 /* --- Sitni pomocnici ---------------------------------------------------- */
@@ -1681,6 +1768,233 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 640px) {
   .izbor { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.25rem; }
+}
+
+
+/* ==========================================================================
+   DOSTUPNOST
+   Sve stanje dolazi iz js/dostupnost.js. CSS samo zna kako izgleda
+   rasprodano: prigusena fotografija, oznaka, precrtan kruzic boje.
+   ========================================================================== */
+
+/* Kartica modela kojeg trenutno nema */
+.model-cell.je-rasprodano .model-cell__media img {
+  opacity: .38;
+  filter: grayscale(1);
+}
+.model-cell.je-rasprodano .model-cell__name a { color: var(--grey-45); }
+
+.oznaka {
+  display: inline-block;
+  justify-self: start;         /* kartica je grid, inace se rastegne */
+  align-self: start;
+  width: fit-content;
+  margin-top: .625rem;
+  padding: .25rem .5rem;
+  font-size: var(--t-micro);
+  font-weight: var(--w-label);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.oznaka--rasprodano {
+  border: 1px solid var(--rule);
+  color: var(--grey-45);
+}
+
+/* Ugasena poveznica na upit: isti prostor, bez klika i bez strelice */
+.link-arrow--ugaseno {
+  display: inline-flex;
+  align-items: center;
+  font-size: .9375rem;
+  font-weight: var(--w-label);
+  color: var(--grey-45);
+  cursor: default;
+}
+
+/* Kruzic boje koje nema. Kosa crta preko njega, kako to rade trgovine
+   za rasprodane velicine. Crta ide preko same boje, ne preko okvira. */
+.swatch.je-rasprodano { cursor: not-allowed; }
+.swatch.je-rasprodano::before { opacity: .45; }
+.swatch.je-rasprodano::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.75rem;
+  height: 1px;
+  background: var(--ink);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.swatch.je-rasprodano:hover::before { transform: none; }
+
+/* Cijena kad modela nema */
+.product__price--rasprodano b { color: var(--grey-45); }
+
+/* Umjesto gumba za upit */
+.nema-upita {
+  display: inline-block;
+  padding: .875rem 0;
+  font-size: .9375rem;
+  font-weight: var(--w-label);
+  color: var(--grey-45);
+  border-top: 1px solid var(--rule);
+}
+
+/* Napomena ispod padajuceg izbornika u obrascu */
+.field__nota {
+  margin-top: .5rem;
+  font-size: var(--t-small);
+  color: var(--grey-45);
+}
+
+
+/* --- Lista cekanja ------------------------------------------------------
+   Isti obrazac zivi na dva mjesta: ugradjen na stranici s upitom i u
+   prozorcicu drugdje. Zato je izgled polja odvojen od izgleda prozora. */
+
+.javi__naslov {
+  font-size: var(--t-h2);
+  margin-bottom: .75rem;
+  text-wrap: balance;          /* dva priblizno jednaka retka umjesto siroko-usko */
+}
+.javi__uvod { color: var(--grey-70); max-width: 44ch; margin-bottom: 1.75rem; }
+
+.javi__polja { display: grid; gap: 1.25rem; }
+@media (min-width: 640px) {
+  .javi__polja { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .javi .field--wide { grid-column: 1 / -1; }
+}
+.javi .field[hidden] { display: none; }
+
+/* Oznaka iznad prekidaca; nije <label> jer ne pripada jednom polju. */
+.field__oznaka {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: var(--t-small);
+  font-weight: var(--w-label);
+}
+
+/* Prekidac: dvije tipke koje dijele okvir, odabrana je crna.
+   Zamjena za dva polja od kojih se nije vidjelo koje je neobavezno. */
+.prekidac {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--rule);
+}
+.prekidac__tipka {
+  padding: .8125rem .5rem;
+  border: 0;
+  background: var(--paper);
+  color: var(--grey-45);
+  font: inherit;
+  font-size: .9375rem;
+  font-weight: var(--w-label);
+  cursor: pointer;
+  transition: background var(--fast), color var(--fast);
+}
+.prekidac__tipka + .prekidac__tipka { border-left: 1px solid var(--rule); }
+.prekidac__tipka:hover { color: var(--ink); }
+.prekidac__tipka.is-odabrana {
+  background: var(--ink);
+  color: var(--paper);
+}
+.prekidac__tipka:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
+
+.javi__nota {
+  margin-top: .875rem;
+  font-size: var(--t-small);
+  color: var(--grey-45);
+  max-width: 46ch;
+}
+.javi__dno { margin-top: 1.75rem; }
+
+/* Ploca s prijavom.
+
+   Nije modalni dijalog. showModal() zakljuca cijelu stranicu, pa se s
+   ploce ne bi moglo otici u izbornik. Zato ide obican dialog uz vlastiti
+   zastor, a zaglavlje ostaje iznad zastora i klikom dostupno.
+   Ploca se ne zatvara: nema kriza, nema izlaza na klik izvan nje. */
+
+.javi-zastor {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  z-index: 90;                 /* ispod zaglavlja, iznad sadrzaja */
+  background: rgba(0, 0, 0, .62);
+  animation: javiZastor .32s var(--ease) both;
+}
+.javi-zastor[hidden] { display: none; }
+
+@keyframes javiZastor { from { opacity: 0; } to { opacity: 1; } }
+
+.javi-okvir {
+  position: fixed;
+  z-index: 95;                 /* iznad zastora, ispod zaglavlja */
+  inset: auto 0 0 0;
+  margin: 0 auto;
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: calc(100svh - var(--header-h) - 2rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  color: var(--ink);
+  overflow: auto;
+
+}
+
+/* Ulazak odozdo. Ide kao animacija vezana uz [open], ne kao prijelaz na
+   klasu koju dodaje skripta: animacija krene sama cim se ploca prikaze,
+   pa ne moze ostati nevidljiva ako preglednik preskoci sljedeci kadar.
+   Pomak je kratak, ploca je velika pa duga putanja izgleda tromo. */
+.javi-okvir[open] {
+  animation: javiUlazak .34s cubic-bezier(.4, 0, .2, 1) both;
+}
+
+@keyframes javiUlazak {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Na visem ekranu ploca stoji na sredini, ne pri dnu. */
+@media (min-height: 40rem) {
+  .javi-okvir { inset: 0; margin: auto; height: fit-content; }
+}
+
+/* --- Kvacica ---
+   Ista logika kao ostala polja: kvadrat, bez zaobljenja, narancasto kad
+   je odabrano. Cijela oznaka je meta za klik, ne samo kvadratic. */
+.kvadratic {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  cursor: pointer;
+  font-size: var(--t-small);
+  font-weight: var(--w-text);
+}
+.kvadratic input {
+  appearance: none;
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  cursor: pointer;
+  transition: background var(--fast), border-color var(--fast);
+}
+.kvadratic input:checked {
+  background: var(--orange);
+  border-color: var(--orange);
+  /* Kvacica je nacrtana pozadinom, bez dodatnog elementa u HTML-u. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: 100%;
+}
+.kvadratic input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.kvadratic__nota {
+  margin-top: .375rem;
+  margin-left: 2rem;
+  font-size: var(--t-small);
+  color: var(--grey-45);
 }
 
 /* Medic za botove - covjek ga ne vidi */
