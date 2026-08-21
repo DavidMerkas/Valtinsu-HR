@@ -36,6 +36,7 @@ window.VALTINSU_STANJE = {
     ukljuceno: true,
     action: '',
     naslov: 'Osiguraj svoj e‑bike već danas',   /* ‑ je nelomljiva crtica: 'e-bike' ostaje u jednom komadu */
+    isporuka: 'Sredinom rujna',
     uvod: 'Ostavite kontakt i javimo se čim motocikli budu dostupni. ' +
           'Bez newslettera, jedna poruka i to je to.'
   }
@@ -233,6 +234,13 @@ window.VALTINSU_STANJE = {
           '<h2 class="javi__naslov">' + cfg.naslov + '</h2>' +
           '<p class="javi__uvod">' + cfg.uvod + '</p>'
         : '') +
+      (cfg.isporuka
+        ? '<p class="javi-rok">' +
+            '<span class="javi-rok__tocka" aria-hidden="true"></span>' +
+            '<span class="javi-rok__oznaka">Sljedeća isporuka</span>' +
+            '<b class="javi-rok__kada">' + cfg.isporuka + '</b>' +
+          '</p>'
+        : '') +
       '<input type="hidden" name="obavijest" value="da">' +
       '<input type="hidden" name="model" value="' + (model || 'svi modeli') + '">' +
       '<div class="javi__polja">' +
@@ -361,10 +369,32 @@ window.VALTINSU_STANJE = {
   var obrazac = okvir.querySelector('form');
   veziProvjeru(obrazac);
 
-  var otvori = function (model) {
+  var zatvori = function () {
+    okvir.close();
+    zastor.hidden = true;
+  };
+
+  /* seMozeZatvoriti: ploca koju je kupac sam otvorio ima izlaz. Ona koja
+     iskoci sama na stranici s upitom nema, tako je dogovoreno. */
+  var otvori = function (model, seMozeZatvoriti) {
     if (okvir.open) return;
     obrazac.innerHTML = polja(model, true);
     veziPrekidac(obrazac);
+
+    okvir.classList.toggle('ima-izlaz', !!seMozeZatvoriti);
+    var stariX = okvir.querySelector('.javi-okvir__x');
+    if (stariX) stariX.remove();
+
+    if (seMozeZatvoriti) {
+      var x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'javi-okvir__x';
+      x.setAttribute('aria-label', 'Zatvori');
+      x.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">' +
+        '<path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6"/></svg>';
+      x.addEventListener('click', zatvori);
+      okvir.insertBefore(x, okvir.firstChild);
+    }
 
     /* Animaciju vodi CSS, vezana je uz [open]. Skripta samo prikazuje. */
     zastor.hidden = false;
@@ -399,6 +429,15 @@ window.VALTINSU_STANJE = {
     window.setTimeout(function () { otvori(null); }, odgoda);
   }
 
+  zastor.addEventListener('click', function () {
+    if (okvir.classList.contains('ima-izlaz')) zatvori();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || !okvir.open) return;
+    if (okvir.classList.contains('ima-izlaz')) zatvori();
+  });
+
   /* Presrecu se SAMO gumbi liste cekanja. Poveznice na Kontakt moraju
      raditi kao poveznice, inace se do stranice ne moze doci ni iz
      navigacije ni iz podnozja. Prozorcic tamo iskoci sam. */
@@ -407,6 +446,6 @@ window.VALTINSU_STANJE = {
     if (!gumb) return;
 
     e.preventDefault();
-    otvori(modelZa(gumb));
+    otvori(modelZa(gumb), true);
   });
 })();

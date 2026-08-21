@@ -1949,6 +1949,70 @@ button.link-arrow::after {
   animation: javiUlazak .34s cubic-bezier(.4, 0, .2, 1) both;
 }
 
+/* Traka s rokom isporuke. Tanka, izmedu dvije crte, s narancastom
+   tockom koja tiho pulsira. Datum je jedini podatak koji kupca zanima
+   prije nego ostavi kontakt, pa ima svoje mjesto, a ne recenicu. */
+.javi-rok {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .625rem;
+  margin: 0 0 1.75rem;
+  padding-block: .875rem;
+  border-block: 1px solid var(--rule);
+  font-size: var(--t-small);
+}
+.javi-rok__oznaka {
+  font-size: var(--t-micro);
+  font-weight: var(--w-label);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--grey-45);
+}
+.javi-rok__kada { font-weight: var(--w-solid); }
+
+.javi-rok__tocka {
+  position: relative;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: var(--orange);
+}
+/* Prsten koji se siri i gasi. Nista ne pomice, samo daje znak da je
+   podatak zivi rok, a ne natpis na zidu. */
+.javi-rok__tocka::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: javiPuls 2.4s ease-out infinite;
+}
+@keyframes javiPuls {
+  0%   { transform: scale(1);   opacity: .55; }
+  70%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* Kriz postoji samo na ploci koju je kupac sam otvorio. */
+.javi-okvir__x {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--grey-45);
+  cursor: pointer;
+  transition: color var(--fast);
+}
+.javi-okvir__x:hover { color: var(--ink); }
+.javi-okvir.ima-izlaz .javi__naslov { padding-right: 2.5rem; }
+
 @keyframes javiUlazak {
   from { opacity: 0; transform: translateY(1.5rem); }
   to   { opacity: 1; transform: none; }
