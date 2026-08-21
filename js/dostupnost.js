@@ -236,8 +236,7 @@ window.VALTINSU_STANJE = {
         : '') +
       (cfg.isporuka
         ? '<p class="javi-rok">' +
-            '<span class="javi-rok__tocka" aria-hidden="true"></span>' +
-            '<span class="javi-rok__oznaka">Sljedeća isporuka</span>' +
+            '<span class="javi-rok__oznaka">Sljedeći restock</span>' +
             '<b class="javi-rok__kada">' + cfg.isporuka + '</b>' +
           '</p>'
         : '') +
