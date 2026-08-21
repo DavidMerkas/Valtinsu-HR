@@ -37,8 +37,7 @@ window.VALTINSU_STANJE = {
     action: '',
     naslov: 'Osiguraj svoj e‑bike već danas',   /* ‑ je nelomljiva crtica: 'e-bike' ostaje u jednom komadu */
     isporuka: 'Sredinom rujna',
-    uvod: 'Ostavite kontakt i javimo se čim motocikli budu dostupni. ' +
-          'Bez newslettera, jedna poruka i to je to.'
+    uvod: 'Ostavite kontakt i javimo se čim stignu.'
   }
 };
 
@@ -230,8 +229,7 @@ window.VALTINSU_STANJE = {
   var polja = function (model, sNaslovom) {
     return '' +
       (sNaslovom
-        ? '<p class="product__label">Obavijest o dostupnosti</p>' +
-          '<h2 class="javi__naslov">' + cfg.naslov + '</h2>' +
+        ? '<h2 class="javi__naslov">' + cfg.naslov + '</h2>' +
           '<p class="javi__uvod">' + cfg.uvod + '</p>'
         : '') +
       (cfg.isporuka
@@ -249,25 +247,26 @@ window.VALTINSU_STANJE = {
         '</div>' +
 
         /* Umjesto dva polja od kojih je jedno "nekako" neobavezno, kupac
-           bira kako mu je draze. Ostaje jedno polje i nema dvojbe. */
-        '<div class="field">' +
-          '<span class="field__oznaka" id="javiKakoOznaka">Kako da vam se javimo?</span>' +
-          '<div class="prekidac" role="radiogroup" aria-labelledby="javiKakoOznaka">' +
+           bira kako mu je draze. Prekidac stoji tik iznad polja i sam
+           kaze sto se upisuje, pa oznaka ide samo za citace ekrana.
+           Tako na mobitelu nema dva suvisna reda i gumb stane na ekran. */
+        '<div class="field field--wide">' +
+          '<div class="prekidac" role="radiogroup" aria-label="Kako da vam se javimo">' +
             '<button type="button" class="prekidac__tipka is-odabrana" data-nacin="email" role="radio" aria-checked="true">E-mailom</button>' +
             '<button type="button" class="prekidac__tipka" data-nacin="telefon" role="radio" aria-checked="false">Porukom</button>' +
           '</div>' +
-        '</div>' +
 
-        '<div class="field field--wide" data-polje="email">' +
-          '<label for="javiEmail">E-mail adresa <span class="req" aria-hidden="true">*</span></label>' +
-          '<input type="email" id="javiEmail" name="email" autocomplete="email" placeholder="ime@primjer.com">' +
-        '</div>' +
-        '<div class="field field--wide" data-polje="telefon" hidden>' +
-          '<label for="javiTel">Broj mobitela <span class="req" aria-hidden="true">*</span></label>' +
-          '<input type="tel" id="javiTel" name="telefon" autocomplete="tel" placeholder="091 234 5678">' +
+          '<div data-polje="email">' +
+            '<label class="visually-hidden" for="javiEmail">E-mail adresa</label>' +
+            '<input type="email" id="javiEmail" name="email" autocomplete="email" placeholder="ime@primjer.com">' +
+          '</div>' +
+          '<div data-polje="telefon" hidden>' +
+            '<label class="visually-hidden" for="javiTel">Broj mobitela</label>' +
+            '<input type="tel" id="javiTel" name="telefon" autocomplete="tel" placeholder="091 234 5678">' +
+          '</div>' +
         '</div>' +
       '</div>' +
-      '<p class="javi__nota">Kontakt koristimo samo za tu jednu poruku. Bez newslettera.</p>' +
+      '<p class="javi__nota">Jedna poruka, bez newslettera.</p>' +
       '<div class="hp" aria-hidden="true">' +
         '<label for="javiTvrtka">Ne ispunjavati</label>' +
         '<input type="text" id="javiTvrtka" name="tvrtka" tabindex="-1" autocomplete="off">' +

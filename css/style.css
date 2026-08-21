@@ -1852,19 +1852,34 @@ button.link-arrow::after {
    Isti obrazac zivi na dva mjesta: ugradjen na stranici s upitom i u
    prozorcicu drugdje. Zato je izgled polja odvojen od izgleda prozora. */
 
+/* Ploca nasljeduje .form, a on stavlja 2rem izmedu SVAKOG djeteta.
+   Uz deset elemenata to je bilo skoro 300 px praznine i gumb je padao
+   ispod ekrana. Ovdje razmake drze margine pojedinih dijelova. */
+.javi { gap: 0; }
+
 .javi__naslov {
-  font-size: var(--t-h2);
-  margin-bottom: .75rem;
+  font-size: var(--t-h3);
+  margin-bottom: .5rem;
   text-wrap: balance;          /* dva priblizno jednaka retka umjesto siroko-usko */
 }
-.javi__uvod { color: var(--grey-70); max-width: 44ch; margin-bottom: 1.75rem; }
+.javi__uvod { color: var(--grey-70); max-width: 44ch; margin-bottom: 1.125rem; }
 
-.javi__polja { display: grid; gap: 1.25rem; }
+/* Na visem ekranu ploca smije disati. Na mobitelu je sve stisnuto da
+   gumb stane bez skrolanja unutar ploce. */
 @media (min-width: 640px) {
-  .javi__polja { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .javi__naslov { font-size: var(--t-h2); margin-bottom: .75rem; }
+  .javi__uvod { margin-bottom: 1.75rem; }
+}
+
+.javi__polja { display: grid; gap: .875rem; }
+@media (min-width: 640px) {
+  .javi__polja { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
   .javi .field--wide { grid-column: 1 / -1; }
 }
-.javi .field[hidden] { display: none; }
+.javi .field[hidden], .javi [data-polje][hidden] { display: none; }
+/* Prekidac i polje ispod njega dijele jedan blok, bez razmaka izmedu. */
+.javi .prekidac { margin-bottom: .5rem; }
+.javi .field input { padding-block: .75rem; }
 
 /* Oznaka iznad prekidaca; nije <label> jer ne pripada jednom polju. */
 .field__oznaka {
@@ -1901,12 +1916,13 @@ button.link-arrow::after {
 .prekidac__tipka:focus-visible { outline: 2px solid var(--orange); outline-offset: -2px; }
 
 .javi__nota {
-  margin-top: .875rem;
+  margin-top: .75rem;
   font-size: var(--t-small);
   color: var(--grey-45);
   max-width: 46ch;
 }
-.javi__dno { margin-top: 1.75rem; }
+.javi__dno { margin-top: 1.25rem; }
+@media (min-width: 640px) { .javi__dno { margin-top: 1.75rem; } }
 
 /* Ploca s prijavom.
 
@@ -1933,7 +1949,7 @@ button.link-arrow::after {
   margin: 0 auto;
   width: min(34rem, calc(100vw - 2rem));
   max-height: calc(100svh - var(--header-h) - 2rem);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  padding: 1.25rem;
   border: 1px solid var(--rule-strong);
   background: var(--paper);
   color: var(--ink);
@@ -1956,8 +1972,8 @@ button.link-arrow::after {
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  margin: 0 0 1.75rem;
-  padding: .875rem 1rem;
+  margin: 0 0 1.125rem;
+  padding: .75rem 1rem;
   border-left: 2px solid var(--orange);
   background: var(--grey-05);
 }
@@ -1997,6 +2013,18 @@ button.link-arrow::after {
 @keyframes javiUlazak {
   from { opacity: 0; transform: translateY(1.5rem); }
   to   { opacity: 1; transform: none; }
+}
+
+@media (min-width: 640px) {
+  .javi-okvir { padding: clamp(1.75rem, 4vw, 2.5rem); }
+}
+
+/* Na niskom ekranu, stari mobiteli i vodoravni polozaj, izbacuju se
+   dva reda koja samo objasnjavaju. Naslov i traka s rokom kazu isto,
+   a gumb tako ostaje na ekranu bez skrolanja unutar ploce. */
+@media (max-height: 44rem) {
+  .javi__uvod, .javi__nota { display: none; }
+  .javi-okvir { padding-block: 1rem; }
 }
 
 /* Na visem ekranu ploca stoji na sredini, ne pri dnu. */
