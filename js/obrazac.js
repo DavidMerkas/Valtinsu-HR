@@ -13,7 +13,7 @@
    ========================================================================== */
 
 window.VALTINSU_OBRAZAC = {
-  KLJUC: '',
+  KLJUC: 'bddc0cfc-35a5-4b35-85c3-c6b410b66069',
 
   /* Kamo se salje. Web3Forms prima obican POST na ovu adresu. */
   servis: 'https://api.web3forms.com/submit',
