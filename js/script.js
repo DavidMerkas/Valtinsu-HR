@@ -405,7 +405,7 @@
          Bolje glasna greska nego da upit tiho nestane. */
       if (!form.getAttribute('action')) {
         e.preventDefault();
-        javi('Slanje upita još nije spojeno na servis za e-mail. Do tada nam pišite izravno na valtinsuhr@gmail.com.');
+        javi('Slanje još nije spojeno. Do tada nam pišite na valtinsuhr@gmail.com ili na WhatsApp.');
       }
     });
   }

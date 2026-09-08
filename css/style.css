@@ -2101,6 +2101,9 @@ button.link-arrow::after {
 }
 .form__note a:hover { color: var(--orange); border-bottom-color: var(--orange); }
 
+/* Uspjesno slanje: ista traka, samo zelena crta umjesto narancaste. */
+.form__status--uspjeh { border-left-color: #2e7d32; }
+
 .form__status {
   grid-column: 1 / -1;
   display: none;

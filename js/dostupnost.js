@@ -392,7 +392,7 @@ window.VALTINSU_STANJE = {
       }
       if (!form.getAttribute('action')) {
         e.preventDefault();
-        javi('Lista čekanja još nije spojena na servis za e-mail. Do tada nam pišite na valtinsuhr@gmail.com.');
+        javi('Slanje još nije spojeno. Do tada nam pišite na valtinsuhr@gmail.com ili na WhatsApp.');
       }
     });
   };
