@@ -214,11 +214,22 @@
         if (omot.hidden) return;
         omot.classList.remove('je-otvoren');
 
+        /* Rezervni sat. Ako prijelaz ne postoji, jer je ploca zatvorena
+           jos dok je animacija ugasena, transitionend nikad ne stigne i
+           ploca ostane visjeti otvorena sa slikom modela koji vise nije
+           odabran. Zato se zatvara i po vremenu, sto god prije dodje. */
+        var zavrsi = function () {
+          if (!omot.classList.contains('je-otvoren')) omot.hidden = true;
+          omot.removeEventListener('transitionend', cekaZatvaranje);
+          window.clearTimeout(rezerva);
+          cekaZatvaranje = null;
+        };
+
+        var rezerva = window.setTimeout(zavrsi, 420);
+
         cekaZatvaranje = function (e) {
           if (e.target !== omot) return;
-          omot.hidden = true;
-          omot.removeEventListener('transitionend', cekaZatvaranje);
-          cekaZatvaranje = null;
+          zavrsi();
         };
         omot.addEventListener('transitionend', cekaZatvaranje);
       };
