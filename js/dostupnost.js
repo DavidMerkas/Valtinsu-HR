@@ -22,11 +22,12 @@ window.VALTINSU_STANJE = {
   probaMjesto: 'u Velikoj Gorici',
 
   /* dostupno: false -> rasprodan, upit za njega je zatvoren.
-     stize:            -> model je na putu; upit ostaje otvoren, a na
-                          kartici stoji kad se ocekuje.
+     stize:            -> model je na putu. Uz dostupno: false to znaci
+                          da upit jos nije otvoren, ali umjesto oznake
+                          "rasprodano" stoji kad se ocekuje.
      proba: true       -> moze se probati uzivo prije kupnje. */
   modeli: {
-    'EM-5':       { dostupno: true, stize: 'Krajem rujna' },
+    'EM-5':       { dostupno: false, stize: 'Krajem rujna' },
     'EM-5 PRO':   { dostupno: true, proba: true, boje: { crna: true, zelena: true } },
     'EM-5 Ultra': { dostupno: true, proba: true }
   },
@@ -61,7 +62,10 @@ window.VALTINSU_STANJE = {
 
   var bojaDostupna = function (model, boja) {
     var z = zapis(model);
-    if (!z || z.dostupno === false) return false;
+    /* Model koji tek stize nema prekrizene boje: one ce postojati, samo
+       motocikl jos nije tu. Precrtana boja znaci da te boje nema. */
+    if (!z) return true;
+    if (z.dostupno === false && !z.stize) return false;
     if (!z.boje || !(boja in z.boje)) return true;
     return z.boje[boja] !== false;
   };
@@ -70,7 +74,11 @@ window.VALTINSU_STANJE = {
     return !!(stanje.obavijesti && stanje.obavijesti.ukljuceno);
   };
 
-  var kratko = function () {
+  /* Sto stoji umjesto poveznice na upit. Model koji je na putu kaze
+     kada, rasprodan kaze da ga nema. */
+  var kratko = function (model) {
+    var z = zapis(model);
+    if (z && z.stize) return 'Upit otvaramo kad stigne';
     return stanje.upitOd ? 'Upit od ' + stanje.upitOd : 'Trenutno nedostupno';
   };
 
@@ -78,30 +86,20 @@ window.VALTINSU_STANJE = {
 
   document.querySelectorAll('.model-cell[data-model]').forEach(function (cell) {
     var model = cell.getAttribute('data-model');
-    var z = zapis(model);
-
-    /* Model koji je na putu nije rasprodan: upit ostaje, samo se kaze
-       kad se ocekuje. */
-    if (jeDostupan(model) && z && z.stize) {
-      var ime2 = cell.querySelector('.model-cell__name');
-      if (ime2) {
-        var najava = document.createElement('span');
-        najava.className = 'oznaka oznaka--stize';
-        najava.textContent = 'Stiže ' + z.stize.toLowerCase();
-        ime2.insertAdjacentElement('afterend', najava);
-      }
-      return;
-    }
-
     if (jeDostupan(model)) return;
 
-    cell.classList.add('je-rasprodano');
+    var z = zapis(model);
+    var naPutu = !!(z && z.stize);
+
+    /* Model koji je na putu ne gubi boju: nije rasprodan, samo jos nije
+       stigao. Rasprodan se prigusi. */
+    if (!naPutu) cell.classList.add('je-rasprodano');
 
     var ime = cell.querySelector('.model-cell__name');
     if (ime) {
       var oznaka = document.createElement('span');
-      oznaka.className = 'oznaka oznaka--rasprodano';
-      oznaka.textContent = 'Rasprodano';
+      oznaka.className = 'oznaka ' + (naPutu ? 'oznaka--stize' : 'oznaka--rasprodano');
+      oznaka.textContent = naPutu ? 'Stiže ' + z.stize.toLowerCase() : 'Rasprodano';
       ime.insertAdjacentElement('afterend', oznaka);
     }
 
@@ -117,7 +115,7 @@ window.VALTINSU_STANJE = {
       } else {
         zamjena = document.createElement('span');
         zamjena.className = 'link-arrow link-arrow--ugaseno';
-        zamjena.textContent = kratko();
+        zamjena.textContent = kratko(model);
       }
       a.replaceWith(zamjena);
     });
@@ -146,7 +144,7 @@ window.VALTINSU_STANJE = {
       /* Model koji je na putu to kaze i na svojoj stranici, ne samo na
          karticama u mrezama. Bez ovoga je izgledao isto kao i oni koji
          su na zalihi. */
-      if (zapisModela && zapisModela.stize && jeDostupan(model)) {
+      if (zapisModela && zapisModela.stize) {
         var cijena = document.querySelector('.product__price');
         if (cijena && !cijena.parentNode.querySelector('.oznaka--stize')) {
           var najavaModela = document.createElement('p');
@@ -175,11 +173,12 @@ window.VALTINSU_STANJE = {
       }
 
       if (!jeDostupan(model)) {
+        var naPutuModel = !!(zapisModela && zapisModela.stize);
         var cijena = document.querySelector('.product__price');
         if (cijena) {
           var b = cijena.querySelector('b');
           var span = cijena.querySelector('span');
-          if (b) b.textContent = 'Trenutno rasprodano';
+          if (b) b.textContent = naPutuModel ? 'Još nije na zalihi' : 'Trenutno rasprodano';
           /* Datum ne ide i ovdje: stoji odmah ispod, na mjestu gumba. */
           if (span) span.textContent = stanje.poruka;
           cijena.classList.add('product__price--rasprodano');
@@ -197,7 +196,7 @@ window.VALTINSU_STANJE = {
           } else {
             zamjena = document.createElement('p');
             zamjena.className = 'nema-upita';
-            zamjena.textContent = kratko();
+            zamjena.textContent = kratko(model);
           }
           btn.replaceWith(zamjena);
         });
@@ -213,8 +212,10 @@ window.VALTINSU_STANJE = {
 
     Array.prototype.forEach.call(polje.options, function (opt) {
       if (!opt.value || jeDostupan(opt.value)) return;
+      var zo = zapis(opt.value);
       opt.disabled = true;
-      opt.textContent = opt.textContent + '  ·  rasprodano';
+      opt.textContent = opt.textContent +
+        (zo && zo.stize ? '  ·  stiže ' + zo.stize.toLowerCase() : '  ·  rasprodano');
       ugaseno.push(opt.value);
 
       /* Rasprodan model moze doci iz poveznice (?model=em-5). Preglednik
