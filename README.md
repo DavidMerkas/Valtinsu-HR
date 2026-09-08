@@ -34,7 +34,7 @@ i privremene slike koje su ostale u kodu.
 
 ## Napomene
 
-Kanonske adrese pokazuju na https://www.valtinsu.hr/, pa ova kopija ne
+Kanonske adrese pokazuju na https://www.valtinsuhr.com/, pa ova kopija ne
 konkurira pravoj stranici u trazilici.
 
 U repozitoriju nema dokumentacije proizvodjaca (`_dokumenti/`) ni izvornog
@@ -55,7 +55,7 @@ zaglavlje ostaje dostupno pa se moze otici na drugu stranicu.
 - oba obrasca (upit i lista cekanja) nemaju `action`, treba ih spojiti na
   servis koji salje mail; jedan kljuc pokriva oba
 - nema `sitemap.xml` ni `robots.txt`, rade se kad se zna konacna domena
-- kanonske adrese pokazuju na `https://www.valtinsu.hr/`, domena jos nije
+- kanonske adrese pokazuju na `https://www.valtinsuhr.com/`, domena jos nije
   registrirana
 - naziv obrta i OIB nisu upisani, a zakonska su obveza za prodaju na daljinu
 - stranica uvjeta poslovanja je privremeno maknuta

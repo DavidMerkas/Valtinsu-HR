@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Radne mape i alati, nemaju sto traziti u trazilici.
+Disallow: /_dokumenti/
+Disallow: /scripts/
+
+Sitemap: https://www.valtinsuhr.com/sitemap.xml
