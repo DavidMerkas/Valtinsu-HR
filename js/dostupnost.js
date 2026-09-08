@@ -12,18 +12,23 @@ window.VALTINSU_STANJE = {
 
   /* Datum od kojeg se za rasprodane modele opet moze slati upit.
      Prazno znaci da se datum nigdje ne spominje. */
-  upitOd: '15. 9.',
+  upitOd: '',
 
   /* Recenica koja ide uz rasprodane modele. */
-  poruka: 'Novi primjerci stižu sredinom rujna.',
+  poruka: 'EM-5 stiže krajem rujna.',
 
-  /* dostupno: false -> model je rasprodan, upit za njega je zatvoren.
-     boje:     opcionalno, po pojedinoj boji. Ako boje nema, sve su
-               dostupne dok je i model dostupan. */
+  /* Gdje se motocikl moze probati. Prazno znaci da se mjesto nigdje
+     ne spominje, nego samo da je proba moguca. */
+  probaMjesto: 'u Velikoj Gorici',
+
+  /* dostupno: false -> rasprodan, upit za njega je zatvoren.
+     stize:            -> model je na putu; upit ostaje otvoren, a na
+                          kartici stoji kad se ocekuje.
+     proba: true       -> moze se probati uzivo prije kupnje. */
   modeli: {
-    'EM-5':       { dostupno: false },
-    'EM-5 PRO':   { dostupno: false },
-    'EM-5 Ultra': { dostupno: false }
+    'EM-5':       { dostupno: true, stize: 'Krajem rujna' },
+    'EM-5 PRO':   { dostupno: true, proba: true, boje: { crna: true, zelena: true } },
+    'EM-5 Ultra': { dostupno: true, proba: true }
   },
 
   /* Lista cekanja. Kad je model rasprodan, umjesto upita se nudi da
@@ -33,7 +38,7 @@ window.VALTINSU_STANJE = {
      kod glavnog obrasca. Dok je prazan, obrazac javlja gresku umjesto da
      podaci tiho nestanu. */
   obavijesti: {
-    ukljuceno: true,
+    ukljuceno: false,
     action: '',
     naslov: 'Osiguraj svoj e‑bike već danas',   /* ‑ je nelomljiva crtica: 'e-bike' ostaje u jednom komadu */
     isporuka: 'Sredinom rujna',
@@ -73,6 +78,21 @@ window.VALTINSU_STANJE = {
 
   document.querySelectorAll('.model-cell[data-model]').forEach(function (cell) {
     var model = cell.getAttribute('data-model');
+    var z = zapis(model);
+
+    /* Model koji je na putu nije rasprodan: upit ostaje, samo se kaze
+       kad se ocekuje. */
+    if (jeDostupan(model) && z && z.stize) {
+      var ime2 = cell.querySelector('.model-cell__name');
+      if (ime2) {
+        var najava = document.createElement('span');
+        najava.className = 'oznaka oznaka--stize';
+        najava.textContent = 'Stiže ' + z.stize.toLowerCase();
+        ime2.insertAdjacentElement('afterend', najava);
+      }
+      return;
+    }
+
     if (jeDostupan(model)) return;
 
     cell.classList.add('je-rasprodano');
@@ -120,6 +140,19 @@ window.VALTINSU_STANJE = {
         var naslov = krug.getAttribute('title') || '';
         krug.setAttribute('title', naslov + ' (rasprodano)');
       });
+
+      /* Model koji se moze probati to kaze uz gumb za upit. */
+      var zapisModela = zapis(model);
+      if (zapisModela && zapisModela.proba && jeDostupan(model)) {
+        var stack = document.querySelector('.product__info .stack');
+        if (stack && !document.querySelector('.proba-nota')) {
+          var nota = document.createElement('p');
+          nota.className = 'proba-nota';
+          nota.textContent = 'Ovaj model se prije kupnje može probati' +
+            (stanje.probaMjesto ? ' ' + stanje.probaMjesto : '') + '.';
+          stack.insertAdjacentElement('afterend', nota);
+        }
+      }
 
       if (!jeDostupan(model)) {
         var cijena = document.querySelector('.product__price');

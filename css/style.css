@@ -1800,6 +1800,20 @@ button.link-arrow::after {
   border: 1px solid var(--rule);
   color: var(--grey-45);
 }
+/* Model koji je na putu. Narancasti obrub jer je to dobra vijest, za
+   razliku od rasprodanog koji je siv. */
+.oznaka--stize {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+}
+
+/* Napomena o probnoj voznji, ispod gumba na stranici modela */
+.proba-nota {
+  margin-top: .875rem;
+  font-size: var(--t-small);
+  color: var(--grey-45);
+  max-width: 40ch;
+}
 
 /* Ugasena poveznica na upit: isti prostor, bez klika i bez strelice */
 .link-arrow--ugaseno {
