@@ -1806,6 +1806,8 @@ button.link-arrow::after {
   border: 1px solid var(--orange);
   color: var(--orange);
 }
+/* Ista oznaka, ali kad stoji sama na stranici modela, a ne uz naslov. */
+.oznaka--samostalna { margin: 0 0 1rem; }
 
 /* Napomena o probnoj voznji, ispod gumba na stranici modela */
 .proba-nota {

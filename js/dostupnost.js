@@ -141,11 +141,31 @@ window.VALTINSU_STANJE = {
         krug.setAttribute('title', naslov + ' (rasprodano)');
       });
 
-      /* Model koji se moze probati to kaze uz gumb za upit. */
       var zapisModela = zapis(model);
+
+      /* Model koji je na putu to kaze i na svojoj stranici, ne samo na
+         karticama u mrezama. Bez ovoga je izgledao isto kao i oni koji
+         su na zalihi. */
+      if (zapisModela && zapisModela.stize && jeDostupan(model)) {
+        var cijena = document.querySelector('.product__price');
+        if (cijena && !cijena.parentNode.querySelector('.oznaka--stize')) {
+          var najavaModela = document.createElement('p');
+          najavaModela.className = 'oznaka oznaka--stize oznaka--samostalna';
+          najavaModela.textContent = 'Stiže ' + zapisModela.stize.toLowerCase();
+          cijena.insertAdjacentElement('beforebegin', najavaModela);
+
+          var podnaslov = cijena.querySelector('span');
+          if (podnaslov) {
+            podnaslov.textContent = 'Upit možete poslati već sada. ' +
+              'Javljamo se u roku 24 sata s cijenom i točnim rokom isporuke.';
+          }
+        }
+      }
+
+      /* Model koji se moze probati to kaze uz gumb za upit. */
       if (zapisModela && zapisModela.proba && jeDostupan(model)) {
         var stack = document.querySelector('.product__info .stack');
-        if (stack && !document.querySelector('.proba-nota')) {
+        if (stack && !stack.parentNode.querySelector('.proba-nota')) {
           var nota = document.createElement('p');
           nota.className = 'proba-nota';
           nota.textContent = 'Ovaj model se prije kupnje može probati' +
