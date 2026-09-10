@@ -725,6 +725,11 @@
     requestAnimationFrame(function () { cekaSkrol = false; dosadRevealed(); });
   };
   window.addEventListener('scroll', naSkrol, { passive: true });
+  /* Odmah, ne tek na 'load': na pravoj stranici load ceka video i slike,
+     a preglednik je do tada vec skocio na sidro ili vratio staru poziciju.
+     pageshow pokriva povratak tipkom "natrag" iz predmemorije. */
+  dosadRevealed();
   window.addEventListener('load', dosadRevealed);
+  window.addEventListener('pageshow', dosadRevealed);
 
 })();
