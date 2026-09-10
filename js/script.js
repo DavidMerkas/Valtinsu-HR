@@ -362,6 +362,21 @@
       return ok;
     };
 
+    /* Telefon: +385 stoji ispred polja, a upisano se odmah slaze u isti
+       oblik. Neispravan broj (manje od 8 ili vise od 9 znamenki) oznaci
+       polje kao nevaljano, pa ga provjera nize uhvati kao i ostala. */
+    var poljeTel = form.elements.telefon;
+    var TEL = window.VALTINSU_TEL;
+    if (poljeTel && TEL) {
+      var slaziTel = function () {
+        var slozen = TEL.slozi(poljeTel.value);
+        if (poljeTel.value !== slozen) poljeTel.value = slozen;
+        poljeTel.setCustomValidity(!slozen || TEL.ispravan(slozen) ? '' : 'Broj mora imati 8 ili 9 znamenki.');
+      };
+      poljeTel.addEventListener('input', slaziTel);
+      poljeTel.addEventListener('blur', slaziTel);
+    }
+
     var obavezna = ['model', 'ime', 'email', 'telefon'];
 
     /* Greska nestaje cim korisnik ispravi polje - ne ceka se novo slanje.

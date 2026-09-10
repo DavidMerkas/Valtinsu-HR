@@ -22,6 +22,32 @@ window.VALTINSU_OBRAZAC = {
   naslov: 'Novi upit s valtinsuhr.com'
 };
 
+/* Hrvatski broj uvijek u istom obliku. Iz bilo cega sto kupac upise
+   ("0915036188", "+385 91 503 6188", "00385...") ostaju znamenke bez
+   pozivnog broja i bez nule, pa se slazu u skupine:
+     mobitel  9x   ->  91 503 6188
+     Zagreb   1    ->  1 234 5678
+     ostalo   xx   ->  21 234 567(8)
+   Koriste ga polje (dok se tipka) i slanje (dodaje +385). */
+window.VALTINSU_TEL = {
+  znamenke: function (v) {
+    return String(v || '').replace(/\D/g, '').replace(/^(00)?385/, '').replace(/^0+/, '').slice(0, 9);
+  },
+  slozi: function (v) {
+    var z = this.znamenke(v);
+    var prvi = z.charAt(0) === '1' ? 1 : 2;
+    var a = z.slice(0, prvi), b = z.slice(prvi, prvi + 3), c = z.slice(prvi + 3);
+    return [a, b, c].filter(Boolean).join(' ');
+  },
+  ispravan: function (v) {
+    var z = this.znamenke(v);
+    return z.length >= 8 && z.length <= 9;
+  },
+  puni: function (v) {
+    return '+385 ' + this.slozi(v);
+  }
+};
+
 (function () {
   'use strict';
 
@@ -80,9 +106,16 @@ window.VALTINSU_OBRAZAC = {
       if (gumb.dataset.tekst) gumb.textContent = gumb.dataset.tekst;
     };
 
+    /* Broj na mail uvijek stize kao "+385 91 234 5678". */
+    var podaci = new FormData(form);
+    var tel = podaci.get('telefon');
+    if (tel && window.VALTINSU_TEL.znamenke(tel)) {
+      podaci.set('telefon', window.VALTINSU_TEL.puni(tel));
+    }
+
     fetch(cfg.servis, {
       method: 'POST',
-      body: new FormData(form)
+      body: podaci
     })
       .then(function (r) { return r.json(); })
       .then(function (odgovor) {
