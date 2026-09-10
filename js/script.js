@@ -748,4 +748,31 @@
 
   reveals.forEach(function (el) { io.observe(el); });
 
+  /* Osigurac: observer javlja samo promjenu stanja. Kod brzog skrolanja,
+     skoka na sidro ili otvaranja vec skrolane stranice element moze
+     preskociti vidljivo podrucje i ostati nevidljiv zauvijek. Zato se na
+     skrolanju otkriva i sve sto je vec iznad donjeg ruba ekrana. */
+  var dosadRevealed = function () {
+    var dno = window.innerHeight;
+    var ostalo = 0;
+    reveals.forEach(function (el) {
+      if (el.classList.contains('is-in')) return;
+      if (el.getBoundingClientRect().top < dno) {
+        el.classList.add('is-in');
+        io.unobserve(el);
+      } else {
+        ostalo++;
+      }
+    });
+    if (!ostalo) window.removeEventListener('scroll', naSkrol);
+  };
+  var cekaSkrol = false;
+  var naSkrol = function () {
+    if (cekaSkrol) return;
+    cekaSkrol = true;
+    requestAnimationFrame(function () { cekaSkrol = false; dosadRevealed(); });
+  };
+  window.addEventListener('scroll', naSkrol, { passive: true });
+  window.addEventListener('load', dosadRevealed);
+
 })();
