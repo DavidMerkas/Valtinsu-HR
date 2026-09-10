@@ -243,8 +243,15 @@
 
             <div class="field">
               <label for="telefon">Telefon <span class="req" aria-hidden="true">*</span></label>
-              <input type="tel" id="telefon" name="telefon" autocomplete="tel" required>
-              <p class="field__error" id="err-telefon">Upišite broj na koji vas možemo kontaktirati.</p>
+              <!-- +385 je fiksan. Kupac upisuje ostatak, skripta ga slaze u
+                   oblik "91 234 5678", a na mail stize "+385 91 234 5678". -->
+              <div class="tel-polje">
+                <span class="tel-polje__pozivni" aria-hidden="true">+385</span>
+                <input type="tel" id="telefon" name="telefon" autocomplete="tel-national"
+                       inputmode="numeric" placeholder="91 234 5678"
+                       pattern="[1-9][0-9 ]{7,11}" aria-label="Telefon, bez +385" required>
+              </div>
+              <p class="field__error" id="err-telefon">Upišite broj bez nule na početku, npr. 91 234 5678.</p>
             </div>
           </fieldset>
 

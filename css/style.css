@@ -2390,3 +2390,33 @@ button.link-arrow::after {
   background-repeat: repeat;
   background-size: 107px 107px;
 }
+
+
+/* --- Telefon s fiksnim +385 ---------------------------------------------
+   Okvir nosi omot, pa pozivni broj i polje izgledaju kao jedno polje. */
+.tel-polje {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  transition: border-color var(--fast);
+}
+.tel-polje:focus-within { border-color: var(--orange); }
+.tel-polje:has(input[aria-invalid="true"]) { border-color: #c62828; }
+.tel-polje__pozivni {
+  display: grid;
+  place-items: center;
+  padding: 0 .9rem;
+  background: var(--grey-05);
+  border-right: 1px solid var(--rule);
+  font-weight: 700;
+  color: var(--ink);
+  user-select: none;
+}
+.field .tel-polje input,
+.field .tel-polje input:focus,
+.field .tel-polje input[aria-invalid="true"] {
+  border: 0;
+  min-width: 0;
+  letter-spacing: .02em;
+}
