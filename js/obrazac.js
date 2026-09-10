@@ -5,7 +5,7 @@
    Dok je prazan, obrasci javljaju gresku umjesto da podaci tiho nestanu.
 
    Kako doci do kljuca:
-     1. web3forms.com  ->  upisi valtinsuhr@gmail.com
+     1. web3forms.com  ->  upisi kontakt@valtinsuhr.com
      2. kljuc stigne na taj mail
      3. zalijepi ga dolje u KLJUC i to je sve
 
@@ -93,12 +93,12 @@ window.VALTINSU_OBRAZAC = {
             ? 'Zabilježeno. Javimo se čim motocikli stignu.'
             : 'Upit je poslan. Javljamo se u roku 24 sata.', true);
         } else {
-          javi('Slanje nije uspjelo. Pišite nam na valtinsuhr@gmail.com.');
+          javi('Slanje nije uspjelo. Pišite nam na kontakt@valtinsuhr.com.');
         }
       })
       .catch(function () {
         vrati();
-        javi('Nema veze sa serverom. Pišite nam na valtinsuhr@gmail.com.');
+        javi('Nema veze sa serverom. Pišite nam na kontakt@valtinsuhr.com.');
       });
   };
 
