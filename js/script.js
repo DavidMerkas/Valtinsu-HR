@@ -766,11 +766,18 @@
     });
     if (!ostalo) window.removeEventListener('scroll', naSkrol);
   };
-  var cekaSkrol = false;
+  /* Ogranicenje po vremenu, ne requestAnimationFrame: rAF ne ide u tabu
+     koji se ne crta, pa bi tekst ostao skriven bas kad ne smije. Provjera
+     najvise svakih 100 ms, plus jedna na kraju skrolanja. */
+  var zadnjaProvjera = 0;
+  var kasnaProvjera = null;
   var naSkrol = function () {
-    if (cekaSkrol) return;
-    cekaSkrol = true;
-    requestAnimationFrame(function () { cekaSkrol = false; dosadRevealed(); });
+    var sad = Date.now();
+    clearTimeout(kasnaProvjera);
+    kasnaProvjera = setTimeout(dosadRevealed, 120);
+    if (sad - zadnjaProvjera < 100) return;
+    zadnjaProvjera = sad;
+    dosadRevealed();
   };
   window.addEventListener('scroll', naSkrol, { passive: true });
   /* Odmah, ne tek na 'load': na pravoj stranici load ceka video i slike,
