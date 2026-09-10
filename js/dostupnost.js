@@ -100,7 +100,7 @@ window.VALTINSU_STANJE = {
       var oznaka = document.createElement('span');
       oznaka.className = 'oznaka ' + (naPutu ? 'oznaka--stize' : 'oznaka--rasprodano');
       oznaka.textContent = naPutu ? 'Stiže ' + z.stize.toLowerCase() : 'Rasprodano';
-      ime.insertAdjacentElement('afterend', oznaka);
+      ime.appendChild(oznaka);   /* uz naziv, da se slike ne spuste */
     }
 
     /* Poveznica na upit se mijenja. Ako je lista cekanja ukljucena,
@@ -155,7 +155,7 @@ window.VALTINSU_STANJE = {
           var podnaslov = cijena.querySelector('span');
           if (podnaslov) {
             podnaslov.textContent = 'Upit možete poslati već sada. ' +
-              'Javljamo se u roku 24 sata s cijenom i točnim rokom isporuke.';
+              'Javljamo se u roku 24 sata s cijenom i točnim datumom dolaska.';
           }
         }
       }
@@ -166,8 +166,10 @@ window.VALTINSU_STANJE = {
         if (stack && !stack.parentNode.querySelector('.proba-nota')) {
           var nota = document.createElement('p');
           nota.className = 'proba-nota';
-          nota.textContent = 'Ovaj model se prije kupnje može probati' +
-            (stanje.probaMjesto ? ' ' + stanje.probaMjesto : '') + '.';
+          nota.innerHTML = '<b>Besplatna probna vožnja</b>' +
+            '<span>Isprobajte ga prije kupnje' +
+            (stanje.probaMjesto ? ' ' + stanje.probaMjesto : '') +
+            '. Označite probu u upitu.</span>';
           stack.insertAdjacentElement('afterend', nota);
         }
       }
@@ -176,8 +178,10 @@ window.VALTINSU_STANJE = {
         var naPutuModel = !!(zapisModela && zapisModela.stize);
         var cijena = document.querySelector('.product__price');
         if (cijena) {
-          var b = cijena.querySelector('b');
-          var span = cijena.querySelector('span');
+          /* Samo izravni <b>: cijena (.cijena__nova) ostaje vidljiva i
+             kad model jos nije na zalihi. */
+          var b = cijena.querySelector(':scope > b');
+          var span = cijena.querySelector(':scope > span');
           if (b) b.textContent = naPutuModel ? 'Još nije na zalihi' : 'Trenutno rasprodano';
           /* Datum ne ide i ovdje: stoji odmah ispod, na mjestu gumba. */
           if (span) span.textContent = stanje.poruka;
@@ -392,7 +396,7 @@ window.VALTINSU_STANJE = {
       }
       if (!form.getAttribute('action')) {
         e.preventDefault();
-        javi('Slanje još nije spojeno. Do tada nam pišite na valtinsuhr@gmail.com ili na WhatsApp.');
+        javi('Slanje još nije spojeno. Do tada nam pišite na info@valtinsuhr.com ili na WhatsApp.');
       }
     });
   };

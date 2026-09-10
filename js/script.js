@@ -405,7 +405,7 @@
          Bolje glasna greska nego da upit tiho nestane. */
       if (!form.getAttribute('action')) {
         e.preventDefault();
-        javi('Slanje još nije spojeno. Do tada nam pišite na valtinsuhr@gmail.com ili na WhatsApp.');
+        javi('Slanje još nije spojeno. Do tada nam pišite na info@valtinsuhr.com ili na WhatsApp.');
       }
     });
   }
@@ -675,6 +675,38 @@
         else otvoriPitanje(item);
       });
     });
+  }
+
+  /* --- Brojke koje rastu od nule --------------------------------------
+     <b data-broji="2015">2015<i>.</i></b> - mijenja se samo prvi tekst,
+     nastavak u <i> ostaje. Bez JS-a ili uz smanjeno kretanje stoji
+     konacna brojka. */
+
+  var brojke = document.querySelectorAll('[data-broji]');
+  if (brojke.length && 'IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var broji = function (el) {
+      var cilj = +el.getAttribute('data-broji');
+      var tekst = el.firstChild;
+      var trajanje = 1400, start = null;
+      var korak = function (t) {
+        if (!start) start = t;
+        var p = Math.min((t - start) / trajanje, 1);
+        p = 1 - Math.pow(1 - p, 3);            /* usporava pred kraj */
+        tekst.nodeValue = Math.round(cilj * p);
+        if (p < 1) requestAnimationFrame(korak);
+      };
+      tekst.nodeValue = '0';
+      requestAnimationFrame(korak);
+    };
+    var ioBroj = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        broji(e.target);
+        ioBroj.unobserve(e.target);
+      });
+    }, { threshold: 0.4 });
+    brojke.forEach(function (el) { ioBroj.observe(el); });
   }
 
   /* --- Scroll reveal --------------------------------------------------- */
