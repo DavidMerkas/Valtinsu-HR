@@ -392,7 +392,7 @@ window.VALTINSU_STANJE = {
       }
       if (!form.getAttribute('action')) {
         e.preventDefault();
-        javi('Slanje još nije spojeno. Do tada nam pišite na kontakt@valtinsuhr.com ili na WhatsApp.');
+        javi('Slanje još nije spojeno. Do tada nam pišite na info@valtinsuhr.com ili na WhatsApp.');
       }
     });
   };
