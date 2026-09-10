@@ -329,9 +329,15 @@
           okvirBoja.appendChild(krug);
         });
 
-        postavi(model, lista.length ? lista[0].id : null);
+        /* Boja iz poveznice (?boja=zelena) vrijedi samo za prvi crtez.
+           Kad kupac promijeni model, krece se od prve boje tog modela. */
+        postavi(model, trazenaBoja || (lista.length ? lista[0].id : null));
+        trazenaBoja = null;
         otvori();
       };
+
+      var trazenaBoja = null;
+      try { trazenaBoja = new URLSearchParams(window.location.search).get('boja'); } catch (e) { trazenaBoja = null; }
 
       form.elements.model.addEventListener('change', function () {
         nacrtaj(this.value);
@@ -551,6 +557,16 @@
 
           kadar = -1;                    // prisili prijelaz i kad je indeks isti
           prijelaz(novi, 0);
+          upisiBojuUPoveznice(id);
+        };
+
+        /* Poveznice na upit nose i odabranu boju (?model=em-5-pro&boja=zelena),
+           pa je obrazac vec postavljen na nju. */
+        var upisiBojuUPoveznice = function (id) {
+          document.querySelectorAll('a[href*="kontakt.html?model="]').forEach(function (a) {
+            var href = a.getAttribute('href').replace(/[?&]boja=[^&#]*/, '');
+            a.setAttribute('href', href + '&boja=' + encodeURIComponent(id));
+          });
         };
 
         boje.addEventListener('click', function (e) {
