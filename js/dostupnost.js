@@ -19,7 +19,7 @@ window.VALTINSU_STANJE = {
 
   /* Gdje se motocikl moze probati. Prazno znaci da se mjesto nigdje
      ne spominje, nego samo da je proba moguca. */
-  probaMjesto: 'u Velikoj Gorici',
+  probaMjesto: 'u Zagrebu',
 
   /* dostupno: false -> rasprodan, upit za njega je zatvoren.
      stize:            -> model je na putu. Uz dostupno: false to znaci
@@ -239,17 +239,6 @@ window.VALTINSU_STANJE = {
         'Za sva ostala pitanja odgovaramo u roku 24 sata.';
     }
 
-    var bok = document.querySelector('.upit__bok .stack');
-    if (bok && Object.keys(stanje.modeli).some(function (m) { return !jeDostupan(m); })) {
-      var bokNota = document.createElement('p');
-      bokNota.className = 'bok__tekst mt-1';
-      var ima = Object.keys(stanje.modeli).filter(jeDostupan);
-      bokNota.textContent = (ima.length
-        ? 'Trenutno je dostupan samo ' + ima.join(', ') + '.'
-        : 'Svi modeli su trenutno rasprodani.') +
-        (stanje.upitOd ? ' Javljamo se od ' + stanje.upitOd : '');
-      bok.insertAdjacentElement('afterend', bokNota);
-    }
 
     if (ugaseno.length) {
       var nota = document.createElement('p');
@@ -261,6 +250,27 @@ window.VALTINSU_STANJE = {
       if (greska) greska.insertAdjacentElement('afterend', nota);
     }
   }
+
+  /* --- 4. Probna voznja u obrascu --------------------------------------
+     Kvacicu se moze oznaciti samo za model koji se stvarno moze probati.
+     Za ostale je ugasena i odznacena, pa kupac ne trazi nesto sto ne
+     postoji, a mi ne dobivamo upit koji moramo ispravljati. */
+
+  var poljeModel = document.getElementById('model');
+  var poljeProba = document.getElementById('proba');
+
+  if (poljeModel && poljeProba) {
+    var osvjeziProbu = function () {
+      var z = zapis(poljeModel.value);
+      var moze = !!(z && z.proba && jeDostupan(poljeModel.value));
+      poljeProba.disabled = !moze;
+      if (!moze) poljeProba.checked = false;
+      poljeProba.setAttribute('aria-disabled', String(!moze));
+    };
+    poljeModel.addEventListener('change', osvjeziProbu);
+    osvjeziProbu();
+  }
+
 })();
 
 /* ==========================================================================
@@ -504,4 +514,6 @@ window.VALTINSU_STANJE = {
     e.preventDefault();
     otvori(modelZa(gumb), true);
   });
+
+
 })();

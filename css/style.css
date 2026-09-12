@@ -1615,7 +1615,7 @@ button.link-arrow::after {
   letter-spacing: 0;
 }
 
-.field input,
+.field input:not([type="checkbox"]):not([type="radio"]),
 .field select,
 .field textarea {
   width: 100%;
@@ -2098,12 +2098,16 @@ button.link-arrow::after {
    je odabrano. Cijela oznaka je meta za klik, ne samo kvadratic. */
 .kvadratic {
   display: flex;
-  align-items: flex-start;
+  align-items: center;      /* kvadratic i tekst u istoj liniji */
   gap: .75rem;
   cursor: pointer;
-  font-size: var(--t-small);
+  font-size: .9375rem;
+  line-height: 1.4;
   font-weight: var(--w-text);
 }
+/* Model bez probne voznje: kvacica se ne moze oznaciti. */
+.kvadratic:has(input:disabled) { cursor: not-allowed; color: var(--grey-45); }
+.kvadratic input:disabled { border-color: var(--rule); background: var(--grey-05); cursor: not-allowed; }
 .kvadratic input {
   appearance: none;
   flex: 0 0 auto;
@@ -3108,3 +3112,370 @@ button.link-arrow::after {
   min-width: 0;
   letter-spacing: .02em;
 }
+/* --- Uvod u cesta pitanja na pocetnoj -----------------------------------
+   Veliki naslov kao na O nama; tipka vodi na Kupnju i jamstvo, WhatsApp
+   ostaje kao tekstualna poveznica ispod. */
+.faq-uvod h2 { font-size: var(--t-h2); margin-bottom: 1rem; }
+.faq-uvod .lead { max-width: 36ch; }
+.faq-uvod__tipke {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+.faq-uvod__tipke .btn { min-height: 3.5rem; font-size: 1rem; gap: 1rem; }
+/* --- Kartice modela: listanje slika i boje -------------------------------
+   Strelice se pojave na hover, a na dodirnom uredaju stoje stalno, jer
+   ondje hovera nema. Brojac je uvijek vidljiv, da se zna da ima jos. */
+.kart-galerija { position: relative; }
+.kart-galerija img { transition: opacity .22s var(--ease); }
+.kart-galerija img.je-mijenja { opacity: 0; }
+
+.kart-nav {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: .5rem;
+  pointer-events: none;
+}
+.kart-nav__tipka {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  transform: scale(.85);
+  transition: opacity var(--fast), transform var(--fast), background var(--fast);
+}
+.model-cell:hover .kart-nav__tipka,
+.kart-nav__tipka:focus-visible { opacity: 1; transform: none; }
+.kart-nav__tipka:hover { background: var(--orange); }
+@media (hover: none) {
+  .kart-nav__tipka { opacity: 1; transform: none; }
+}
+
+.kart-brojac {
+  position: absolute;
+  right: .5rem;
+  bottom: .25rem;
+  z-index: 2;
+  font-size: .8125rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--grey-45);
+}
+
+.kart-boje { display: flex; gap: .5rem; margin-bottom: 1.25rem; }
+.kart-boja {
+  position: relative;
+  z-index: 2;              /* iznad rastegnutog linka kartice */
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(45deg, var(--c) 0 64%, var(--akcent) 64% 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25);
+  transition: transform var(--fast), box-shadow var(--fast);
+}
+.kart-boja:hover { transform: scale(1.08); }
+.kart-boja[aria-checked="true"] {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25),
+              0 0 0 2px var(--paper), 0 0 0 4px var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kart-galerija img, .kart-nav__tipka, .kart-boja { transition: none; }
+}
+
+/* --- Podnozje, novi raspored --------------------------------------------
+   Gornji red nosi brend i dva nacina javljanja (WhatsApp, mail), ispod su
+   cetiri stupca poveznica, a na dnu pravna traka. */
+.footer__vrh {
+  display: grid;
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--rule-dark);
+}
+@media (min-width: 900px) {
+  .footer__vrh {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+.footer__brand p { color: #9b9b9b; font-size: .9375rem; line-height: 1.6; max-width: 46ch; }
+
+.footer__kontakt { display: grid; gap: .75rem; }
+@media (min-width: 560px) { .footer__kontakt { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.footer__veza {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  padding: .9rem 1.1rem;
+  border: 1px solid var(--rule-dark);
+  color: var(--paper);
+  transition: border-color var(--fast), background var(--fast);
+}
+.footer__veza:hover { border-color: var(--orange); background: rgba(255, 91, 0, .12); }
+.footer__veza svg { flex: 0 0 auto; color: var(--orange); }
+.footer__veza b { display: block; font-size: .9375rem; font-weight: 700; }
+.footer__veza i { display: block; font-style: normal; font-size: .75rem; color: #9b9b9b; }
+
+@media (min-width: 1000px) {
+  .footer__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.footer__col h3 { color: var(--orange); font-weight: 700; }
+.footer__col--mjesto p { font-size: .9375rem; line-height: 1.6; color: rgba(255,255,255,.85); }
+.footer__radno { margin-top: .75rem; color: #9b9b9b !important; font-size: .8125rem !important; }
+.footer__sitno { max-width: 52ch; }
+
+/* --- Potvrda nakon slanja upita ------------------------------------------
+   Preko cijelog ekrana, da se na mobitelu ne moze promasiti. Kvacica se
+   iscrtava, ploca ulazi odozdo. Uz smanjeno kretanje sve je odmah tu. */
+.uspjeh {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(0, 0, 0, .72);
+  /* Bez prijelaza na vidljivost: u tabu koji se ne crta prijelaz ne tece,
+     pa bi potvrda ostala prozirna. Animira se samo ulaz ploce. */
+}
+
+.uspjeh__ploca {
+  width: min(30rem, 100%);
+  padding: clamp(2rem, 5vw, 3rem);
+  background: var(--paper);
+  border-top: 5px solid var(--orange);
+  text-align: center;
+  transform: translateY(18px) scale(.98);
+  transition: transform .28s var(--ease);
+}
+.uspjeh.je-vidljiva .uspjeh__ploca { transform: none; }
+
+.uspjeh__znak { display: block; width: 5rem; height: 5rem; margin: 0 auto 1.25rem; }
+.uspjeh__krug {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 4;
+  stroke-dasharray: 176;
+  stroke-dashoffset: 176;
+  animation: uspjeh-krug .5s var(--ease) .1s forwards;
+}
+.uspjeh__kvaka {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: square;
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  animation: uspjeh-kvaka .3s var(--ease) .5s forwards;
+}
+@keyframes uspjeh-krug  { to { stroke-dashoffset: 0; } }
+@keyframes uspjeh-kvaka { to { stroke-dashoffset: 0; } }
+
+.uspjeh__ploca h2 { font-size: var(--t-h2); font-weight: 800; letter-spacing: -.03em; }
+.uspjeh__ploca p { margin-top: .75rem; color: var(--grey-70); line-height: 1.6; }
+.uspjeh__tipke { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 1.75rem; }
+
+.uspjeh.bez-animacije,
+.uspjeh.bez-animacije .uspjeh__ploca { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .uspjeh__krug, .uspjeh__kvaka { animation: none; stroke-dashoffset: 0; }
+}
+
+/* --- Obrazac: citljiviji raspored ----------------------------------------
+   Svaka grupa je kartica s rednim brojem, polja su visa (48px+ dodirna
+   meta), a fokus se vidi narancastim prstenom. */
+.form { counter-reset: grupa; }
+.form__grupa {
+  counter-increment: grupa;
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ink);
+}
+.form__legend {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  padding: 0;
+  margin-bottom: 1.25rem;
+}
+.form__legend::before {
+  content: "0" counter(grupa);
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--orange);
+  color: var(--paper);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.field input:not([type="checkbox"]):not([type="radio"]),
+.field select,
+.field textarea {
+  min-height: 3.25rem;
+  padding: .9rem 1rem;
+  font-size: 1rem;
+}
+.field textarea { min-height: 8rem; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.tel-polje:focus-within {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-dim);
+}
+.field label { font-weight: 600; }
+
+.form__foot {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  padding-top: .5rem;
+}
+@media (min-width: 700px) { .form__foot { grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem; } }
+.form__foot .btn { min-height: 3.5rem; font-size: 1rem; padding-inline: 2.25rem; }
+.form__note { font-size: .8125rem; line-height: 1.6; color: var(--grey-45); }
+
+/* --- Koraci nakon slanja: ista traka kao na Kupnji ---------------------- */
+.kp-put--staticno::after { transform: scaleY(1); }
+@media (min-width: 1000px) { .kp-put--staticno::after { transform: scaleX(1); } }
+.kp-put--staticno .kp-korak__br { background: var(--orange); border-color: var(--orange); color: var(--paper); }
+.kp-put--staticno .kp-korak h3 { color: var(--ink); }
+
+/* --- Izbornik modela: jaci naglasak na popisu lijevo ----------------------
+   Svaka stavka ima naziv i kratak podatak (snaga, cijena). Narancasta
+   crta i pomak udesno pokazuju na koji model pokazujes. */
+.subnav__link {
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .2rem;
+  padding-left: 1.25rem;
+  transition: color var(--fast), padding-left var(--fast), background var(--fast);
+}
+.subnav__link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .9rem;
+  bottom: .9rem;
+  width: 3px;
+  background: var(--orange);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--fast);
+}
+.subnav__link:hover::before,
+.subnav__link:focus-visible::before,
+.subnav__link[aria-current="page"]::before { transform: scaleY(1); }
+.subnav__link:hover { padding-left: 1.6rem; }
+.subnav__name { font-size: 1.125rem; font-weight: 700; letter-spacing: -.01em; }
+.subnav__pod {
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--grey-45);
+}
+.subnav__link:hover .subnav__pod,
+.subnav__link[aria-current="page"] .subnav__pod { color: var(--grey-70); }
+
+/* --- Podnozje: tekstura umjesto ravne crne ------------------------------
+   Dvije vrlo tihe kose crte (3% bijelog) i jedan narancasti odsjaj gore
+   desno. Uzorak se jedva vidi, ali crna vise ne izgleda kao rupa. */
+.site-footer {
+  position: relative;
+  background-color: var(--ink-pure);
+  background-image:
+    radial-gradient(60rem 28rem at 88% -10%, rgba(255, 91, 0, .16), transparent 70%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .035) 0 1px,
+      transparent 1px 9px);
+}
+.site-footer > .shell { position: relative; z-index: 1; }
+
+/* Oznaka polja inace ima display: block i jaca je od .kvadratic, pa se
+   kvadratic i tekst nisu poravnali. Ovdje je specificnost izjednacena. */
+.field .kvadratic,
+.kvadratic {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-weight: var(--w-text);
+}
+
+/* --- Obrazac: odabrana varijanta 8 + F -----------------------------------
+   8: grupe bez brojeva i bez kartica, naslov je sitna oznaka velikim
+      slovima, grupe razdvaja tanka crta.
+   F: polja imaju debeli crni okvir, na fokus postaje narancast. */
+.form__grupa {
+  padding: 0;
+  margin: 0 0 2rem;
+  background: none;
+  border: 0;
+}
+.form__grupa + .form__grupa {
+  border-top: 1px solid var(--rule);
+  padding-top: 2rem;
+}
+.form__legend {
+  display: block;
+  font-size: .8125rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--grey-45);
+  margin-bottom: 1.25rem;
+}
+.form__legend::before { content: none; }
+.form__legend .req { color: var(--orange); }
+
+.field input:not([type="checkbox"]):not([type="radio"]),
+.field select,
+.field textarea,
+.tel-polje {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.tel-polje:focus-within {
+  border-color: var(--orange);
+  box-shadow: none;
+}
+.tel-polje input { border: 0; }
+.tel-polje__pozivni { border-right: 2px solid var(--ink); }
+.tel-polje:focus-within .tel-polje__pozivni { border-right-color: var(--orange); }
+
+/* Kosa strelica ispred "Kontaktirajte nas": pokazuje da vodi dalje, a
+   stoji lijevo od teksta pa se cita kao jedna cjelina. */
+.big-link { gap: .9rem; }
+.big-link__strelica { transition: transform var(--fast); }
+.big-link:hover .big-link__strelica { transform: translate(3px, -3px); }

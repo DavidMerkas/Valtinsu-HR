@@ -62,21 +62,25 @@
                 <li>
                   <a class="subnav__link" href="modeli/em-5.html" data-preview="em-5">
                     <span class="subnav__name">EM-5</span>
+                    <span class="subnav__pod">2500 W · od 1.399 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli/em-5-pro.html" data-preview="em-5-pro">
                     <span class="subnav__name">EM-5 PRO</span>
+                    <span class="subnav__pod">4800 W · od 1.749 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli/em-5-ultra.html" data-preview="em-5-ultra">
                     <span class="subnav__name">EM-5 Ultra</span>
+                    <span class="subnav__pod">8000 W · od 1.999 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli.html" data-preview="svi">
                     <span class="subnav__name">Svi modeli</span>
+                    <span class="subnav__pod">Usporedba cijele serije</span>
                   </a>
                 </li>
               </ul>
@@ -103,7 +107,7 @@
                       <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -156,14 +160,159 @@
   <section class="section section--flush" aria-labelledby="modeli-naslov">
     <h2 id="modeli-naslov" class="visually-hidden">Modeli u ponudi</h2>
 
-      <ul class="model-grid reveal">
+
+      <!-- Fotografije i boje za listanje na karticama. Isti podaci
+           kao na stranicama modela; kartica ih samo prikazuje. -->
+      <script type="application/json" id="karticeSlike">
+{
+  "EM-5": [
+    {
+      "id": "crna",
+      "naziv": "Crna s crvenim akcentom",
+      "c": "#181818",
+      "akcent": "#d02820",
+      "slike": [
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-black-color-Right-side-view-from-front-to-back.webp",
+        "assets/slike/em-5/EM-5-Electric-dirt-bike-black-color-right-side-view.webp",
+        "assets/slike/em-5/EM-5-Electric-dirt-bike-black-color-side-view.webp",
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-black-color-Image-ahead.webp"
+      ]
+    },
+    {
+      "id": "crvena",
+      "naziv": "Crvena s crnim akcentom",
+      "c": "#e01818",
+      "akcent": "#181818",
+      "slike": [
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Right-side-view-from-front-to-back.webp",
+        "assets/slike/em-5/EM-5-Electric-dirt-bike-red-color-side-view.webp",
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-red-color-Side-and-rear-view.webp",
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Image-ahead.webp",
+        "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Image-ahead-with-light.webp"
+      ]
+    }
+  ],
+  "EM-5 PRO": [
+    {
+      "id": "crna",
+      "naziv": "Crna s crvenim akcentom",
+      "c": "#181818",
+      "akcent": "#d02820",
+      "slike": [
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-side-view.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Side-and-rear-view.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Image-ahead.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Image-ahead-with-light.webp"
+      ]
+    },
+    {
+      "id": "zelena",
+      "naziv": "Zelena s crnim akcentom",
+      "c": "#dcf444",
+      "akcent": "#181818",
+      "slike": [
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Right-side-view-from-front-to-back.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-side-view.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Side-and-rear-view.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp",
+        "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead-with-light.webp"
+      ]
+    }
+  ],
+  "EM-5 Ultra": [
+    {
+      "id": "crna",
+      "naziv": "Crna, karbonski uzorak",
+      "c": "#181818",
+      "akcent": "#4c4c4c",
+      "slike": [
+        "assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp"
+      ]
+    }
+  ]
+}
+      </script>
+
+  
+    <!-- Fotografije i boje za listanje na karticama. Isti podaci
+         kao na stranicama modela; kartica ih samo prikazuje. -->
+    <script type="application/json" id="karticeSlike">
+{
+  "EM-5": [
+    {
+    "id": "crna",
+    "naziv": "Crna s crvenim akcentom",
+    "c": "#181818",
+    "akcent": "#d02820",
+    "slike": [
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-black-color-Image-ahead.webp",
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-black-color-Right-side-view-from-front-to-back.webp",
+      "assets/slike/em-5/EM-5-Electric-dirt-bike-black-color-right-side-view.webp",
+      "assets/slike/em-5/EM-5-Electric-dirt-bike-black-color-side-view.webp"
+    ]
+    },
+    {
+    "id": "crvena",
+    "naziv": "Crvena s crnim akcentom",
+    "c": "#e01818",
+    "akcent": "#181818",
+    "slike": [
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Image-ahead-with-light.webp",
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Image-ahead.webp",
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-RED-color-Right-side-view-from-front-to-back.webp",
+      "assets/slike/em-5/EM-5-ELECTRIC-DIRT-BIKE-red-color-Side-and-rear-view.webp",
+      "assets/slike/em-5/EM-5-Electric-dirt-bike-red-color-side-view.webp"
+    ]
+    }
+  ],
+  "EM-5 PRO": [
+    {
+    "id": "crna",
+    "naziv": "Crna s crvenim akcentom",
+    "c": "#181818",
+    "akcent": "#d02820",
+    "slike": [
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Image-ahead-with-light.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Image-ahead.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Side-and-rear-view.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-side-view.webp"
+    ]
+    },
+    {
+    "id": "zelena",
+    "naziv": "Zelena s crnim akcentom",
+    "c": "#dcf444",
+    "akcent": "#181818",
+    "slike": [
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead-with-light.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Image-ahead.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Right-side-view-from-front-to-back.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Side-and-rear-view.webp",
+      "assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-side-view.webp"
+    ]
+    }
+  ],
+  "EM-5 Ultra": [
+    {
+    "id": "crna",
+    "naziv": "Crna, karbonski uzorak",
+    "c": "#181818",
+    "akcent": "#4c4c4c",
+    "slike": [
+      "assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp"
+    ]
+    }
+  ]
+}
+    </script>
+
+    <ul class="model-grid reveal">
 
         <!-- ---------- EM-5 ---------- -->
         <li class="model-cell" data-model="EM-5">
           <h3 class="model-cell__name"><a href="modeli/em-5.html">EM-5</a></h3>
-          <p class="model-cell__meta">
-            Ulazni model serije.
-          </p>
           <p class="kart-cijena"><del><span class="visually-hidden">Stara cijena: </span>1.699 €</del> <b><span class="visually-hidden">Nova cijena: </span>1.399 €</b></p>
           <ul class="model-cell__specs">
             <li>2500 W</li>
@@ -192,9 +341,6 @@
         <!-- ---------- EM-5 PRO ---------- -->
         <li class="model-cell" data-model="EM-5 PRO">
           <h3 class="model-cell__name"><a href="modeli/em-5-pro.html">EM-5 PRO</a></h3>
-          <p class="model-cell__meta">
-            Najprodavaniji model.
-          </p>
           <p class="kart-cijena"><del><span class="visually-hidden">Stara cijena: </span>1.999 €</del> <b><span class="visually-hidden">Nova cijena: </span>1.749 €</b></p>
           <ul class="model-cell__specs">
             <li>4800 W</li>
@@ -223,9 +369,6 @@
         <!-- ---------- EM-5 Ultra ---------- -->
         <li class="model-cell" data-model="EM-5 Ultra">
           <h3 class="model-cell__name"><a href="modeli/em-5-ultra.html">EM-5 Ultra</a></h3>
-          <p class="model-cell__meta">
-            Vrh serije.
-          </p>
           <p class="kart-cijena"><del><span class="visually-hidden">Stara cijena: </span>2.599 €</del> <b><span class="visually-hidden">Nova cijena: </span>1.999 €</b></p>
           <ul class="model-cell__specs">
             <li>8000 W</li>
@@ -255,10 +398,10 @@
         <li class="model-cell model-cell--cta">
           <h3>Ne znate koji model?</h3>
           <a class="big-link" href="kontakt.html">
-            Kontaktirajte nas
-            <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true">
-              <path d="M1 1l7 7-7 7" stroke="currentColor" stroke-width="1.6"/>
+            <svg class="big-link__strelica" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 18L18 6M8.5 6H18v9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
             </svg>
+            Kontaktirajte nas
           </a>
         </li>
 
@@ -294,14 +437,19 @@
   <section class="section section--grey" aria-labelledby="pitanja-naslov">
     <div class="shell split">
 
-      <div class="reveal">
+      <!-- Isti uvod kao "Sto trebate znati" na O nama: oznaka, veliki
+           naslov, jedna recenica i jasan put dalje na sva pitanja. -->
+      <div class="reveal faq-uvod">
         <h2 id="pitanja-naslov">Prije nego pitate</h2>
-        <p class="lead mt-1">
-          Pet stvari koje nas ljudi pitaju prve. Ako vaše pitanje nije
-          ovdje, javite se na WhatsApp. Odgovaramo isti dan.
+        <p class="lead">
+          Ono što nas ljudi pitaju prvo. Sve ostalo o kupnji, preuzimanju
+          i jamstvu je na jednom mjestu.
         </p>
-        <div class="stack mt-2">
-          <a class="btn btn--outline" href="kontakt.html">Pošalji upit</a>
+        <div class="faq-uvod__tipke">
+          <a class="btn btn--primary" href="kupnja.html">
+            Sva pitanja i jamstvo
+            <svg class="btn__strelica" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 7h16M10 1l6 6-6 6" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
         </div>
       </div>
 
@@ -351,7 +499,7 @@
           </summary>
           <div class="faq__a"><div class="faq__a-inner">
             <p>
-              Motocikl donesete nama u Veliku Goricu. Pogledamo kvar
+              Motocikl donesete nama u Zagreb. Pogledamo kvar
               i kažemo što treba napraviti prije nego što išta diramo.
               Tu se rješava i jamstvo.
             </p>
@@ -370,7 +518,7 @@
           </summary>
           <div class="faq__a"><div class="faq__a-inner">
             <p>
-              Možete, kod nas u Velikoj Gorici. Označite probnu vožnju u
+              Možete, kod nas u Zagrebu. Označite probnu vožnju u
               obrascu za upit ili nam javite na WhatsApp, pa dogovorimo
               termin.
             </p>
@@ -408,7 +556,7 @@
           </summary>
           <div class="faq__a"><div class="faq__a-inner">
             <p>
-              Samo osobno, u Velikoj Gorici. Dostave nema. Plaća se
+              Samo osobno, u Zagrebu. Dostave nema. Plaća se
               gotovinom pri preuzimanju, karticom nije moguće.
             </p>
             <p>
@@ -426,7 +574,7 @@
         Odgovori gore su nacrti. Jamstvo je preuzeto iz priručnika
         proizvodjaca. Servis i probna voznja napisani su po onome sto je
         klijent opisao u poruci 18. 08. 2026., ali jos nije potvrdjeno:
-        - gdje se tocno vozi proba (Velika Gorica?) i treba li adresa
+        - gdje se tocno vozi proba (Zagreb?) i treba li adresa
         - koje dijelove stvarno drze na zalihi
         - naplacuje li se dolazak i popravak izvan jamstva, po kojoj cijeni
         - tko radi popravak ako kupac nije iz okolice
@@ -457,10 +605,23 @@
 
 
   <!-- ===================== CTA ===================== -->
-  <section class="section section--dark section--carbon">
-    <div class="shell cta reveal">
-      <h2>Javljamo se u roku 24 sata. Slanjem ne plaćate ništa.</h2>
-      <a class="btn btn--primary" href="kontakt.html">Pošalji upit</a>
+  <!-- Zavrsni poziv: isti blok kao na O nama i Kupnji (sumska staza). -->
+  <section class="on-cta" aria-labelledby="cta-naslov">
+    <div class="shell on-cta__inner reveal">
+      <div>
+        <h2 id="cta-naslov">Našli ste svoj model?</h2>
+        <p class="on-cta__tekst">Pošaljite upit i javljamo se u roku 24 sata s cijenom i dostupnošću. Upit vas ni na što ne obvezuje.</p>
+      </div>
+      <div class="on-cta__tipke">
+        <a class="btn btn--primary" href="kontakt.html">
+          Pošalji upit
+          <svg class="btn__strelica" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 7h16M10 1l6 6-6 6" stroke="currentColor" stroke-width="2"/></svg>
+        </a>
+        <a class="btn btn--outline" href="https://wa.me/385924595870" rel="noopener">
+          Piši na WhatsApp
+          <svg class="btn__ikona" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.1-.5 3.4a11 11 0 0 0 4.6 4.6c1.9.8 2.6.7 3.4.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2Z"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -469,21 +630,46 @@
 <!-- ===================== PODNOŽJE ===================== -->
 <footer class="site-footer">
   <div class="shell">
-    <div class="footer__grid">
+
+    <!-- Gornji red: tko smo i kako nas najbrze dobiti. -->
+    <div class="footer__vrh">
       <div class="footer__brand">
         <span class="brand brand--footer">
           <span class="brand__logo" aria-hidden="true"></span>
           <span class="brand__text">Valtinsu</span>
         </span>
-        <p>Službeni zastupnik Valtinsu električnih off-road motocikala za Hrvatsku.</p>
+        <p>Službeni zastupnik Valtinsu električnih off-road motocikala za Hrvatsku. Preuzimanje, proba i jamstvo u Zagrebu.</p>
       </div>
 
+      <div class="footer__kontakt">
+        <a class="footer__veza" href="https://wa.me/385924595870" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.1-.5 3.4a11 11 0 0 0 4.6 4.6c1.9.8 2.6.7 3.4.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2Z"/></svg>
+          <span><b>+385 92 459 5870</b><i>WhatsApp, odgovaramo najbrže</i></span>
+        </a>
+        <a class="footer__veza" href="mailto:info@valtinsuhr.com">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18v14H3z" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+          <span><b>info@valtinsuhr.com</b><i>Odgovor u roku 24 sata</i></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__grid">
       <div class="footer__col">
         <h3>Modeli</h3>
         <ul>
           <li><a href="modeli/em-5.html">EM-5</a></li>
           <li><a href="modeli/em-5-pro.html">EM-5 PRO</a></li>
           <li><a href="modeli/em-5-ultra.html">EM-5 Ultra</a></li>
+          <li><a href="modeli.html">Usporedba modela</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3>Kupnja</h3>
+        <ul>
+          <li><a href="kupnja.html">Kupnja i jamstvo</a></li>
+          <li><a href="kupnja.html#pitanja-naslov">Česta pitanja</a></li>
+          <li><a href="kontakt.html">Pošalji upit</a></li>
         </ul>
       </div>
 
@@ -491,22 +677,22 @@
         <h3>Tvrtka</h3>
         <ul>
           <li><a href="o-nama.html">O nama</a></li>
-          <li><a href="kupnja.html">Kupnja i jamstvo</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
+          <!-- PODSJETNIK: stranica Uvjeti i privatnost jos ne postoji. -->
         </ul>
       </div>
 
-      <div class="footer__col">
-        <h3>Kontakt</h3>
-        <ul>
-          <li><a href="mailto:info@valtinsuhr.com">info@valtinsuhr.com</a></li>
-          <li><a href="https://wa.me/385924595870" rel="noopener">WhatsApp</a></li>
-        </ul>
+      <div class="footer__col footer__col--mjesto">
+        <h3>Gdje smo</h3>
+        <p>Zagreb<br>Preuzimanje i proba po dogovoru</p>
+        <p class="footer__radno">Termin dogovaramo u odgovoru na upit.</p>
       </div>
     </div>
 
     <div class="footer__legal">
+      <!-- PODSJETNIK: naziv obrta i OIB su zakonska obveza, dodati cim stignu. -->
       <p>&copy; 2026 Valtinsu Hrvatska</p>
+      <p class="footer__sitno">Cijene su u eurima. Motocikli nisu homologirani za javne prometnice.</p>
     </div>
   </div>
 </footer>

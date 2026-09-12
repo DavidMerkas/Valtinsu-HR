@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Kontakt | Valtinsu Hrvatska</title>
-<meta name="description" content="Pošaljite upit za Valtinsu električni off-road motocikl. Javljamo se u roku 24 sata s cijenom i dostupnošću. Preuzimanje u Velikoj Gorici.">
+<meta name="description" content="Pošaljite upit za Valtinsu električni off-road motocikl. Javljamo se u roku 24 sata s cijenom i dostupnošću. Preuzimanje u Zagrebu.">
 
 <link rel="canonical" href="https://www.valtinsuhr.com/kontakt.html">
 
@@ -61,21 +61,25 @@
                 <li>
                   <a class="subnav__link" href="modeli/em-5.html" data-preview="em-5">
                     <span class="subnav__name">EM-5</span>
+                    <span class="subnav__pod">2500 W · od 1.399 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli/em-5-pro.html" data-preview="em-5-pro">
                     <span class="subnav__name">EM-5 PRO</span>
+                    <span class="subnav__pod">4800 W · od 1.749 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli/em-5-ultra.html" data-preview="em-5-ultra">
                     <span class="subnav__name">EM-5 Ultra</span>
+                    <span class="subnav__pod">8000 W · od 1.999 €</span>
                   </a>
                 </li>
                 <li>
                   <a class="subnav__link" href="modeli.html" data-preview="svi">
                     <span class="subnav__name">Svi modeli</span>
+                    <span class="subnav__pod">Usporedba cijele serije</span>
                   </a>
                 </li>
               </ul>
@@ -102,7 +106,7 @@
                       <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                     <div class="kosi__dio kosi__dio--3">
-                      <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
+                      <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                     </div>
                   </div>
                 </div>
@@ -196,7 +200,7 @@
                         <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                       </div>
                       <div class="kosi__dio kosi__dio--3">
-                        <img src="assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="" loading="lazy" width="1200" height="900">
+                        <img src="assets/slike/em-5-pro/EM-5-PRO-ELECTRIC-DIRT-BIKE-green-color-Right-side-view-from-front-to-back.webp" alt="" loading="lazy" width="1200" height="900">
                       </div>
                     </div>
                   </div>
@@ -218,12 +222,8 @@
             <div class="field field--wide">
               <label class="kvadratic">
                 <input type="checkbox" name="proba" id="proba" value="da">
-                <span>Želim probnu vožnju prije kupnje</span>
+                <span>Zainteresiran sam za probnu vožnju</span>
               </label>
-              <p class="kvadratic__nota">
-                Motocikl se probava kod nas u Velikoj Gorici, za modele
-                koji su na zalihi. Javljamo se s terminom.
-              </p>
             </div>
           </fieldset>
 
@@ -257,13 +257,14 @@
           </fieldset>
 
           <fieldset class="form__grupa">
-            <legend class="form__legend">Poruka, nije obavezno</legend>
+            <legend class="form__legend">Poruka <span class="req" aria-hidden="true">*</span></legend>
 
             <div class="field field--wide">
               <!-- Naslov grupe vec kaze isto, pa se oznaka ne ponavlja naglas. -->
               <label class="visually-hidden" for="poruka">Poruka</label>
-              <textarea id="poruka" name="poruka"
-                        placeholder="Gdje planirate voziti, tko će voziti, imate li pitanje o dostupnosti ili preuzimanju."></textarea>
+              <textarea id="poruka" name="poruka" required
+                        placeholder="Npr. je li model na zalihi, kada bih ga mogao preuzeti i koliko košta sastavljanje."></textarea>
+              <p class="field__error" id="err-poruka">Napišite kratko što vas zanima.</p>
             </div>
           </fieldset>
 
@@ -394,26 +395,26 @@
     <div class="shell">
       <h2 id="proces-naslov" class="mb-2">Što se događa nakon slanja</h2>
 
-      <ol class="flow">
-        <li class="flow__step reveal">
-          <p class="flow__num" aria-hidden="true">01</p>
-          <h3 class="flow__title">Upit</h3>
-          <p class="flow__desc">Vaš upit stiže nam na e-mail odmah po slanju.</p>
+      <ol class="kp-put kp-put--staticno">
+        <li class="kp-korak is-on">
+          <span class="kp-korak__br">01</span>
+          <h3>Upit</h3>
+          <p>Vaš upit stiže nam na e-mail odmah po slanju.</p>
         </li>
-        <li class="flow__step reveal">
-          <p class="flow__num" aria-hidden="true">02</p>
-          <h3 class="flow__title">Ponuda</h3>
-          <p class="flow__desc">Javljamo se u roku 24 sata s cijenom i dostupnošću.</p>
+        <li class="kp-korak is-on">
+          <span class="kp-korak__br">02</span>
+          <h3>Ponuda</h3>
+          <p>Javljamo se u roku 24 sata s cijenom i dostupnošću.</p>
         </li>
-        <li class="flow__step reveal">
-          <p class="flow__num" aria-hidden="true">03</p>
-          <h3 class="flow__title">Dogovor</h3>
-          <p class="flow__desc">Dogovaramo model, boju i termin preuzimanja. Do tada niste ni na što obvezani.</p>
+        <li class="kp-korak is-on">
+          <span class="kp-korak__br">03</span>
+          <h3>Dogovor</h3>
+          <p>Dogovaramo model, boju i termin preuzimanja. Do tada niste ni na što obvezani.</p>
         </li>
-        <li class="flow__step reveal">
-          <p class="flow__num" aria-hidden="true">04</p>
-          <h3 class="flow__title">Preuzimanje</h3>
-          <p class="flow__desc">Motocikl preuzimate osobno u Velikoj Gorici i plaćate gotovinom. Dolazi u kutiji, a sastavljanje kod nas može se dogovoriti uz doplatu.</p>
+        <li class="kp-korak is-on">
+          <span class="kp-korak__br">04</span>
+          <h3>Preuzimanje</h3>
+          <p>Preuzimate osobno u Zagrebu i plaćate gotovinom. Motocikl dolazi u kutiji, a sastavljanje se dogovara uz doplatu.</p>
         </li>
       </ol>
     </div>
@@ -423,21 +424,46 @@
 
 <footer class="site-footer">
   <div class="shell">
-    <div class="footer__grid">
+
+    <!-- Gornji red: tko smo i kako nas najbrze dobiti. -->
+    <div class="footer__vrh">
       <div class="footer__brand">
         <span class="brand brand--footer">
           <span class="brand__logo" aria-hidden="true"></span>
           <span class="brand__text">Valtinsu</span>
         </span>
-        <p>Službeni zastupnik Valtinsu električnih off-road motocikala za Hrvatsku.</p>
+        <p>Službeni zastupnik Valtinsu električnih off-road motocikala za Hrvatsku. Preuzimanje, proba i jamstvo u Zagrebu.</p>
       </div>
 
+      <div class="footer__kontakt">
+        <a class="footer__veza" href="https://wa.me/385924595870" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.1-.5 3.4a11 11 0 0 0 4.6 4.6c1.9.8 2.6.7 3.4.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2Z"/></svg>
+          <span><b>+385 92 459 5870</b><i>WhatsApp, odgovaramo najbrže</i></span>
+        </a>
+        <a class="footer__veza" href="mailto:info@valtinsuhr.com">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 5h18v14H3z" stroke="currentColor" stroke-width="1.8"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.8"/></svg>
+          <span><b>info@valtinsuhr.com</b><i>Odgovor u roku 24 sata</i></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__grid">
       <div class="footer__col">
         <h3>Modeli</h3>
         <ul>
           <li><a href="modeli/em-5.html">EM-5</a></li>
           <li><a href="modeli/em-5-pro.html">EM-5 PRO</a></li>
           <li><a href="modeli/em-5-ultra.html">EM-5 Ultra</a></li>
+          <li><a href="modeli.html">Usporedba modela</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3>Kupnja</h3>
+        <ul>
+          <li><a href="kupnja.html">Kupnja i jamstvo</a></li>
+          <li><a href="kupnja.html#pitanja-naslov">Česta pitanja</a></li>
+          <li><a href="kontakt.html">Pošalji upit</a></li>
         </ul>
       </div>
 
@@ -445,22 +471,22 @@
         <h3>Tvrtka</h3>
         <ul>
           <li><a href="o-nama.html">O nama</a></li>
-          <li><a href="kupnja.html">Kupnja i jamstvo</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
+          <!-- PODSJETNIK: stranica Uvjeti i privatnost jos ne postoji. -->
         </ul>
       </div>
 
-      <div class="footer__col">
-        <h3>Kontakt</h3>
-        <ul>
-          <li><a href="mailto:info@valtinsuhr.com">info@valtinsuhr.com</a></li>
-          <li><a href="https://wa.me/385924595870" rel="noopener">WhatsApp</a></li>
-        </ul>
+      <div class="footer__col footer__col--mjesto">
+        <h3>Gdje smo</h3>
+        <p>Zagreb<br>Preuzimanje i proba po dogovoru</p>
+        <p class="footer__radno">Termin dogovaramo u odgovoru na upit.</p>
       </div>
     </div>
 
     <div class="footer__legal">
+      <!-- PODSJETNIK: naziv obrta i OIB su zakonska obveza, dodati cim stignu. -->
       <p>&copy; 2026 Valtinsu Hrvatska</p>
+      <p class="footer__sitno">Cijene su u eurima. Motocikli nisu homologirani za javne prometnice.</p>
     </div>
   </div>
 </footer>
