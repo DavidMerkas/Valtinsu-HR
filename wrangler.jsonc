@@ -1,0 +1,11 @@
+// Cloudflare: sto se objavljuje i odakle.
+// Bez ovoga naredba za pregledne grane (wrangler versions upload) ne zna
+// koju mapu objaviti i build padne. Stranica je staticna, pa se objavljuje
+// korijen repozitorija; sto ne smije biti javno, stoji u .assetsignore.
+{
+  "name": "valtinsu-hr",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "."
+  }
+}

@@ -1,0 +1,10 @@
+# Datoteke koje su u repozitoriju, ali ne smiju biti javno dostupne.
+# Bez ovoga su se README, skripte i postavke posluzivale kao dio stranice.
+.git
+.gitignore
+.assetsignore
+.claude
+wrangler.jsonc
+README.md
+scripts
+_dokumenti

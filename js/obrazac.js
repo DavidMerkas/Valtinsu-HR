@@ -79,6 +79,58 @@ window.VALTINSU_TEL = {
   /* Slanje ide kroz fetch, da kupac ostane na stranici umjesto da zavrsi
      na tudjoj stranici sa zahvalom. Ako fetch padne, obrazac se posalje
      obicnim putem, pa poruka ne propada. */
+
+  /* Potvrda preko cijelog ekrana. Sitna poruka na dnu obrasca se na
+     mobitelu lako promasi, pa kupac ne zna je li upit otisao. Ploca
+     hvata fokus, zatvara se tipkom Escape ili klikom na "Zatvori". */
+  var pokaziUspjeh = function (form) {
+    var mirno = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lista = form.classList.contains('javi');
+
+    var ploca = document.createElement('div');
+    ploca.className = 'uspjeh';
+    ploca.setAttribute('role', 'dialog');
+    ploca.setAttribute('aria-modal', 'true');
+    ploca.setAttribute('aria-label', 'Upit je poslan');
+    ploca.innerHTML =
+      '<div class="uspjeh__ploca">' +
+        '<svg class="uspjeh__znak" viewBox="0 0 64 64" aria-hidden="true">' +
+          '<circle class="uspjeh__krug" cx="32" cy="32" r="28"/>' +
+          '<path class="uspjeh__kvaka" d="M18 33.5 28 43l18-20"/>' +
+        '</svg>' +
+        '<h2>' + (lista ? 'Zabilježeno.' : 'Upit je poslan.') + '</h2>' +
+        '<p>' + (lista
+          ? 'Javimo se čim motocikli stignu.'
+          : 'Javljamo se u roku 24 sata s cijenom i dostupnošću. Provjerite i mapu neželjene pošte.') + '</p>' +
+        '<div class="uspjeh__tipke">' +
+          '<button type="button" class="btn btn--primary" data-zatvori>Zatvori</button>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(ploca);
+    document.body.style.overflow = 'hidden';
+    if (mirno) ploca.classList.add('bez-animacije');
+    /* Bez requestAnimationFrame: u tabu koji se ne crta on ne dodje na
+       red, pa bi ploca ostala nevidljiva. Reflow je dovoljan da prijelaz
+       krene od pocetnog stanja. */
+    void ploca.offsetWidth;
+    ploca.classList.add('je-vidljiva');
+
+    var gumb = ploca.querySelector('[data-zatvori]');
+    var zatvori = function () {
+      ploca.classList.remove('je-vidljiva');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', naTipku);
+      setTimeout(function () { ploca.remove(); }, mirno ? 0 : 220);
+    };
+    var naTipku = function (e) { if (e.key === 'Escape') zatvori(); };
+
+    gumb.addEventListener('click', zatvori);
+    ploca.addEventListener('click', function (e) { if (e.target === ploca) zatvori(); });
+    document.addEventListener('keydown', naTipku);
+    gumb.focus();
+  };
+
   var posalji = function (form, e) {
     var status = form.querySelector('.form__status');
 
@@ -122,9 +174,8 @@ window.VALTINSU_TEL = {
         vrati();
         if (odgovor && odgovor.success) {
           form.reset();
-          javi(form.classList.contains('javi')
-            ? 'Zabilježeno. Javimo se čim motocikli stignu.'
-            : 'Upit je poslan. Javljamo se u roku 24 sata.', true);
+          if (status) { status.textContent = ''; status.classList.remove('is-shown'); }
+          pokaziUspjeh(form);
         } else {
           javi('Slanje nije uspjelo. Pišite nam na info@valtinsuhr.com.');
         }

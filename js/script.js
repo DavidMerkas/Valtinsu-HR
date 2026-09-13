@@ -329,9 +329,15 @@
           okvirBoja.appendChild(krug);
         });
 
-        postavi(model, lista.length ? lista[0].id : null);
+        /* Boja iz poveznice (?boja=zelena) vrijedi samo za prvi crtez.
+           Kad kupac promijeni model, krece se od prve boje tog modela. */
+        postavi(model, trazenaBoja || (lista.length ? lista[0].id : null));
+        trazenaBoja = null;
         otvori();
       };
+
+      var trazenaBoja = null;
+      try { trazenaBoja = new URLSearchParams(window.location.search).get('boja'); } catch (e) { trazenaBoja = null; }
 
       form.elements.model.addEventListener('change', function () {
         nacrtaj(this.value);
@@ -371,7 +377,7 @@
       poljeTel.addEventListener('blur', slaziTel);
     }
 
-    var obavezna = ['model', 'ime', 'email', 'telefon'];
+    var obavezna = ['model', 'ime', 'email', 'telefon', 'poruka'];
 
     /* Greska nestaje cim korisnik ispravi polje - ne ceka se novo slanje.
        Padajuci izbornik javlja 'change', ne 'input', pa slusamo oboje. */
@@ -566,6 +572,16 @@
 
           kadar = -1;                    // prisili prijelaz i kad je indeks isti
           prijelaz(novi, 0);
+          upisiBojuUPoveznice(id);
+        };
+
+        /* Poveznice na upit nose i odabranu boju (?model=em-5-pro&boja=zelena),
+           pa je obrazac vec postavljen na nju. */
+        var upisiBojuUPoveznice = function (id) {
+          document.querySelectorAll('a[href*="kontakt.html?model="]').forEach(function (a) {
+            var href = a.getAttribute('href').replace(/[?&]boja=[^&#]*/, '');
+            a.setAttribute('href', href + '&boja=' + encodeURIComponent(id));
+          });
         };
 
         boje.addEventListener('click', function (e) {
@@ -689,6 +705,147 @@
         if (bioOtvoren) zatvoriPitanje(item);
         else otvoriPitanje(item);
       });
+    });
+  }
+
+  /* --- Brojke koje rastu od nule --------------------------------------
+     <b data-broji="2015">2015<i>.</i></b> - mijenja se samo prvi tekst,
+     nastavak u <i> ostaje. Bez JS-a ili uz smanjeno kretanje stoji
+     konacna brojka. */
+
+  var brojke = document.querySelectorAll('[data-broji]');
+  if (brojke.length && 'IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var broji = function (el) {
+      var cilj = +el.getAttribute('data-broji');
+      var tekst = el.firstChild;
+      var trajanje = 1400, start = null;
+      var korak = function (t) {
+        if (!start) start = t;
+        var p = Math.min((t - start) / trajanje, 1);
+        p = 1 - Math.pow(1 - p, 3);            /* usporava pred kraj */
+        tekst.nodeValue = Math.round(cilj * p);
+        if (p < 1) requestAnimationFrame(korak);
+      };
+      tekst.nodeValue = '0';
+      requestAnimationFrame(korak);
+    };
+    var ioBroj = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        broji(e.target);
+        ioBroj.unobserve(e.target);
+      });
+    }, { threshold: 0.4 });
+    brojke.forEach(function (el) { ioBroj.observe(el); });
+  }
+
+  /* --- Kartice modela: listanje slika i odabir boje --------------------
+     Podaci dolaze iz <script id="karticeSlike">. Kartica dobiva strelice,
+     brojac i kruzice za boju; bez skripte ostaje obicna slika. */
+
+  var karticePodaci = document.getElementById('karticeSlike');
+
+  if (karticePodaci) {
+    var slikePoModelu = {};
+    try { slikePoModelu = JSON.parse(karticePodaci.textContent); } catch (e) { slikePoModelu = {}; }
+
+    document.querySelectorAll('.model-cell[data-model]').forEach(function (cell) {
+      var boje = slikePoModelu[cell.getAttribute('data-model')];
+      var media = cell.querySelector('.model-cell__media');
+      var img = media && media.querySelector('img');
+      if (!boje || !boje.length || !img) return;
+
+      var bojaIdx = 0, kadar = 0;
+      var naziv = cell.getAttribute('data-model');
+      var visePodataka = boje.length > 1 || boje[0].slike.length > 1;
+      if (!visePodataka) return;
+
+      media.classList.add('kart-galerija');
+
+      var prikazi = function (novaBoja, noviKadar) {
+        bojaIdx = (novaBoja + boje.length) % boje.length;
+        var lista = boje[bojaIdx].slike;
+        kadar = (noviKadar + lista.length) % lista.length;
+
+        img.classList.add('je-mijenja');
+        var pred = new Image();
+        pred.onload = pred.onerror = function () {
+          img.src = lista[kadar];
+          img.alt = 'Valtinsu ' + naziv + ', ' + boje[bojaIdx].naziv.toLowerCase();
+          img.classList.remove('je-mijenja');
+        };
+        pred.src = lista[kadar];
+
+        brojac.textContent = (kadar + 1) + ' / ' + lista.length;
+        krugovi.forEach(function (k, i) {
+          k.setAttribute('aria-checked', String(i === bojaIdx));
+        });
+      };
+
+      /* Strelice i brojac preko slike */
+      var nav = document.createElement('div');
+      nav.className = 'kart-nav';
+      nav.innerHTML =
+        '<button type="button" class="kart-nav__tipka" aria-label="Prethodna fotografija">' +
+          '<svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="2.2"/></svg></button>' +
+        '<button type="button" class="kart-nav__tipka" aria-label="Sljedeća fotografija">' +
+          '<svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M1 1l7 7-7 7" stroke="currentColor" stroke-width="2.2"/></svg></button>';
+      media.appendChild(nav);
+
+      var brojac = document.createElement('p');
+      brojac.className = 'kart-brojac';
+      media.appendChild(brojac);
+
+      /* Kruzici za boju, iznad slike uz ostale podatke */
+      var red = document.createElement('div');
+      red.className = 'kart-boje';
+      red.setAttribute('role', 'radiogroup');
+      red.setAttribute('aria-label', 'Boja, ' + naziv);
+
+      var krugovi = boje.map(function (b, i) {
+        var krug = document.createElement('button');
+        krug.type = 'button';
+        krug.className = 'kart-boja';
+        krug.setAttribute('role', 'radio');
+        krug.setAttribute('aria-checked', String(i === 0));
+        krug.setAttribute('title', b.naziv);
+        krug.style.setProperty('--c', b.c);
+        krug.style.setProperty('--akcent', b.akcent);
+        krug.innerHTML = '<span class="visually-hidden">' + b.naziv + '</span>';
+        krug.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();          /* cijela kartica je link */
+          prikazi(i, 0);
+        });
+        red.appendChild(krug);
+        return krug;
+      });
+
+      if (boje.length > 1) {
+        var linkovi = cell.querySelector('.model-cell__links');
+        if (linkovi) linkovi.insertAdjacentElement('beforebegin', red);
+      }
+
+      var tipke = nav.querySelectorAll('.kart-nav__tipka');
+      tipke[0].addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar - 1);
+      });
+      tipke[1].addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar + 1);
+      });
+
+      /* Prst po slici na mobitelu */
+      var x0 = null;
+      media.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      media.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 45) prikazi(bojaIdx, kadar + (dx < 0 ? 1 : -1));
+        x0 = null;
+      }, { passive: true });
+
+      prikazi(0, 0);
     });
   }
 

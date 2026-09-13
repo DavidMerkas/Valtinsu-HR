@@ -19,7 +19,7 @@ window.VALTINSU_STANJE = {
 
   /* Gdje se motocikl moze probati. Prazno znaci da se mjesto nigdje
      ne spominje, nego samo da je proba moguca. */
-  probaMjesto: 'u Velikoj Gorici',
+  probaMjesto: 'u Zagrebu',
 
   /* dostupno: false -> rasprodan, upit za njega je zatvoren.
      stize:            -> model je na putu. Uz dostupno: false to znaci
@@ -100,7 +100,7 @@ window.VALTINSU_STANJE = {
       var oznaka = document.createElement('span');
       oznaka.className = 'oznaka ' + (naPutu ? 'oznaka--stize' : 'oznaka--rasprodano');
       oznaka.textContent = naPutu ? 'Stiže ' + z.stize.toLowerCase() : 'Rasprodano';
-      ime.insertAdjacentElement('afterend', oznaka);
+      ime.appendChild(oznaka);   /* uz naziv, da se slike ne spuste */
     }
 
     /* Poveznica na upit se mijenja. Ako je lista cekanja ukljucena,
@@ -152,10 +152,12 @@ window.VALTINSU_STANJE = {
           najavaModela.textContent = 'Stiže ' + zapisModela.stize.toLowerCase();
           cijena.insertAdjacentElement('beforebegin', najavaModela);
 
-          var podnaslov = cijena.querySelector('span');
+          /* Samo izravni <span>: unutar .cijena su skriveni natpisi i
+             oznaka akcije, njih se ne dira. */
+          var podnaslov = cijena.querySelector(':scope > span');
           if (podnaslov) {
             podnaslov.textContent = 'Upit možete poslati već sada. ' +
-              'Javljamo se u roku 24 sata s cijenom i točnim rokom isporuke.';
+              'Javljamo se u roku 24 sata s cijenom i točnim datumom dolaska.';
           }
         }
       }
@@ -166,8 +168,10 @@ window.VALTINSU_STANJE = {
         if (stack && !stack.parentNode.querySelector('.proba-nota')) {
           var nota = document.createElement('p');
           nota.className = 'proba-nota';
-          nota.textContent = 'Ovaj model se prije kupnje može probati' +
-            (stanje.probaMjesto ? ' ' + stanje.probaMjesto : '') + '.';
+          nota.innerHTML = '<b>Besplatna probna vožnja</b>' +
+            '<span>Isprobajte ga prije kupnje' +
+            (stanje.probaMjesto ? ' ' + stanje.probaMjesto : '') +
+            '. Označite probu u upitu.</span>';
           stack.insertAdjacentElement('afterend', nota);
         }
       }
@@ -176,8 +180,10 @@ window.VALTINSU_STANJE = {
         var naPutuModel = !!(zapisModela && zapisModela.stize);
         var cijena = document.querySelector('.product__price');
         if (cijena) {
-          var b = cijena.querySelector('b');
-          var span = cijena.querySelector('span');
+          /* Samo izravni <b>: cijena (.cijena__nova) ostaje vidljiva i
+             kad model jos nije na zalihi. */
+          var b = cijena.querySelector(':scope > b');
+          var span = cijena.querySelector(':scope > span');
           if (b) b.textContent = naPutuModel ? 'Još nije na zalihi' : 'Trenutno rasprodano';
           /* Datum ne ide i ovdje: stoji odmah ispod, na mjestu gumba. */
           if (span) span.textContent = stanje.poruka;
@@ -191,7 +197,7 @@ window.VALTINSU_STANJE = {
           if (listaRadi()) {
             zamjena = document.createElement('button');
             zamjena.type = 'button';
-            zamjena.className = 'btn btn--primary js-javi';
+            zamjena.className = 'btn btn--primary btn--upit js-javi';
             zamjena.textContent = 'Obavijesti me';
           } else {
             zamjena = document.createElement('p');
@@ -235,17 +241,6 @@ window.VALTINSU_STANJE = {
         'Za sva ostala pitanja odgovaramo u roku 24 sata.';
     }
 
-    var bok = document.querySelector('.upit__bok .stack');
-    if (bok && Object.keys(stanje.modeli).some(function (m) { return !jeDostupan(m); })) {
-      var bokNota = document.createElement('p');
-      bokNota.className = 'bok__tekst mt-1';
-      var ima = Object.keys(stanje.modeli).filter(jeDostupan);
-      bokNota.textContent = (ima.length
-        ? 'Trenutno je dostupan samo ' + ima.join(', ') + '.'
-        : 'Svi modeli su trenutno rasprodani.') +
-        (stanje.upitOd ? ' Javljamo se od ' + stanje.upitOd : '');
-      bok.insertAdjacentElement('afterend', bokNota);
-    }
 
     if (ugaseno.length) {
       var nota = document.createElement('p');
@@ -257,6 +252,27 @@ window.VALTINSU_STANJE = {
       if (greska) greska.insertAdjacentElement('afterend', nota);
     }
   }
+
+  /* --- 4. Probna voznja u obrascu --------------------------------------
+     Kvacicu se moze oznaciti samo za model koji se stvarno moze probati.
+     Za ostale je ugasena i odznacena, pa kupac ne trazi nesto sto ne
+     postoji, a mi ne dobivamo upit koji moramo ispravljati. */
+
+  var poljeModel = document.getElementById('model');
+  var poljeProba = document.getElementById('proba');
+
+  if (poljeModel && poljeProba) {
+    var osvjeziProbu = function () {
+      var z = zapis(poljeModel.value);
+      var moze = !!(z && z.proba && jeDostupan(poljeModel.value));
+      poljeProba.disabled = !moze;
+      if (!moze) poljeProba.checked = false;
+      poljeProba.setAttribute('aria-disabled', String(!moze));
+    };
+    poljeModel.addEventListener('change', osvjeziProbu);
+    osvjeziProbu();
+  }
+
 })();
 
 /* ==========================================================================
@@ -500,4 +516,6 @@ window.VALTINSU_STANJE = {
     e.preventDefault();
     otvori(modelZa(gumb), true);
   });
+
+
 })();
