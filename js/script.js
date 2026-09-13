@@ -656,13 +656,16 @@
   /* Bez skripte <details> i dalje radi, samo se moze otvoriti vise njih
      odjednom i nema animacije. Ovo je nadogradnja, ne uvjet. */
 
-  var faqOkvir = document.querySelector('.faq');
+  /* Na Kupnji su pitanja podijeljena u vise grupa, svaka sa svojim .faq.
+     Oznaka mora ici na sve, inace pitanja iz druge i trece grupe nemaju
+     animaciju i nestaju odjednom kad se otvori neko drugo pitanje. */
+  var faqOkviri = document.querySelectorAll('.faq');
   var pitanja = document.querySelectorAll('.faq__item');
 
-  if (pitanja.length && faqOkvir) {
+  if (pitanja.length && faqOkviri.length) {
     /* Oznaka da je skripta preuzela otvaranje. Bez nje CSS otvara odgovor
        preko [open] i onda animacije nema, ali stranica radi. */
-    faqOkvir.classList.add('js-faq');
+    faqOkviri.forEach(function (okvir) { okvir.classList.add('js-faq'); });
 
     /* Atribut open pokazuje ili skriva sadrzaj odmah, pa se ne moze
        animirati sam. Zato open ide prije animacije, a skida se tek kad
