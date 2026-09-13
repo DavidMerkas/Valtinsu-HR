@@ -4197,3 +4197,11 @@ button.link-arrow::after {
 /* Poveznice u uvodu pitanja na pocetnoj (upit, WhatsApp). */
 .faq-uvod .lead a { font-weight: 700; color: var(--ink); text-decoration: underline 2px var(--orange); text-underline-offset: 4px; }
 .faq-uvod .lead a:hover { color: var(--orange); }
+
+/* Ultra ima najvecu ustedu, pa je ta oznaka puna narancasta umjesto blijede.
+   Bez dodatnog teksta, samo jaci naglasak na brojci. */
+.kart-akcija--jako {
+  background: var(--orange);
+  box-shadow: none;
+  color: var(--paper);
+}
