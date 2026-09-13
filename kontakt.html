@@ -149,6 +149,16 @@
       <div>
         <h2 id="upit-naslov" class="mb-2">Upit</h2>
 
+        <!-- Vecina pitanja iz upita vec ima odgovor na Kupnji. Okvir stoji
+             prije obrasca da ga kupac vidi prije nego pocne pisati. -->
+        <a class="prije-upita" href="kupnja.html">
+          <span class="prije-upita__tekst">
+            <b>Prije upita pogledajte Kupnju i jamstvo</b>
+            <span>Tamo su odgovori na većinu pitanja: plaćanje, preuzimanje, dostava, jamstvo i probna vožnja.</span>
+          </span>
+          <span class="prije-upita__strelica" aria-hidden="true">→</span>
+        </a>
+
         <!--
           VAZNO prije objave: atribut action mora pokazivati na servis koji
           stvarno salje mail. Staticni site nema backend, pa se koristi
@@ -294,10 +304,7 @@
           Prazan "boje" znaci da model jos nema potvrdene boje. Tada se
           prikazuje slika iz "cekamo", a ako ni nje nema, sivi placeholder.
 
-          PRIVREMENO: EM-5 Ultra pokazuje sliku za sprdnju dok ne stignu
-          prave fotografije. Provjera javlja upozorenje dok je tu, da ne
-          ode na server. Kad fotografije dodju: popuni "boje", makni
-          "cekamo" i obrisi datoteku PRIVREMENO-sprdnja.png.
+          EM-5 Ultra dolazi samo u crnoj boji.
         -->
         <script type="application/json" id="varijante">
         {
@@ -322,10 +329,11 @@
             ]
           },
           "EM-5 Ultra": {
-            "boje": [],
-            "cekamo": "assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp",
-            "cekamoAlt": "Valtinsu EM-5 Ultra u crnoj boji, bočni pogled s lijeve strane",
-            "nota": "Boje za ovaj model potvrđujemo u odgovoru na upit."
+            "boje": [
+              { "id": "crna", "naziv": "Crna, karbonski uzorak",
+                "c": "#181818", "akcent": "#4c4c4c",
+                "foto": "assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" }
+            ]
           },
           "Nisam siguran, trebam preporuku": {
             "boje": [],
@@ -352,7 +360,8 @@
 
         <p class="product__label">Radije bez obrasca</p>
         <p class="bok__tekst">
-          Pišite na WhatsApp, tamo odgovaramo najbrže.
+          Pišite na WhatsApp, tamo odgovaramo najbrže. Prije toga provjerite
+          <a href="kupnja.html">Kupnju i jamstvo</a>, možda je odgovor već tamo.
         </p>
 
         <div class="stack mt-1">
