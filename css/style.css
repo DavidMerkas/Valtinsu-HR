@@ -4193,3 +4193,7 @@ button.link-arrow::after {
   color: var(--grey-45);
   line-height: 1.35;
 }
+
+/* Poveznice u uvodu pitanja na pocetnoj (upit, WhatsApp). */
+.faq-uvod .lead a { font-weight: 700; color: var(--ink); text-decoration: underline 2px var(--orange); text-underline-offset: 4px; }
+.faq-uvod .lead a:hover { color: var(--orange); }
