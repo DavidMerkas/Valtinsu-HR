@@ -128,17 +128,22 @@
 
 <main id="main">
 
-  <!-- Hero kao na O nama i Kupnji: sumska staza, velik naziv modela. -->
-  <section class="on-hero on-hero--model">
-    <div class="shell">
-      <ol class="crumbs">
-        <li><a href="../index.html">Početna</a></li>
-        <li><a href="../modeli.html">Modeli</a></li>
-        <li><span aria-current="page">EM-5</span></li>
-      </ol>
-      <p class="on-label">Električni off-road motocikl</p>
-      <h1>EM-5</h1>
-      <p class="on-hero__lead">Najlakši model i najniže sjedalo u seriji. Dobar izbor ako tek počinjete voziti teren.</p>
+  <!-- Hero "Studio": svijetlo siva ploha, naziv lijevo, motor desno.
+       Obris naziva iza motora je cisti ukras (CSS, iz data-znak). -->
+  <section class="mh mh--dugo">
+    <div class="shell mh__in">
+      <div class="mh__tekst">
+        <a class="mh__natrag" href="../modeli.html">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M16 6H2M7 1 2 6l5 5" stroke="currentColor" stroke-width="2.2"/></svg>
+          Svi modeli
+        </a>
+        <p class="on-label">Električni off-road motocikl</p>
+        <h1>EM-5</h1>
+        <p class="mh__lead">Najlakši model i najniže sjedalo u seriji. Dobar izbor ako tek počinjete voziti teren.</p>
+      </div>
+      <div class="mh__slika" data-znak="EM-5">
+        <img src="../assets/slike/em-5/EM-5-Electric-dirt-bike-black-color-right-side-view.webp" alt="Valtinsu EM-5 u crnoj boji, bočni pogled" width="1200" height="900" fetchpriority="high">
+      </div>
     </div>
   </section>
 
@@ -232,6 +237,18 @@
           ]
         }
         </script>
+        <div class="prose product__zakoga">
+        <h2>Za koga je</h2>
+        <p>
+          EM-5 je polazna točka serije. Namijenjen je vožnji po makadamu,
+          šumskim putevima i zemljanim stazama, dakle terenu, a ne cesti.
+        </p>
+        <p>
+          Električni pogon daje puni okretni moment od starta, bez kvačila i
+          bez mijenjanja brzina. Za vozača to znači da uči samo gas i
+          kočnice.
+        </p>
+        </div>
       </div>
 
       <div class="product__info">
@@ -290,11 +307,11 @@
 
   <!-- ===================== SPECIFIKACIJE ===================== -->
   <section class="section" aria-labelledby="spec-naslov">
-    <div class="shell split">
+    <div class="shell">
 
       <div class="reveal">
         <h2 id="spec-naslov">Specifikacije</h2>
-        <table class="spec-table mt-2">
+        <table class="spec-table spec-table--dvije mt-2">
           <tbody>
             <tr><th scope="row">Vršna snaga motora</th><td>2500 W</td></tr>
             <tr><th scope="row">Napon sustava</th><td>48 V</td></tr>
@@ -314,34 +331,19 @@
           </tbody>
         </table>
 
-        <p class="notice">
-          <strong>Samo privatne površine i off-road.</strong>
-          Ovaj model nije homologiran za javne prometnice. Namijenjen je
-          vožnji na privatnom zemljištu, poligonima i terenu uz dopuštenje
-          vlasnika.
-        </p>
-
-        <p class="note mt-1">
-          Podaci iz dokumentacije proizvođača. Domet je izmjeren s
-          vozačem od 70 kg, na 25 °C i pri stalnoj brzini. Na terenu, uzbrdo
-          ili s težim vozačem bit će manji.
-        </p>
-      </div>
-
-      <div class="reveal">
-        <div class="prose">
-          <h2>Za koga je</h2>
-          <p>
-            EM-5 je polazna točka serije. Namijenjen je vožnji po makadamu,
-            šumskim putevima i zemljanim stazama, dakle terenu, a ne cesti.
+        <div class="spec-napomene">
+          <p class="notice">
+            <strong>Samo privatne površine i off-road.</strong>
+            Ovaj model nije homologiran za javne prometnice. Namijenjen je
+            vožnji na privatnom zemljištu, poligonima i terenu uz dopuštenje
+            vlasnika.
           </p>
-          <p>
-            Električni pogon daje puni okretni moment od starta, bez kvačila i
-            bez mijenjanja brzina. Za vozača to znači da uči samo gas i
-            kočnice.
+          <p class="note">
+            Podaci iz dokumentacije proizvođača. Domet je izmjeren s
+            vozačem od 70 kg, na 25 °C i pri stalnoj brzini. Na terenu, uzbrdo
+            ili s težim vozačem bit će manji.
           </p>
         </div>
-
       </div>
 
     </div>

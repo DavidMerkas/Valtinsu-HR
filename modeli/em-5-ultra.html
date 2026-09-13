@@ -128,17 +128,22 @@
 
 <main id="main">
 
-  <!-- Hero kao na O nama i Kupnji: sumska staza, velik naziv modela. -->
-  <section class="on-hero on-hero--model">
-    <div class="shell">
-      <ol class="crumbs">
-        <li><a href="../index.html">Početna</a></li>
-        <li><a href="../modeli.html">Modeli</a></li>
-        <li><span aria-current="page">EM-5 Ultra</span></li>
-      </ol>
-      <p class="on-label">Električni off-road motocikl</p>
-      <h1>EM-5 <span>Ultra</span></h1>
-      <p class="on-hero__lead">Najviše snage i najveći domet u cijeloj seriji. Za vozače koji na terenu već imaju iskustva.</p>
+  <!-- Hero "Studio": svijetlo siva ploha, naziv lijevo, motor desno.
+       Obris naziva iza motora je cisti ukras (CSS, iz data-znak). -->
+  <section class="mh mh--dugo">
+    <div class="shell mh__in">
+      <div class="mh__tekst">
+        <a class="mh__natrag" href="../modeli.html">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M16 6H2M7 1 2 6l5 5" stroke="currentColor" stroke-width="2.2"/></svg>
+          Svi modeli
+        </a>
+        <p class="on-label">Električni off-road motocikl</p>
+        <h1>EM-5 <span>Ultra</span></h1>
+        <p class="mh__lead">Najviše snage i najveći domet u cijeloj seriji. Za vozače koji na terenu već imaju iskustva.</p>
+      </div>
+      <div class="mh__slika" data-znak="ULTRA">
+        <img src="../assets/slike/em-5-ultra/EM-5-ULTRA-ELECTRIC-DIRT-BIKE-left-side-view.webp" alt="Valtinsu EM-5 Ultra u crnoj boji, bočni pogled" width="1200" height="900" fetchpriority="high">
+      </div>
     </div>
   </section>
 
@@ -195,6 +200,17 @@
           ]
         }
         </script>
+        <div class="prose product__zakoga">
+        <h2>Za koga je</h2>
+        <p>
+          Ultra je najjači model u ponudi. Za vozače koji već imaju
+          iskustva na terenu i žele najviše snage i najveći domet.
+        </p>
+        <p>
+          Okvir, ovjes i geometrija isti su kao kod EM-5 i EM-5 PRO, pa su
+          i dijelovi i održavanje isti.
+        </p>
+        </div>
       </div>
 
       <div class="product__info">
@@ -247,11 +263,11 @@
 
   <!-- ===================== SPECIFIKACIJE ===================== -->
   <section class="section" aria-labelledby="spec-naslov">
-    <div class="shell split">
+    <div class="shell">
 
       <div class="reveal">
         <h2 id="spec-naslov">Specifikacije</h2>
-        <table class="spec-table mt-2">
+        <table class="spec-table spec-table--dvije mt-2">
           <tbody>
             <tr><th scope="row">Vršna snaga motora</th><td>8000 W</td></tr>
             <tr><th scope="row">Napon sustava</th><td>72 V</td></tr>
@@ -271,31 +287,17 @@
           </tbody>
         </table>
 
-        <p class="notice">
-          <strong>Samo privatne površine i off-road.</strong>
-          Ovaj model nije homologiran za javne prometnice. Namijenjen je
-          vožnji na privatnom zemljištu, poligonima i terenu uz dopuštenje
-          vlasnika.
-        </p>
-
-        <p class="note mt-1">
-          Podaci iz dokumentacije proizvođača. Domet je izmjeren s
-          vozačem od 70 kg, na 25 °C i pri stalnoj brzini. Na terenu, uzbrdo
-          ili s težim vozačem bit će manji.
-        </p>
-      </div>
-
-      <div class="reveal">
-        <div class="prose">
-          <h2>Za koga je</h2>
-          <p>
-            Ultra je najjača konfiguracija serije. Namijenjena je vozačima
-            koji već znaju što traže: najviše okretnog momenta i najduži
-            domet koji platforma nudi.
+        <div class="spec-napomene">
+          <p class="notice">
+            <strong>Samo privatne površine i off-road.</strong>
+            Ovaj model nije homologiran za javne prometnice. Namijenjen je
+            vožnji na privatnom zemljištu, poligonima i terenu uz dopuštenje
+            vlasnika.
           </p>
-          <p>
-            Okvir, ovjes i geometrija isti su kao na ostatku serije, pa se
-            dijelovi i održavanje ne razlikuju.
+          <p class="note">
+            Podaci iz dokumentacije proizvođača. Domet je izmjeren s
+            vozačem od 70 kg, na 25 °C i pri stalnoj brzini. Na terenu, uzbrdo
+            ili s težim vozačem bit će manji.
           </p>
         </div>
       </div>

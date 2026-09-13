@@ -3686,3 +3686,202 @@ button.link-arrow::after {
   .on-hero--model:not(.on-hero--modeli) .shell { display: block; }
   .on-hero--model:not(.on-hero--modeli) .on-hero__lead { margin-top: 1rem; justify-self: auto; }
 }
+
+/* --- Stranica modela: hero "Studio" -----------------------------------------
+   Tamna ploha kao na stranici Modeli, naziv lijevo, motor desno. Motori su
+   na svijetloj kosoj plohi desno. Obris naziva (data-znak) je samo ukras. */
+.mh {
+  position: relative;
+  padding-top: var(--header-h);
+  overflow: hidden;
+  color: var(--paper);
+  background:
+    linear-gradient(180deg, #0c0c0c 0%, #161616 100%);
+}
+.mh__in {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding-block: 1.75rem 0;
+}
+.mh__tekst { display: grid; justify-items: start; align-content: center; }
+.mh__natrag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1.75rem;
+  padding: .45rem .8rem .45rem .65rem;
+  border: 2px solid rgba(255,255,255,.85);
+  font-size: .875rem;
+  font-weight: 700;
+  transition: background var(--fast), color var(--fast), border-color var(--fast);
+}
+.mh__natrag svg { transition: transform var(--fast); }
+.mh__natrag:hover { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+.mh__natrag:hover svg { transform: translateX(-3px); }
+.mh .on-label { margin-bottom: .6rem; }
+.mh h1 {
+  font-size: clamp(3.25rem, 1.6rem + 6.5vw, 7.5rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: .88;
+  text-transform: uppercase;
+}
+.mh h1 span { color: var(--orange); }
+.mh__lead {
+  margin-top: 1.25rem;
+  max-width: 44ch;
+  font-size: var(--t-lead);
+  line-height: 1.55;
+  color: #c8c8c8;
+}
+
+/* Motor stoji na svijetloj kosoj plohi koja ide do desnog ruba ekrana.
+   Snimke su na bijeloj podlozi; multiply ih stapa sa sivom plohom, pa nema
+   rezanja ni bijelih rubova. Motor mora ostati unutar plohe. */
+.mh__slika {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem 0 0 8%;
+}
+.mh__slika::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  right: -50vw;
+  background: #ededed;
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 0;
+}
+.mh__slika::before {
+  content: attr(data-znak);
+  position: absolute;
+  right: -.5rem;
+  top: 1.25rem;
+  z-index: 1;
+  white-space: nowrap;
+  font-size: clamp(6rem, 2rem + 13vw, 15rem);
+  font-weight: 800;
+  letter-spacing: -.06em;
+  line-height: .8;
+  color: transparent;
+  -webkit-text-stroke: 2.5px #b4b4b4;
+  pointer-events: none;
+}
+.mh--dugo .mh__slika::before { font-size: clamp(4.5rem, 2rem + 9vw, 11rem); }
+.mh__slika img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 38rem;
+  margin: 0 0 -.5rem auto;
+  mix-blend-mode: multiply;
+  filter: brightness(1.02);
+}
+@media (min-width: 900px) {
+  .mh__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 0; padding-top: 0; }
+  .mh__tekst { padding-block: 2rem 3.5rem; }
+}
+
+/* Proizvod odmah ispod heroja, bez velike bijele praznine. */
+.mh + .section--product { padding-top: clamp(2rem, 4vw, 3.5rem); }
+/* Na mobitelu galerija s istom slikom stoji odmah ispod, pa bi se motor
+   ponovio dvaput zaredom. Hero tamo ostaje samo s tekstom. */
+@media (max-width: 899px) {
+  .mh__slika { display: none; }
+  .mh__in { padding-bottom: 2.25rem; }
+}
+
+/* --- Tablice specifikacija (stranica modela i usporedba) --------------------
+   Umjesto sivih sitnih natpisa i tankih crta: debela crna crta gore, redovi
+   na izmjenicnoj sivoj podlozi, natpis tamnosiv i citljiv, vrijednost crna. */
+.spec-table,
+.compare { border-top: 3px solid var(--ink); }
+.spec-table tbody tr:nth-child(odd),
+.compare tbody tr:nth-child(odd) { background: var(--grey-05); }
+.spec-table th,
+.spec-table td,
+.compare tbody th,
+.compare tbody td {
+  padding: .95rem 1.1rem;
+  border-bottom: 0;
+  vertical-align: middle;
+}
+.spec-table th,
+.compare tbody th {
+  font-size: .9375rem;
+  font-weight: 600;
+  color: var(--grey-70);
+}
+.spec-table td,
+.compare tbody td {
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.spec-table tbody tr:last-child th,
+.spec-table tbody tr:last-child td,
+.compare tbody tr:last-child th,
+.compare tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+
+/* Usporedba: nazivi modela u zaglavlju s narancastom crtom */
+.compare { border-top: 0; }
+.compare thead th {
+  padding: 0 1.1rem .9rem;
+  font-size: var(--t-h3);
+  font-weight: 800;
+  border-bottom: 3px solid var(--ink);
+}
+.compare thead th:not(:first-child) { box-shadow: inset 0 -3px 0 var(--orange); }
+
+/* Napomena ispod tablice */
+.spec-table + .notice,
+.spec-table ~ .note,
+.compare-scroll ~ .note { color: var(--grey-70); }
+
+/* Naslov tablice iste velicine kao "Za koga je" do nje. */
+#spec-naslov { font-size: var(--t-h2); }
+
+/* --- Stranica modela: raspored ----------------------------------------------
+   "Za koga je" je u lijevom stupcu ispod galerije, da ispod slike ne ostane
+   prazno dok desni stupac s cijenom ide dolje. Specifikacije su preko cijele
+   sirine, redovi u dva stupca, napomene jedna do druge. */
+.product__zakoga { margin-top: clamp(2rem, 4vw, 3rem); }
+.product__zakoga h2 { margin-top: 0; }
+
+@media (min-width: 900px) {
+  .spec-table--dvije,
+  .spec-table--dvije tbody { display: block; }
+  .spec-table--dvije tbody {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(8, auto);
+    grid-auto-flow: column;       /* lijevi stupac odozgo, pa desni */
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+  }
+  .spec-table--dvije tr { display: grid; grid-template-columns: 48% 1fr; align-items: center; }
+  .spec-table--dvije th { width: auto; }
+  .spec-table--dvije tbody tr:last-child th,
+  .spec-table--dvije tbody tr:last-child td { border-bottom: 0; }
+}
+
+.spec-napomene { display: grid; gap: 1rem; margin-top: 1.75rem; }
+.spec-napomene .notice { margin-top: 0; }
+.spec-napomene .note { max-width: none; color: var(--grey-70); align-self: center; }
+@media (min-width: 900px) {
+  .spec-napomene { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2.5rem; }
+}
+/* Na mobitelu i tabletu "Za koga je" ide ispod cijene i gumba za upit,
+   da ne gura upit prema dolje. */
+@media (max-width: 999px) {
+  .product__media { display: contents; }
+  .product__media > .viewer { order: 0; }
+  .product__info { order: 1; }
+  .product__zakoga { order: 2; margin-top: 0; }
+}
