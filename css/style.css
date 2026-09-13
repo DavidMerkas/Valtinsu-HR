@@ -3885,3 +3885,38 @@ button.link-arrow::after {
   .product__info { order: 1; }
   .product__zakoga { order: 2; margin-top: 0; }
 }
+
+/* --- Obrazac: tanji okviri ---------------------------------------------------
+   Debeli crni okviri od 2 px bili su preteski. Sad 1 px sive crte, tamnija na
+   hover, a na fokusu narancasti okvir koji se crta sjenom (bez skakanja).
+   Polje s +385 imalo je dvostruki okvir: unutarnje polje sad nema svoj. */
+.field input:not([type="checkbox"]):not([type="radio"]),
+.field select,
+.field textarea,
+.tel-polje {
+  border: 1px solid #c4c4c4;
+  box-shadow: none;
+  transition: border-color var(--fast), box-shadow var(--fast);
+}
+.field input:not([type="checkbox"]):not([type="radio"]):hover,
+.field select:hover,
+.field textarea:hover,
+.tel-polje:hover { border-color: var(--grey-45); }
+.field input:not([type="checkbox"]):not([type="radio"]):focus,
+.field select:focus,
+.field textarea:focus,
+.tel-polje:focus-within {
+  border-color: var(--orange);
+  box-shadow: inset 0 0 0 1px var(--orange);
+  outline: none;
+}
+.field .tel-polje input:not([type="checkbox"]):not([type="radio"]),
+.field .tel-polje input:not([type="checkbox"]):not([type="radio"]):focus,
+.field .tel-polje input:not([type="checkbox"]):not([type="radio"]):hover {
+  border: 0;
+  box-shadow: none;
+}
+.tel-polje__pozivni { border-right: 1px solid #c4c4c4; }
+.tel-polje:focus-within .tel-polje__pozivni { border-right-color: var(--orange); }
+.field [aria-invalid="true"]:not(.tel-polje input),
+.tel-polje:has(input[aria-invalid="true"]) { border-color: #c62828; }
