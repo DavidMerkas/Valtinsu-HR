@@ -28,7 +28,7 @@ window.VALTINSU_STANJE = {
      proba: true       -> moze se probati uzivo prije kupnje. */
   modeli: {
     'EM-5':       { dostupno: false, stize: 'Krajem rujna' },
-    'EM-5 PRO':   { dostupno: true, proba: true, boje: { crna: true, zelena: true } },
+    'EM-5 PRO':   { dostupno: true, proba: true, boje: { crna: true, zelena: false } },
     'EM-5 Ultra': { dostupno: true, proba: true }
   },
 

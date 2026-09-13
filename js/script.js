@@ -242,13 +242,26 @@
         el.classList.add('je-nova');
       };
 
+      /* Boja koja je rasprodana (dostupnost.js, boje: { zelena: false }).
+         Stanje se cita tek kad zatreba, jer se dostupnost.js ucitava nakon
+         ove skripte. */
+      var rasprodana = function (model, id) {
+        var s = window.VALTINSU_STANJE;
+        var z = s && s.modeli && s.modeli[model];
+        return !!(z && z.boje && z.boje[id] === false);
+      };
+
       var postavi = function (model, boja) {
         var zapis = varijante[model] || {};
         var lista = zapis.boje || [];
         var odabrana = null;
 
         for (var i = 0; i < lista.length; i++) {
-          if (lista[i].id === boja) odabrana = lista[i];
+          if (lista[i].id === boja && !rasprodana(model, boja)) odabrana = lista[i];
+        }
+        /* Inace prva boja koja nije rasprodana. */
+        for (var j = 0; !odabrana && j < lista.length; j++) {
+          if (!rasprodana(model, lista[j].id)) odabrana = lista[j];
         }
         if (!odabrana) odabrana = lista[0] || null;
 
@@ -325,7 +338,16 @@
           krug.style.setProperty('--c', b.c);
           krug.style.setProperty('--akcent', b.akcent);
           krug.innerHTML = '<span class="visually-hidden">' + b.naziv + '</span>';
-          krug.addEventListener('click', function () { postavi(model, b.id); });
+          if (rasprodana(model, b.id)) {
+            krug.classList.add('je-rasprodano');
+            krug.setAttribute('aria-disabled', 'true');
+            krug.setAttribute('title', b.naziv + ' (rasprodano)');
+            krug.querySelector('.visually-hidden').textContent = b.naziv + ', rasprodano';
+          }
+          krug.addEventListener('click', function () {
+            if (rasprodana(model, b.id)) return;
+            postavi(model, b.id);
+          });
           okvirBoja.appendChild(krug);
         });
 
@@ -346,10 +368,16 @@
       /* Prvi crtez ide bez animacije. Ako model stigne iz poveznice, ploca
          je otvorena vec pri ucitavanju i nema se sto otvarati pred ocima. */
       omot.classList.add('bez-animacije');
-      nacrtaj(form.elements.model.value);
-      requestAnimationFrame(function () {
-        omot.classList.remove('bez-animacije');
-      });
+      /* Tek kad je ucitan i dostupnost.js, da se rasprodane boje odmah
+         vide prekrizene. */
+      var prviCrtez = function () {
+        nacrtaj(form.elements.model.value);
+        requestAnimationFrame(function () {
+          omot.classList.remove('bez-animacije');
+        });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', prviCrtez);
+      else prviCrtez();
     }
 
     /* Provjera jednog polja. Vraca true ako je ispravno. */
@@ -810,6 +838,7 @@
         var krug = document.createElement('button');
         krug.type = 'button';
         krug.className = 'kart-boja';
+        krug.setAttribute('data-boja', b.id);
         krug.setAttribute('role', 'radio');
         krug.setAttribute('aria-checked', String(i === 0));
         krug.setAttribute('title', b.naziv);
@@ -824,6 +853,22 @@
         red.appendChild(krug);
         return krug;
       });
+
+      /* Rasprodana boja ostaje u kartici (slike se mogu gledati), ali je
+         prekrizena. Stanje stize iz dostupnost.js, pa se oznacava nakon
+         ucitavanja. */
+      var oznaciRasprodane = function () {
+        var s = window.VALTINSU_STANJE;
+        var z = s && s.modeli && s.modeli[naziv];
+        if (!z || !z.boje) return;
+        krugovi.forEach(function (krug) {
+          if (z.boje[krug.getAttribute('data-boja')] !== false) return;
+          krug.classList.add('je-rasprodano');
+          krug.setAttribute('title', krug.getAttribute('title') + ' (rasprodano)');
+        });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', oznaciRasprodane);
+      else oznaciRasprodane();
 
       if (boje.length > 1) {
         var linkovi = cell.querySelector('.model-cell__links');

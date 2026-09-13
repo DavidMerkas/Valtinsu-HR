@@ -4240,3 +4240,14 @@ button.link-arrow::after {
 .on-cta__prije:hover { color: var(--orange); }
 .on-cta__prije:hover span { transform: translateX(3px); }
 @media (min-width: 900px) { .on-cta__prije { justify-self: end; margin-top: -1rem; } }
+
+/* Rasprodana boja na karticama modela: posivljena i prekrizena. */
+.kart-boja.je-rasprodano { opacity: .5; }
+.kart-boja.je-rasprodano::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2.4rem; height: 1.5px;
+  background: var(--ink);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
