@@ -152,7 +152,9 @@ window.VALTINSU_STANJE = {
           najavaModela.textContent = 'Stiže ' + zapisModela.stize.toLowerCase();
           cijena.insertAdjacentElement('beforebegin', najavaModela);
 
-          var podnaslov = cijena.querySelector('span');
+          /* Samo izravni <span>: unutar .cijena su skriveni natpisi i
+             oznaka akcije, njih se ne dira. */
+          var podnaslov = cijena.querySelector(':scope > span');
           if (podnaslov) {
             podnaslov.textContent = 'Upit možete poslati već sada. ' +
               'Javljamo se u roku 24 sata s cijenom i točnim datumom dolaska.';
@@ -195,7 +197,7 @@ window.VALTINSU_STANJE = {
           if (listaRadi()) {
             zamjena = document.createElement('button');
             zamjena.type = 'button';
-            zamjena.className = 'btn btn--primary js-javi';
+            zamjena.className = 'btn btn--primary btn--upit js-javi';
             zamjena.textContent = 'Obavijesti me';
           } else {
             zamjena = document.createElement('p');
