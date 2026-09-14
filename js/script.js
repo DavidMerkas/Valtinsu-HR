@@ -794,19 +794,37 @@
 
       media.classList.add('kart-galerija');
 
-      var prikazi = function (novaBoja, noviKadar) {
+      /* Isti prijelaz kao galerija na stranici modela: preko nove slike
+         privremeno stoji kopija stare i brise se u smjeru listanja
+         (clip-path). Kod promjene boje kopija se samo utopi. */
+      var prvi = true;
+      var prikazi = function (novaBoja, noviKadar, smjer) {
         bojaIdx = (novaBoja + boje.length) % boje.length;
         var lista = boje[bojaIdx].slike;
         kadar = (noviKadar + lista.length) % lista.length;
+        var put = lista[kadar];
+        var bezAnimacije = prvi || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        prvi = false;
 
-        img.classList.add('je-mijenja');
         var pred = new Image();
         pred.onload = pred.onerror = function () {
-          img.src = lista[kadar];
+          if (!bezAnimacije && img.getAttribute('src') !== put) {
+            media.querySelectorAll('.kart-stari').forEach(function (s) { s.remove(); });
+            var stari = img.cloneNode();
+            stari.className = 'kart-stari';
+            stari.removeAttribute('loading');
+            stari.setAttribute('alt', '');
+            stari.setAttribute('aria-hidden', 'true');
+            media.setAttribute('data-smjer', smjer === 0 ? 'boja' : (smjer === -1 ? 'natrag' : 'naprijed'));
+            img.insertAdjacentElement('afterend', stari);
+            void stari.offsetWidth;
+            stari.classList.add('je-odlazi');
+            setTimeout(function () { stari.remove(); }, 320);
+          }
+          img.src = put;
           img.alt = 'Valtinsu ' + naziv + ', ' + boje[bojaIdx].naziv.toLowerCase();
-          img.classList.remove('je-mijenja');
         };
-        pred.src = lista[kadar];
+        pred.src = put;
 
         brojac.textContent = (kadar + 1) + ' / ' + lista.length;
         krugovi.forEach(function (k, i) {
@@ -848,7 +866,7 @@
         krug.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();          /* cijela kartica je link */
-          prikazi(i, 0);
+          prikazi(i, 0, 0);
         });
         red.appendChild(krug);
         return krug;
@@ -877,10 +895,10 @@
 
       var tipke = nav.querySelectorAll('.kart-nav__tipka');
       tipke[0].addEventListener('click', function (e) {
-        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar - 1);
+        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar - 1, -1);
       });
       tipke[1].addEventListener('click', function (e) {
-        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar + 1);
+        e.preventDefault(); e.stopPropagation(); prikazi(bojaIdx, kadar + 1, 1);
       });
 
       /* Prst po slici na mobitelu */
@@ -889,11 +907,11 @@
       media.addEventListener('touchend', function (e) {
         if (x0 === null) return;
         var dx = e.changedTouches[0].clientX - x0;
-        if (Math.abs(dx) > 45) prikazi(bojaIdx, kadar + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 45) prikazi(bojaIdx, kadar + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
         x0 = null;
       }, { passive: true });
 
-      prikazi(0, 0);
+      prikazi(0, 0, 0);
     });
   }
 

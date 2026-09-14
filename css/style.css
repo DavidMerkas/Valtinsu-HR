@@ -3167,8 +3167,21 @@ button.link-arrow::after {
    Strelice se pojave na hover, a na dodirnom uredaju stoje stalno, jer
    ondje hovera nema. Brojac je uvijek vidljiv, da se zna da ima jos. */
 .kart-galerija { position: relative; }
-.kart-galerija img { transition: opacity .22s var(--ease); }
-.kart-galerija img.je-mijenja { opacity: 0; }
+/* Kopija stare slike preko nove; brise se kao na stranici modela. */
+.kart-galerija .kart-stari {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path .26s cubic-bezier(.4, 0, .2, 1), opacity .22s var(--ease);
+}
+.kart-galerija .kart-stari.je-odlazi { clip-path: inset(0 100% 0 0); }
+.kart-galerija[data-smjer="natrag"] .kart-stari.je-odlazi { clip-path: inset(0 0 0 100%); }
+.kart-galerija[data-smjer="boja"] .kart-stari.je-odlazi { clip-path: inset(0 0 0 0); opacity: 0; }
 
 .kart-nav {
   position: absolute;
@@ -4251,3 +4264,37 @@ button.link-arrow::after {
   background: var(--ink);
   transform: translate(-50%, -50%) rotate(-45deg);
 }
+.kart-galerija img.kart-stari { transition-delay: 0s !important; opacity: 1; transform: none !important; }
+.kart-galerija[data-smjer="boja"] img.kart-stari.je-odlazi { opacity: 0; }
+
+/* Kontakt: koraci nakon slanja u istim karticama kao na Kupnji; na sivoj
+   sekciji su bijele. */
+.section--grey .kp-k li { background: var(--paper); }
+.proces-naslov { font-size: var(--t-h2); font-weight: 800; letter-spacing: -.02em; margin-bottom: 2rem; }
+
+/* Kupnja hero: sitna tockasta mreza koja se gubi prema lijevo, da ploha
+   nije cista crna, a tekst ostane citljiv. */
+.kh { position: relative; overflow: hidden; }
+.kh::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .16) 1px, transparent 1.3px);
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 75%);
+          mask-image: linear-gradient(100deg, transparent 20%, #000 75%);
+  pointer-events: none;
+}
+.kh::after {
+  content: "";
+  position: absolute;
+  right: -6rem;
+  top: 0;
+  bottom: 0;
+  width: 22rem;
+  background: repeating-linear-gradient(-66deg, transparent 0 22px, rgba(255, 91, 0, .10) 22px 24px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 70%);
+          mask-image: linear-gradient(90deg, transparent, #000 70%);
+  pointer-events: none;
+}
+.kh .shell { position: relative; z-index: 1; }
