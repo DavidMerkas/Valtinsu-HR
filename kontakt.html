@@ -33,7 +33,7 @@
 
 <a class="visually-hidden" href="#main">Preskoči na sadržaj</a>
 
-<header class="site-header" id="siteHeader">
+<header class="site-header site-header--svijetlo" id="siteHeader">
   <div class="shell site-header__inner">
     <a class="brand" href="index.html">
       <span class="brand__logo" aria-hidden="true"></span>
@@ -128,36 +128,47 @@
 
 <main id="main">
 
-  <section class="page-hero page-hero--tamna">
-    <div class="shell">
-      <ol class="crumbs">
-        <li><a href="index.html">Početna</a></li>
-        <li><span aria-current="page">Kontakt</span></li>
-      </ol>
-      <h1>Pošaljite upit.</h1>
-      <p class="lead">
-        Recite nam što vas zanima. Ako još ne znate koji model, predložit
-        ćemo ga. Javljamo se u roku 24 sata s cijenom i dostupnošću.
-      </p>
-    </div>
-  </section>
+  <!-- Bez heroja: obrazac je odmah vidljiv. Lijevo naslov i kanali,
+       desno obrazac u kartici. -->
+  <section class="section ku" id="upit" aria-labelledby="ku-naslov">
+    <div class="shell ku__in">
 
-  <section class="section" id="upit" aria-labelledby="upit-naslov">
-    <div class="shell upit">
+      <div class="ku__info">
+        <h1 id="ku-naslov" class="ku__naslov">Pošaljite <span>upit</span></h1>
+        <p class="ku__pod">Javljamo se u roku 24 sata s cijenom i dostupnošću. Upit vas ni na što ne obvezuje.</p>
 
-      <!-- ---------- Obrazac ---------- -->
-      <div>
-        <h2 id="upit-naslov" class="mb-2">Upit</h2>
+        <div class="ku__kanali">
+          <!-- Broj se upisuje bez plusa i razmaka: wa.me/385912345678 -->
+          <a class="ku__kanal" href="https://wa.me/385924595870" rel="noopener">
+            <span class="ku__ikona"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.1-.5 3.4a11 11 0 0 0 4.6 4.6c1.9.8 2.6.7 3.4.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2Z"/></svg></span>
+            <span><b>+385 92 459 5870</b><small>WhatsApp, odgovaramo najbrže</small></span>
+          </a>
+          <a class="ku__kanal" href="mailto:info@valtinsuhr.com">
+            <span class="ku__ikona"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" stroke="currentColor" stroke-width="2"/><path d="m3.5 6 8.5 6.5L20.5 6" stroke="currentColor" stroke-width="2"/></svg></span>
+            <span><b>info@valtinsuhr.com</b><small>Odgovor u roku 24 sata</small></span>
+          </a>
+        </div>
 
-        <!-- Vecina pitanja iz upita vec ima odgovor na Kupnji. Okvir stoji
-             prije obrasca da ga kupac vidi prije nego pocne pisati. -->
+        <!-- Vecina pitanja iz upita vec ima odgovor na Kupnji. -->
         <a class="prije-upita" href="kupnja.html">
           <span class="prije-upita__tekst">
             <b>Prije upita pogledajte Kupnju i jamstvo</b>
-            <span>Tamo su odgovori na većinu pitanja: plaćanje, preuzimanje, dostava, jamstvo i probna vožnja.</span>
+            <span>Plaćanje, preuzimanje, dostava, jamstvo i probna vožnja.</span>
           </span>
           <span class="prije-upita__strelica" aria-hidden="true">→</span>
         </a>
+
+        <!--
+          PODSJETNIK, ne brisati:
+          Adresa i radno vrijeme namjerno nisu na stranici jer ih jos nema.
+          Naziv obrta i OIB treba dodati ovdje prije objave. To je zakonska
+          obveza za prodaju na daljinu i uvjet za Google Business Profile.
+        -->
+      </div>
+
+      <!-- ---------- Obrazac ---------- -->
+      <div class="ku__kartica">
+        <h2 class="ku__kartica-naslov">Upit</h2>
 
         <!--
           VAZNO prije objave: atribut action mora pokazivati na servis koji
@@ -344,58 +355,6 @@
         </script>
       </div>
 
-      <!-- ---------- Bocni stupac ----------
-           Na sirem ekranu se lijepi uz vrh dok se obrazac ispunjava, pa
-           su rok odgovora i WhatsApp stalno pri ruci. -->
-      <aside class="upit__bok" aria-label="Odgovor i kontakt">
-
-        <p class="product__label">Odgovor</p>
-        <p class="bok__veliko">U roku 24 sata</p>
-        <p class="bok__tekst">
-          Na svaki upit odgovaramo s cijenom i dostupnošću.
-          Slanje vas ne obvezuje ni na što i ne plaćate ništa.
-        </p>
-
-        <hr class="bok__crta">
-
-        <p class="product__label">Radije bez obrasca</p>
-        <p class="bok__tekst">
-          Pišite na WhatsApp, tamo odgovaramo najbrže. Prije toga provjerite
-          <a href="kupnja.html">Kupnju i jamstvo</a>, možda je odgovor već tamo.
-        </p>
-
-        <div class="stack mt-1">
-          <!-- Broj se upisuje bez plusa i razmaka: wa.me/385912345678 -->
-          <a class="btn btn--outline" href="https://wa.me/385924595870" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.2-.4-4.5-1.3l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.700-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.1-.5 3.4a11 11 0 0 0 4.6 4.6c1.9.8 2.6.7 3.4.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2Z"/>
-            </svg>
-            Piši na WhatsApp
-          </a>
-        </div>
-
-        <hr class="bok__crta">
-
-        <p class="product__label">Podaci</p>
-
-        <dl class="contact-list">
-          <div>
-            <dt>E-mail</dt>
-            <dd><a href="mailto:info@valtinsuhr.com">info@valtinsuhr.com</a></dd>
-          </div>
-          <div>
-            <dt>WhatsApp</dt>
-            <dd><a href="https://wa.me/385924595870" rel="noopener">+385 92 459 5870</a></dd>
-          </div>
-        </dl>
-
-        <!--
-          PODSJETNIK, ne brisati:
-          Adresa i radno vrijeme namjerno nisu na stranici jer ih jos nema.
-          Naziv obrta i OIB treba dodati ovdje prije objave. To je zakonska
-          obveza za prodaju na daljinu i uvjet za Google Business Profile.
-        -->
-      </aside>
 
     </div>
   </section>

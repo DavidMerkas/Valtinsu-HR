@@ -4298,3 +4298,57 @@ button.link-arrow::after {
   pointer-events: none;
 }
 .kh .shell { position: relative; z-index: 1; }
+
+/* --- Kontakt bez heroja ------------------------------------------------------
+   Obrazac je odmah vidljiv (UI UX Pro Max: bez scrollanja do obrasca).
+   Lijevo naslov, kanali i Kupnja i jamstvo, desno obrazac u kartici.
+   Nema tamne plohe iza zaglavlja, pa zaglavlje ima tamna slova. */
+.site-header--svijetlo { color: var(--ink); }
+
+.ku { padding-top: calc(var(--header-h) + clamp(2rem, 4vw, 3.5rem)); }
+.ku__in { display: grid; gap: 2.5rem; }
+@media (min-width: 1000px) {
+  .ku__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(3rem, 5vw, 5rem); align-items: start; }
+  .ku__info { position: sticky; top: calc(var(--header-h) + 2rem); }
+}
+.ku__info { display: grid; gap: 1.5rem; align-content: start; }
+.ku__naslov {
+  font-size: clamp(3rem, 1.5rem + 5vw, 5.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -.045em;
+  line-height: .88;
+}
+.ku__naslov span { color: var(--orange); }
+.ku__pod { font-size: var(--t-lead); line-height: 1.55; color: var(--grey-70); max-width: 40ch; }
+
+.ku__kanali { display: grid; gap: .6rem; }
+.ku__kanal {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 1rem;
+  border: 1px solid var(--rule);
+  transition: border-color var(--fast), background var(--fast);
+}
+.ku__kanal:hover { border-color: var(--orange); background: var(--orange-dim); }
+.ku__ikona {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.75rem; height: 2.75rem;
+  background: var(--orange);
+  color: var(--paper);
+}
+.ku__kanal b { display: block; font-size: 1.0625rem; font-weight: 800; }
+.ku__kanal small { display: block; margin-top: .1rem; font-size: .8125rem; color: var(--grey-45); }
+.ku .prije-upita { margin-bottom: 0; }
+
+.ku__kartica {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .06);
+}
+.ku__kartica-naslov { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; }
