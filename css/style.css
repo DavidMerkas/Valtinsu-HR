@@ -4087,7 +4087,6 @@ button.link-arrow::after {
   text-decoration: underline 2px var(--orange);
   text-underline-offset: 5px;
 }
-.footer__col a.footer__termin::after { content: "→"; display: inline-block; color: var(--orange); transition: transform var(--fast); }
 .footer__col a.footer__termin:hover { color: var(--orange); }
 .footer__col a.footer__termin:hover::after { transform: translateX(3px); }
 
@@ -4145,7 +4144,6 @@ button.link-arrow::after {
   text-decoration: underline 2px var(--orange);
   text-underline-offset: 5px;
 }
-.footer__col a.footer__termin::after { content: "→"; display: inline-block; color: var(--orange); transition: transform var(--fast); }
 .footer__col a.footer__termin:hover { color: var(--orange); }
 .footer__col a.footer__termin:hover::after { transform: translateX(3px); }
 
@@ -4352,3 +4350,21 @@ button.link-arrow::after {
   box-shadow: 0 16px 40px rgba(0, 0, 0, .06);
 }
 .ku__kartica-naslov { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; }
+
+/* Strelice uz poveznice na Kupnju: SVG umjesto znaka, deblja i u kvadratu. */
+.prije-upita__strelica {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.75rem; height: 2.75rem;
+  margin-left: auto;
+  background: var(--orange);
+  color: var(--paper);
+  font-size: 0;
+  transition: transform var(--fast), background var(--fast);
+}
+.prije-upita:hover .prije-upita__strelica { transform: translateX(4px); background: var(--orange-hover); }
+.prije-upita__strelica svg { display: block; }
+.on-cta__prije { display: inline-flex; align-items: center; gap: .6rem; }
+.on-cta__prije .on-cta__strelica { display: inline-grid; place-items: center; color: var(--orange); }
+.on-cta__prije .on-cta__strelica svg { display: block; }
