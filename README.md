@@ -14,13 +14,31 @@ O nama i Kontakt.
 ## Struktura
 
 ```
-index.html, modeli.html, o-nama.html, kontakt.html
-modeli/          stranice pojedinih modela
-css/style.css    cijeli dizajn sustav
-js/script.js     izbornik, galerija, obrazac, cesta pitanja
-assets/          logo, video, teksture, fotografije po modelu
-scripts/         alati koji se ne uploadaju
+index.html            pocetna
+modeli.html           popis modela i usporedba
+kupnja.html           kupnja, jamstvo i cesta pitanja
+o-nama.html           o zastupniku
+kontakt.html          obrazac za upit
+modeli/               stranice pojedinih modela (em-5, em-5-pro, em-5-ultra)
+
+css/style.css         cijeli dizajn sustav
+js/script.js          izbornik, galerije, obrazac, cesta pitanja
+js/dostupnost.js      zaliha i boje po modelu, jedino mjesto za izmjenu
+js/obrazac.js         slanje upita (kljuc servisa koji salje mail)
+
+assets/motori/        fotografije motocikala, mapa po modelu
+assets/stranice/      pozadine stranica (Modeli, O nama, CTA traka, pocetna)
+assets/video/         hero.mp4 i poster
+assets/logotipi/      izvornici logotipa, ne objavljuju se
+assets/og-cover.jpg   slika za dijeljenje linka
+
+scripts/provjeri.js   provjera prije objave
+scripts/posluzitelj.py  lokalni posluzitelj, port 4321
+_dokumenti/           radne datoteke i dokumentacija, ne ide na GitHub
+sitemap.xml, robots.txt, wrangler.jsonc, .assetsignore
 ```
+
+Detalji o mapama sa slikama: `assets/ČITAJ-ME.txt`.
 
 ## Provjera prije uploada
 

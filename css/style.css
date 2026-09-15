@@ -948,75 +948,6 @@ button.link-arrow::after {
    PODSTRANICE
    ========================================================================== */
 
-/* --- Zaglavlje podstranice ---------------------------------------------- */
-/* Manji brat heroa: tamna ploha ispod fiksne navigacije.
-
-   Ravna crnina je izgledala kao rupa u stranici, pa svaka podstranica
-   ima svoju teksturu. Same datoteke su vec potamnjene u obradi, jer se
-   tamni pikseli puno bolje komprimiraju; preko njih ide jos samo blagi
-   gradijent koji cuva citljivost teksta na lijevoj strani.
-   Izvor tekstura: Unsplash, besplatna licenca.
-
-   Stranica bez modifikatora ostaje ravno crna, sto je i dalje ispravno. */
-
-.page-hero {
-  background-color: var(--ink-pure);
-  background-image:
-    linear-gradient(100deg,
-      rgba(0, 0, 0, .82) 0%,
-      rgba(0, 0, 0, .55) 55%,
-      rgba(0, 0, 0, .68) 100%);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: var(--paper);
-  padding-block: 7rem 3rem;
-}
-
-/* Modeli: trag gume u pijesku. Ono sto ovi motocikli ostavljaju za sobom. */
-.page-hero--trag { background-image:
-  linear-gradient(100deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.68) 100%),
-  image-set(
-    url("../assets/slike/opce/tekstura-trag.webp") type("image/webp"),
-    url("../assets/slike/opce/tekstura-trag.jpg")  type("image/jpeg")); }
-
-/* O nama: sitno zrno betona, mirna podloga ispod teksta o obrtu. */
-.page-hero--beton { background-image:
-  linear-gradient(100deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.5) 55%, rgba(0,0,0,.64) 100%),
-  image-set(
-    url("../assets/slike/opce/tekstura-beton.webp") type("image/webp"),
-    url("../assets/slike/opce/tekstura-beton.jpg")  type("image/jpeg")); }
-
-/* Kontakt: najtisa od tri. Obrazac je ono sto tu treba gledati. */
-.page-hero--tamna { background-image:
-  linear-gradient(100deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.6) 100%),
-  image-set(
-    url("../assets/slike/opce/tekstura-tamna.webp") type("image/webp"),
-    url("../assets/slike/opce/tekstura-tamna.jpg")  type("image/jpeg")); }
-
-.page-hero--trag,
-.page-hero--beton,
-.page-hero--tamna { background-size: auto, cover; background-position: center, center; }
-
-.page-hero h1 { font-size: var(--t-h1); max-width: 20ch; }
-.page-hero .lead { margin-top: 1.25rem; color: #b4b4b4; }
-
-/* Na desktopu je blok bio upola prazan: naslov je zauzimao lijevu polovicu,
-   desna je ostajala crna. Uvod se zato seli u drugi stupac i poravnava s
-   dnom naslova. Prazninu popunjava tekst koji ionako postoji, ne ukras. */
-@media (min-width: 1000px) {
-  .page-hero { padding-block: 7rem 3.5rem; }
-
-  .page-hero .shell {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: end;
-  }
-  .page-hero .crumbs { grid-column: 1 / -1; }
-  .page-hero .lead { margin-top: 0; }
-}
-
 /* --- Mrvice ------------------------------------------------------------- */
 
 .crumbs {
@@ -2357,7 +2288,6 @@ button.link-arrow::after {
 
   /* Naslov i gumb stoje jedno uz drugo, pa traka ne treba punu visinu
      sekcije. S njom je na desktopu ostajao siroki pojas prazne teksture. */
-  .section--carbon { padding-block: calc(var(--section) * .7); }
 }
 
 /* --- Podnozje ----------------------------------------------------------- */
@@ -2453,25 +2383,6 @@ button.link-arrow::after {
   .model-grid.reveal .model-cell__media img { opacity: 1; transform: none; }
 }
 
-/* Traka iza zavrsnog poziva na akciju.
-   Zasad ravna crna. Kad nabavis teksturu, spremi je u assets/ i
-   otkomentiraj dva retka ispod. Plocica se mora besavno ponavljati,
-   a background-size postavi na stvarnu velicinu plocice. */
-.section--carbon {
-  background-color: #141414;
-
-  /* Plocica je izrezana na tocan period uzorka (214 px, tri ciklusa po
-     71.3 px), pa se poplocava bez sava. Prikazuje se na 107 px, dakle
-     upola: smanjivanje ostaje ostro, a povecavanje bi mutilo.
-     Prvi redak je rezerva za preglednike bez image-set. */
-  background-image: url("../assets/karbon.png");
-  background-image: image-set(
-    url("../assets/karbon.webp") type("image/webp"),
-    url("../assets/karbon.png")  type("image/png"));
-  background-repeat: repeat;
-  background-size: 107px 107px;
-}
-
 /* ==========================================================================
    O NAMA
    Veliki naslov, traka s brojkama, prica u dva stupca, video, kose trake
@@ -2495,7 +2406,7 @@ button.link-arrow::after {
   background-color: var(--ink-pure);
   background-image:
     linear-gradient(90deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.15) 100%),
-    url("../assets/o-nama-hero.webp");
+    url("../assets/stranice/cta-staza.webp");
   background-size: cover;
   background-position: center 40%;
   color: var(--paper);
@@ -2685,7 +2596,7 @@ button.link-arrow::after {
   background-color: var(--ink-pure);
   background-image:
     linear-gradient(90deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.7) 55%, rgba(0,0,0,.45) 100%),
-    url("../assets/o-nama-hero.webp");
+    url("../assets/stranice/cta-staza.webp");
   background-size: cover;
   background-position: center 65%;
   border-top: 4px solid var(--orange);
@@ -3670,25 +3581,13 @@ button.link-arrow::after {
 .on-hero {
   background-image:
     linear-gradient(90deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.5) 55%, rgba(0,0,0,.2) 100%),
-    url("../assets/hero-o-nama.webp");
+    url("../assets/stranice/o-nama.webp");
   background-position: center 45%;
-}
-.kp-hero {
-  background-image:
-    linear-gradient(90deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.25) 100%),
-    url("../assets/hero-kupnja.webp");
-  background-position: 70% 88%;
-}
-.on-hero--model {
-  background-image:
-    linear-gradient(90deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.1) 100%),
-    url("../assets/hero-model.webp");
-  background-position: 85% 42%;
 }
 .on-hero--modeli {
   background-image:
     linear-gradient(90deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.35) 100%),
-    url("../assets/hero-modeli.webp");
+    url("../assets/stranice/modeli.webp");
   background-position: center 100%;
 }
 .on-hero--modeli h1 { font-size: clamp(2.25rem, 1.1rem + 3.4vw, 3.75rem); max-width: 22ch; }
