@@ -573,6 +573,139 @@
         x0 = y0 = null;
       }, { passive: true });
 
+      /* --- Povecanje preko cijelog ekrana ---------------------------
+         Klik na sliku (ili tipka s povecalom) otvara tamnu plocu s istim
+         kadrovima trenutne boje. Unutra: strelice, prst, Esc, brojac.
+         Klik na sliku u ploci je jos jednom povecava (2x) i prati mis;
+         na mobitelu radi i povecanje s dva prsta. Pri zatvaranju galerija
+         na stranici ostaje na kadru koji je bio otvoren. */
+      var bioPomak = false;
+      pozornica.addEventListener('touchstart', function () { bioPomak = false; }, { passive: true });
+      pozornica.addEventListener('touchmove', function () { bioPomak = true; }, { passive: true });
+
+      var lupa = document.createElement('button');
+      lupa.type = 'button';
+      lupa.className = 'viewer__lupa';
+      lupa.setAttribute('aria-label', 'Povećaj fotografiju');
+      lupa.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+        '<circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2.4"/>' +
+        '<path d="m15.5 15.5 5 5M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg>';
+      pozornica.parentNode.appendChild(lupa);
+      pozornica.classList.add('je-klikabilna');
+
+      var ploca = null, plocaImg = null, plocaBroj = null, plocaIdx = 0, zadnjiFokus = null;
+
+      var nacrtajPlocu = function () {
+        var lista = kadrovi();
+        plocaIdx = (plocaIdx + lista.length) % lista.length;
+        plocaImg.classList.remove('je-uvecana');
+        plocaImg.style.transformOrigin = '';
+        plocaImg.src = lista[plocaIdx].src;
+        plocaImg.alt = opis(plocaIdx);
+        plocaBroj.textContent = (plocaIdx + 1) + ' / ' + lista.length;
+        var jedna = lista.length < 2;
+        ploca.querySelectorAll('.povecalo__nav').forEach(function (b) { b.hidden = jedna; });
+        plocaBroj.hidden = jedna;
+      };
+
+      var zatvoriPlocu;
+      var naTipkuPloce = function (e) {
+        if (e.key === 'Escape') zatvoriPlocu();
+        if (e.key === 'ArrowLeft')  { plocaIdx--; nacrtajPlocu(); }
+        if (e.key === 'ArrowRight') { plocaIdx++; nacrtajPlocu(); }
+      };
+
+      zatvoriPlocu = function () {
+        if (!ploca || ploca.hidden) return;
+        ploca.classList.remove('je-otvorena');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', naTipkuPloce);
+        var p = ploca;
+        setTimeout(function () { p.hidden = true; }, 200);
+        var cilj = plocaIdx;
+        if (cilj !== kadar) prijelaz(cilj, cilj > kadar ? 1 : -1);
+        if (zadnjiFokus && zadnjiFokus.focus) zadnjiFokus.focus();
+      };
+
+      var otvoriPlocu = function () {
+        if (!ploca) {
+          ploca = document.createElement('div');
+          ploca.className = 'povecalo';
+          ploca.hidden = true;
+          ploca.setAttribute('role', 'dialog');
+          ploca.setAttribute('aria-modal', 'true');
+          ploca.setAttribute('aria-label', 'Fotografije, ' + podaci.model);
+          ploca.innerHTML =
+            '<button type="button" class="povecalo__zatvori" aria-label="Zatvori">' +
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2.6"/></svg></button>' +
+            '<div class="povecalo__okvir"><img class="povecalo__slika" alt=""></div>' +
+            '<button type="button" class="povecalo__nav povecalo__nav--prev" aria-label="Prethodna fotografija">' +
+              '<svg width="12" height="20" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="2.2"/></svg></button>' +
+            '<button type="button" class="povecalo__nav povecalo__nav--next" aria-label="Sljedeća fotografija">' +
+              '<svg width="12" height="20" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M1 1l7 7-7 7" stroke="currentColor" stroke-width="2.2"/></svg></button>' +
+            '<p class="povecalo__broj" aria-live="polite"></p>';
+          document.body.appendChild(ploca);
+          plocaImg  = ploca.querySelector('.povecalo__slika');
+          plocaBroj = ploca.querySelector('.povecalo__broj');
+
+          ploca.querySelector('.povecalo__zatvori').addEventListener('click', zatvoriPlocu);
+          ploca.querySelector('.povecalo__nav--prev').addEventListener('click', function () { plocaIdx--; nacrtajPlocu(); });
+          ploca.querySelector('.povecalo__nav--next').addEventListener('click', function () { plocaIdx++; nacrtajPlocu(); });
+          ploca.addEventListener('click', function (e) {
+            if (e.target === ploca || e.target.classList.contains('povecalo__okvir')) zatvoriPlocu();
+          });
+
+          /* Dodatno povecanje: klik na sliku, mis pomice vidljivi dio */
+          var postaviIshodiste = function (e) {
+            var r = plocaImg.getBoundingClientRect();
+            var x = ((e.clientX - r.left) / r.width) * 100;
+            var y = ((e.clientY - r.top) / r.height) * 100;
+            plocaImg.style.transformOrigin = x + '% ' + y + '%';
+          };
+          plocaImg.addEventListener('click', function (e) {
+            if (window.matchMedia('(hover: none)').matches) return;
+            postaviIshodiste(e);
+            plocaImg.classList.toggle('je-uvecana');
+          });
+          plocaImg.addEventListener('mousemove', function (e) {
+            if (plocaImg.classList.contains('je-uvecana')) postaviIshodiste(e);
+          });
+
+          /* Prst: vodoravni potez mijenja kadar, dva prsta prepustena pregledniku */
+          var px0 = null, py0 = null;
+          ploca.addEventListener('touchstart', function (e) {
+            if (e.touches.length !== 1) { px0 = null; return; }
+            px0 = e.touches[0].clientX; py0 = e.touches[0].clientY;
+          }, { passive: true });
+          ploca.addEventListener('touchend', function (e) {
+            if (px0 === null || (window.visualViewport && window.visualViewport.scale > 1.01)) return;
+            var dx = e.changedTouches[0].clientX - px0;
+            var dy = e.changedTouches[0].clientY - py0;
+            if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+              plocaIdx += dx < 0 ? 1 : -1;
+              nacrtajPlocu();
+            }
+            px0 = null;
+          }, { passive: true });
+        }
+
+        zadnjiFokus = document.activeElement;
+        plocaIdx = kadar;
+        nacrtajPlocu();
+        ploca.hidden = false;
+        void ploca.offsetWidth;
+        ploca.classList.add('je-otvorena');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', naTipkuPloce);
+        ploca.querySelector('.povecalo__zatvori').focus();
+      };
+
+      lupa.addEventListener('click', otvoriPlocu);
+      pozornica.addEventListener('click', function () {
+        if (bioPomak) { bioPomak = false; return; }
+        otvoriPlocu();
+      });
+
       /* Promjena boje zadrzava isti kadar ako ga nova boja ima.
          EM-5 nema iste kadrove u obje boje, pa se inace ide na prvi. */
       var boje = document.getElementById('boje');
