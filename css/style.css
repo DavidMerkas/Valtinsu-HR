@@ -1823,14 +1823,23 @@ button.link-arrow::after {
 .product__price--rasprodano b { color: var(--grey-45); }
 
 /* Umjesto gumba za upit */
+/* Model koji jos nije stigao: umjesto gumba za upit okvir iste visine,
+   dovoljno jak da se ne previdi. */
 .nema-upita {
-  display: inline-block;
-  padding: .875rem 0;
-  font-size: .9375rem;
-  font-weight: var(--w-label);
-  color: var(--grey-45);
-  border-top: 1px solid var(--rule);
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4rem;
+  padding: .9rem 1.25rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-left: 5px solid var(--orange);
 }
+.nema-upita__ikona { flex: 0 0 auto; color: var(--orange); }
+.nema-upita b { display: block; font-size: 1.125rem; font-weight: 800; letter-spacing: -.01em; }
+.nema-upita b + span { display: block; margin-top: .15rem; font-size: .875rem; color: #c8c8c8; }
+.nema-upita a { color: #fff; font-weight: 700; text-decoration: underline 2px var(--orange); text-underline-offset: 3px; }
 
 /* Napomena ispod padajuceg izbornika u obrascu */
 .field__nota {

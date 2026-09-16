@@ -200,9 +200,17 @@ window.VALTINSU_STANJE = {
             zamjena.className = 'btn btn--primary btn--upit js-javi';
             zamjena.textContent = 'Obavijesti me';
           } else {
-            zamjena = document.createElement('p');
+            /* Umjesto gumba vidljiv okvir iste velicine: sat, poruka i
+               WhatsApp za pitanja do dolaska. */
+            zamjena = document.createElement('div');
             zamjena.className = 'nema-upita';
-            zamjena.textContent = kratko(model);
+            zamjena.innerHTML =
+              '<svg class="nema-upita__ikona" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+                '<circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2.2"/>' +
+                '<path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>' +
+              '<span><b></b><span>Za pitanja do tada pišite nam na ' +
+              '<a href="https://wa.me/385924595870" rel="noopener">WhatsApp</a>.</span></span>';
+            zamjena.querySelector('b').textContent = kratko(model);
           }
           btn.replaceWith(zamjena);
         });
