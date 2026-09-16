@@ -4267,3 +4267,25 @@ button.link-arrow::after {
 .on-cta__prije { display: inline-flex; align-items: center; gap: .6rem; }
 .on-cta__prije .on-cta__strelica { display: inline-grid; place-items: center; color: var(--orange); }
 .on-cta__prije .on-cta__strelica svg { display: block; }
+
+/* --- Modeli: hero bez mrvica i opisa -----------------------------------------
+   Samo oznaka serije i naslov. Oznaka je kosa narancasta plocica, kao
+   "Stize krajem rujna" na karticama, da se jasno vidi o kojoj se seriji radi. */
+.on-hero--modeli .shell { display: block; }
+.modeli-serija {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  padding: .45rem .9rem .4rem;
+  background: var(--orange);
+  color: var(--paper);
+  font-size: clamp(.9375rem, .85rem + .35vw, 1.125rem);
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transform: skewX(-10deg);
+}
+.on-hero--modeli { padding-block: calc(var(--header-h) + 2.5rem) 3.25rem; }
+@media (min-width: 1000px) { .on-hero--modeli { padding-block: 8rem 4rem; } }
+/* Naslov usporedbe na sredini, bez opisa pokraj. */
+.section-head--sredina { display: block; text-align: center; }
+.section-head--sredina h2 { max-width: none; margin-inline: auto; }
