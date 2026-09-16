@@ -3767,7 +3767,7 @@ button.link-arrow::after {
 .compare-scroll ~ .note { color: var(--grey-70); }
 
 /* Naslov tablice iste velicine kao "Za koga je" do nje. */
-#spec-naslov { font-size: var(--t-h2); }
+#spec-naslov { font-size: var(--t-h2); text-align: center; }
 
 /* --- Stranica modela: raspored ----------------------------------------------
    "Za koga je" je u lijevom stupcu ispod galerije, da ispod slike ne ostane
