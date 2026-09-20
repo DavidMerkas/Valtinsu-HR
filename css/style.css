@@ -4393,3 +4393,19 @@ button.link-arrow::after {
 @media (prefers-reduced-motion: reduce) {
   .povecalo, .povecalo__slika { transition: none; }
 }
+
+/* Tipke za odredeni kadar ispod galerije (npr. "Prednji dio"). */
+.viewer__gumbi { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.viewer__kadar {
+  padding: .5rem .9rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--fast), color var(--fast), border-color var(--fast);
+}
+.viewer__kadar:hover { background: var(--ink); color: var(--paper); }
+.viewer__kadar[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: var(--paper); }

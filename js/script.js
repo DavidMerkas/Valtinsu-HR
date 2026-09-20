@@ -573,6 +573,41 @@
         x0 = y0 = null;
       }, { passive: true });
 
+      /* Kadar koji u podacima ima "gumb" dobiva svoju tipku ispod slike
+         (npr. "Prednji dio"). Klik skace ravno na taj kadar, da kupac ne
+         mora listati do njega. */
+      var redGumba = null;
+      var osvjeziGumbe = function () {
+        var lista = kadrovi();
+        var oznaceni = [];
+        for (var g = 0; g < lista.length; g++) {
+          if (lista[g].gumb) oznaceni.push({ i: g, naziv: lista[g].gumb });
+        }
+
+        if (!redGumba) {
+          redGumba = document.createElement('div');
+          redGumba.className = 'viewer__gumbi';
+          galerija.appendChild(redGumba);
+        }
+        redGumba.innerHTML = '';
+        redGumba.hidden = oznaceni.length === 0;
+
+        oznaceni.forEach(function (o) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'viewer__kadar';
+          b.textContent = o.naziv;
+          b.setAttribute('aria-pressed', String(o.i === kadar));
+          b.addEventListener('click', function () {
+            prijelaz(o.i, o.i > kadar ? 1 : -1);
+            setTimeout(osvjeziGumbe, 320);
+          });
+          redGumba.appendChild(b);
+        });
+      };
+
+      osvjeziGumbe();
+
       /* --- Povecanje preko cijelog ekrana ---------------------------
          Klik na sliku (ili tipka s povecalom) otvara tamnu plocu s istim
          kadrovima trenutne boje. Unutra: strelice, prst, Esc, brojac.
@@ -733,6 +768,7 @@
 
           kadar = -1;                    // prisili prijelaz i kad je indeks isti
           prijelaz(novi, 0);
+          setTimeout(osvjeziGumbe, 300);
           upisiBojuUPoveznice(id);
         };
 
