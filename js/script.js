@@ -489,7 +489,9 @@
       }
 
       var bojaIdx = 0;
-      var kadar   = 0;
+      /* "pocetak" u podacima kaze koji se kadar vidi prvi (npr. naslovna
+         fotografija), a listanje i dalje ide redom kojim su upisani. */
+      var kadar   = podaci.boje[0].pocetak || 0;
       var zauzeto = false;
 
       var boja    = function () { return podaci.boje[bojaIdx]; };
@@ -956,7 +958,7 @@
       var img = media && media.querySelector('img');
       if (!boje || !boje.length || !img) return;
 
-      var bojaIdx = 0, kadar = 0;
+      var bojaIdx = 0, kadar = boje[0].pocetak || 0;
       var naziv = cell.getAttribute('data-model');
       var visePodataka = boje.length > 1 || boje[0].slike.length > 1;
       if (!visePodataka) return;
@@ -1080,7 +1082,7 @@
         x0 = null;
       }, { passive: true });
 
-      prikazi(0, 0, 0);
+      prikazi(0, kadar, 0);
     });
   }
 
