@@ -589,7 +589,7 @@
         if (!redGumba) {
           redGumba = document.createElement('div');
           redGumba.className = 'viewer__gumbi';
-          galerija.appendChild(redGumba);
+          pozornica.parentNode.appendChild(redGumba);   /* u okvir slike */
         }
         redGumba.innerHTML = '';
         redGumba.hidden = oznaceni.length === 0;
