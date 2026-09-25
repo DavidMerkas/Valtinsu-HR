@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Kontakt | Valtinsu Hrvatska</title>
-<meta name="description" content="Pošaljite upit za Valtinsu električni off-road motocikl. Javljamo se u roku 24 sata s cijenom i dostupnošću. Preuzimanje u Zagrebu.">
+<meta name="description" content="Kontakt za Valtinsu električne off-road motocikle. Svi modeli su trenutno rasprodani, novi stock stiže uskoro. Pišite nam, odgovaramo u roku 24 sata.">
 
 <link rel="canonical" href="https://www.valtinsuhr.com/kontakt">
 
@@ -13,7 +13,7 @@
 <meta property="og:locale" content="hr_HR">
 <meta property="og:site_name" content="Valtinsu Hrvatska">
 <meta property="og:title" content="Kontakt | Valtinsu Hrvatska">
-<meta property="og:description" content="Pošaljite upit. Javljamo se u roku 24 sata.">
+<meta property="og:description" content="Svi modeli su trenutno rasprodani. Pišite nam, odgovaramo u roku 24 sata.">
 <meta property="og:url" content="https://www.valtinsuhr.com/kontakt">
 <meta property="og:image" content="https://www.valtinsuhr.com/assets/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -134,8 +134,8 @@
     <div class="shell ku__in">
 
       <div class="ku__info">
-        <h1 id="ku-naslov" class="ku__naslov">Pošaljite <span>upit</span></h1>
-        <p class="ku__pod">Javljamo se u roku 24 sata s cijenom i dostupnošću. Upit vas ni na što ne obvezuje.</p>
+        <h1 id="ku-naslov" class="ku__naslov">Javite <span>nam se</span></h1>
+        <p class="ku__pod">Svi modeli su trenutno rasprodani, ali na svako pitanje odgovaramo u roku 24 sata.</p>
 
         <div class="ku__kanali">
           <!-- Broj se upisuje bez plusa i razmaka: wa.me/385912345678 -->
@@ -152,7 +152,7 @@
         <!-- Vecina pitanja iz upita vec ima odgovor na Kupnji. -->
         <a class="prije-upita" href="kupnja.html">
           <span class="prije-upita__tekst">
-            <b>Prije upita pogledajte Kupnju i jamstvo</b>
+            <b>Pogledajte Kupnju i jamstvo</b>
             <span>Možda je odgovor na vaše pitanje već tamo: plaćanje, preuzimanje, dostava, jamstvo i probna vožnja.</span>
           </span>
           <span class="prije-upita__strelica"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true"><path d="M0 7h15M9.5 1.5 15 7l-5.5 5.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></span>
@@ -168,7 +168,7 @@
 
       <!-- ---------- Obrazac ---------- -->
       <div class="ku__kartica">
-        <h2 class="ku__kartica-naslov">Upit</h2>
+        <h2 class="ku__kartica-naslov">Upiti su privremeno zatvoreni</h2>
 
         <!--
           VAZNO prije objave: atribut action mora pokazivati na servis koji
@@ -176,6 +176,29 @@
           vanjski servis (Web3Forms, Formspree i slicni).
           Do tada obrazac javlja gresku umjesto da tise ne radi.
         -->
+        <!--
+          Obrazac je sklonjen u <template> jer su svi modeli rasprodani,
+          pa upit nema smisla primati. Kad stigne novi stock: makni
+          <template> omot (i ovaj komentar) i u js/dostupnost.js vrati
+          "dostupno: true". Sadrzaj obrasca je netaknut.
+        -->
+        <div class="zatvoreno">
+          <p class="zatvoreno__glavno">Svi modeli su trenutno rasprodani.</p>
+          <p class="zatvoreno__tekst">
+            Novi stock stiže uskoro. Točan datum još ne znamo &mdash; čim ga
+            saznamo, piše ovdje i upiti se ponovno otvaraju.
+          </p>
+          <p class="zatvoreno__tekst">
+            Do tada nam slobodno pišite. Odgovaramo na sva pitanja o modelima,
+            cijenama i dolasku nove zalihe.
+          </p>
+          <div class="zatvoreno__gumbi">
+            <a class="btn btn--primary" href="https://wa.me/385924595870" rel="noopener">Pišite na WhatsApp</a>
+            <a class="btn btn--outline" href="mailto:info@valtinsuhr.com">Pošaljite e-mail</a>
+          </div>
+        </div>
+
+        <template id="upitFormPricuva">
         <form class="form" id="upitForm" method="POST" action="" novalidate>
 
           <!-- Polja idu u tri grupe odvojene tankom crtom. Duga kolona
@@ -307,6 +330,7 @@
           <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
 
         </form>
+        </template>
 
         <!--
           Varijante za odabir u obrascu. Boje i fotografije drze se istih
@@ -361,13 +385,13 @@
 
   <section class="section section--grey" aria-labelledby="proces-naslov">
     <div class="shell">
-      <h2 id="proces-naslov" class="proces-naslov">Što se događa nakon slanja</h2>
+      <h2 id="proces-naslov" class="proces-naslov">Kako ide kupnja</h2>
 
       <ol class="kp-k reveal">
         <li>
           <div class="kp-k__glava"><span class="kp-k__br">1</span><svg class="kp-k__ikona" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" stroke="currentColor" stroke-width="2"/><path d="m4 6.5 8 6 8-6" stroke="currentColor" stroke-width="2"/></svg></div>
           <h3>Upit</h3>
-          <p>Vaš upit stiže nam na e-mail odmah po slanju.</p>
+          <p>Upit nam stiže na e-mail odmah po slanju, čim se upiti otvore.</p>
         </li>
         <li>
           <div class="kp-k__glava"><span class="kp-k__br">2</span><svg class="kp-k__ikona" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></div>

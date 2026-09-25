@@ -15,7 +15,7 @@ window.VALTINSU_STANJE = {
   upitOd: '',
 
   /* Recenica koja ide uz rasprodane modele. */
-  poruka: 'EM-5 stiže krajem rujna.',
+  poruka: 'Novi stock stiže uskoro, točan datum još ne znamo.',
 
   /* Gdje se motocikl moze probati. Prazno znaci da se mjesto nigdje
      ne spominje, nego samo da je proba moguca. */
@@ -27,9 +27,9 @@ window.VALTINSU_STANJE = {
                           "rasprodano" stoji kad se ocekuje.
      proba: true       -> moze se probati uzivo prije kupnje. */
   modeli: {
-    'EM-5':       { dostupno: false, stize: 'Krajem rujna' },
-    'EM-5 PRO':   { dostupno: true, proba: true, boje: { crna: true, zelena: false } },
-    'EM-5 Ultra': { dostupno: true, proba: true }
+    'EM-5':       { dostupno: false },
+    'EM-5 PRO':   { dostupno: false, boje: { crna: true, zelena: false } },
+    'EM-5 Ultra': { dostupno: false }
   },
 
   /* Lista cekanja. Kad je model rasprodan, umjesto upita se nudi da
@@ -74,12 +74,16 @@ window.VALTINSU_STANJE = {
     return !!(stanje.obavijesti && stanje.obavijesti.ukljuceno);
   };
 
+  var sveRasprodano = Object.keys(stanje.modeli).every(function (m) {
+    return !jeDostupan(m);
+  });
+
   /* Sto stoji umjesto poveznice na upit. Model koji je na putu kaze
      kada, rasprodan kaze da ga nema. */
   var kratko = function (model) {
     var z = zapis(model);
     if (z && z.stize) return 'Upit otvaramo kad stigne';
-    return stanje.upitOd ? 'Upit od ' + stanje.upitOd : 'Trenutno nedostupno';
+    return stanje.upitOd ? 'Upit od ' + stanje.upitOd : 'Novi stock uskoro';
   };
 
   /* --- 1. Kartice modela u mrezama ------------------------------------- */
@@ -93,7 +97,10 @@ window.VALTINSU_STANJE = {
 
     /* Model koji je na putu ne gubi boju: nije rasprodan, samo jos nije
        stigao. Rasprodan se prigusi. */
-    if (!naPutu) cell.classList.add('je-rasprodano');
+    /* Kad je rasprodan pojedini model, sivi se da se razlikuje od onih
+       na zalihi. Kad su rasprodani svi, nema se od cega razlikovati, a
+       siva ponuda izgleda kao ugasena trgovina - zato ostaju u boji. */
+    if (!naPutu && !sveRasprodano) cell.classList.add('je-rasprodano');
 
     var ime = cell.querySelector('.model-cell__name');
     if (ime) {
@@ -188,6 +195,13 @@ window.VALTINSU_STANJE = {
           /* Datum ne ide i ovdje: stoji odmah ispod, na mjestu gumba. */
           if (span) span.textContent = stanje.poruka;
           cijena.classList.add('product__price--rasprodano');
+
+          /* Uz akciju stoji "Vrijedi dok traje ograničena zaliha", a
+             zalihe nema. Ostaje samo iznos ustede, prva recenica. */
+          var akcija = cijena.querySelector('.cijena__akcija > span');
+          if (akcija && akcija.textContent.indexOf('.') > -1) {
+            akcija.textContent = akcija.textContent.split('.')[0] + '.';
+          }
         }
 
         /* Gumb za upit se mice. Klijent je izricito trazio da se za
@@ -216,6 +230,32 @@ window.VALTINSU_STANJE = {
         });
       }
     }
+  }
+
+  /* --- 2b. Kad nema nijednog modela na zalihi ---------------------------
+     Gumbi "Posalji upit" vode na Kontakt, a upita nema. Poveznica ostaje
+     (Kontakt je i dalje koristan), mijenja se samo natpis, da nitko ne
+     ocekuje obrazac koji je zatvoren. */
+
+  if (sveRasprodano) {
+    /* Mijenja se samo tekst, ne cijeli sadrzaj: unutar gumba je i
+       strelica, a ona mora ostati. */
+    var preimenuj = function (a) {
+      for (var i = 0; i < a.childNodes.length; i++) {
+        var cvor = a.childNodes[i];
+        var tekst = (cvor.textContent || '').trim();
+        if (tekst !== 'Pošalji upit') continue;
+        if (cvor.nodeType === 3) cvor.nodeValue = ' Pišite nam ';
+        else cvor.textContent = 'Pišite nam';
+        return;
+      }
+    };
+
+    /* I sidro #upit na samoj stranici Kontakt, ne samo poveznice
+       s drugih stranica. */
+    document.querySelectorAll('a[href*="kontakt"], a[href="#upit"]').forEach(function (a) {
+      if (a.textContent.trim() === 'Pošalji upit') preimenuj(a);
+    });
   }
 
   /* --- 3. Obrazac za upit ------------------------------------------------ */
