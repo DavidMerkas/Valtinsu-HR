@@ -232,32 +232,6 @@ window.VALTINSU_STANJE = {
     }
   }
 
-  /* --- 2b. Kad nema nijednog modela na zalihi ---------------------------
-     Gumbi "Posalji upit" vode na Kontakt, a upita nema. Poveznica ostaje
-     (Kontakt je i dalje koristan), mijenja se samo natpis, da nitko ne
-     ocekuje obrazac koji je zatvoren. */
-
-  if (sveRasprodano) {
-    /* Mijenja se samo tekst, ne cijeli sadrzaj: unutar gumba je i
-       strelica, a ona mora ostati. */
-    var preimenuj = function (a) {
-      for (var i = 0; i < a.childNodes.length; i++) {
-        var cvor = a.childNodes[i];
-        var tekst = (cvor.textContent || '').trim();
-        if (tekst !== 'Pošalji upit') continue;
-        if (cvor.nodeType === 3) cvor.nodeValue = ' Pišite nam ';
-        else cvor.textContent = 'Pišite nam';
-        return;
-      }
-    };
-
-    /* I sidro #upit na samoj stranici Kontakt, ne samo poveznice
-       s drugih stranica. */
-    document.querySelectorAll('a[href*="kontakt"], a[href="#upit"]').forEach(function (a) {
-      if (a.textContent.trim() === 'Pošalji upit') preimenuj(a);
-    });
-  }
-
   /* --- 3. Obrazac za upit ------------------------------------------------ */
 
   var polje = document.getElementById('model');
